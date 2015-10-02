@@ -7,7 +7,7 @@ time_T = 10;   dt = 0.1;   n_time_step = time_T/dt + 1;
 state_S = 20;   ds = 0.1;   n_state_s = state_S/ds + 1; 
 
 % Number of scenarios
-N = 1;
+N = 1000;
 
 d_price = ds;
 
@@ -84,10 +84,10 @@ rand_y_ind = round(ds*(state_S-1));
 % Plot E[Q(p,t)-Q(p-1),t]
 figure
 subplot(1,3,1)
-surf(1:size(E_dQ,2),1:size(E_dQ,1),E_dQ,'EdgeColor','none')
+surf(2:size(E_dQ,2),1:size(E_dQ,1),E_dQ(:,2:end),'EdgeColor','none')
 xlabel('time'); ylabel('price'); zlabel('E[Q(p,t)-Q(p-1),t]');
 subplot(1,3,2)
-plot(E_dQ(rand_x_ind,:));
+plot(E_dQ(rand_x_ind,2:end));
 xlabel('time'); ylabel('E[Q(p,t)-Q(p-1),t]');
 subplot(1,3,3)
 plot(E_dQ(:,rand_y_ind));
@@ -96,7 +96,7 @@ xlabel('price'); ylabel('E[Q(p,t)-Q(p-1),t]');
 figure
 subplot(1,3,1)
 surf(1:size(h,2),1:size(h,1),h,'EdgeColor','none');
-xlabel('price'); ylabel('time');
+xlabel('price'); ylabel('time'); zlabel('h');
 subplot(1,3,2)
 plot(h(rand_x_ind,:));
 xlabel('time'); ylabel('h');
