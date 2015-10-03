@@ -75,14 +75,10 @@ for i = 1:training_set_end  % just find a interim time point
         shares(ismember(second, real_time_seconds)), ...
         buy_or_sell(ismember(second, real_time_seconds)), 0);
     
-    try
-        Q_S(i) = Q(price(ismember(second, real_time_seconds)), ...
-            shares(ismember(second, real_time_seconds)), ...
-            buy_or_sell(ismember(second, real_time_seconds)), 'S');
-    catch
-        Q_S(i) = 0;
-    end
-    
+    Q_S(i) = Q(price(ismember(second, real_time_seconds)), ...
+        shares(ismember(second, real_time_seconds)), ...
+        buy_or_sell(ismember(second, real_time_seconds)), 'S');
+
     % calculate q
     for j = 2:size(q,1)
         temp1 = Q(price(ismember(second, real_time_seconds)), ...
@@ -91,7 +87,7 @@ for i = 1:training_set_end  % just find a interim time point
         temp2 = Q(price(ismember(second, real_time_seconds)), ...
             shares(ismember(second, real_time_seconds)), ...
             buy_or_sell(ismember(second, real_time_seconds)), price_range(j));
-        q(j,i) = temp2 - temp1; 
+        q(j,i) = -(temp2 - temp1); 
     end
     
     eta(i) = Q_0(i) / (Q_0(i) + Q_S(i));
