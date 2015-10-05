@@ -94,11 +94,16 @@ for i = 1:training_set_end  % just find a interim time point
     if isnan(eta(i)) 
         eta(i) = 0;
     end
+    
+    % simulate Q for the out-of-sample testing
+    % 1. simulate the Brownian sheet
+    
+    normal_rand_nums = randn(length(price_range), time_step_minute*60);
 end
 
 figure
 plot(eta)
-title('Training set eta(t)');
+title('Training set eta_t');
 xlabel('t'); ylabel('eta');
 
 figure
