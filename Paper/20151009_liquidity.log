@@ -1,13 +1,24 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2015.9.29)  8 OCT 2015 13:57
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=latex 2015.2.2)  14 OCT 2015 14:46
 entering extended mode
-**20151005_liquidity.tex
-(20151005_liquidity.tex
-LaTeX2e <2015/01/01> patch level 2
-Babel <3.9m> and hyphenation patterns for 69 languages loaded.
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size10.clo"
-File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+**20151009_liquidity.tex
+
+("C:\Users\ranzhao\Documents\Liquidity Commit\Liquidity-Research\Paper\20151009
+_liquidity.tex"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2013-05-26, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -21,24 +32,24 @@ File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks14
 \ex@=\dimen103
 ))
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count87
@@ -79,10 +90,10 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
@@ -91,7 +102,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 ))
 \c@theorem=\count99
 
-(tcilatex.tex
+("C:\Users\ranzhao\Documents\Liquidity Commit\Liquidity-Research\Paper\tcilatex
+.tex"
 TCILATEX Macros for Scientific Word 2.5 <22 Dec 95>.
 NOTICE: This macro file is NOT proprietary and may be freely copied and distrib
 uted.
@@ -109,15 +121,17 @@ LaTeX Info: Redefining \bf on input line 560.
 LaTeX Info: Redefining \it on input line 561.
 LaTeX Info: Redefining \sl on input line 562.
 LaTeX Info: Redefining \sc on input line 563.
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latexsym.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latexsym.sty"
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
-(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
 )
 \c@equationnumber=\count106
 
-amsgen already loaded) (20151005_liquidity.aux)
+amsgen already loaded)
+("C:\Users\ranzhao\Documents\Liquidity Commit\Liquidity-Research\Paper\20151009
+_liquidity.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
@@ -131,32 +145,18 @@ LaTeX Font Info:    ... okay on input line 47.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
 LaTeX Font Info:    Try loading font information for U+msa on input line 56.
-
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 56.
-
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 56.
 
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ulasy.fd"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 56.
-
-("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
- [1
+) [1
 
 ] [2] [3]
 [4] [5] [6] [7] [8] [9]
@@ -164,30 +164,38 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
 LaTeX Warning: Reference `equ_h' on page 10 undefined on input line 794.
 
 [10] [11] [12]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1123
+.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1123.
 
- [13] [14] [15] [16] [17] [18] [19] [20]
+
+[13] [14] [15] [16] [17] [18] [19] [20]
 
 LaTeX Warning: Citation `equ_Q_A' on page 21 undefined on input line 1620.
 
 [21] [22] [23] [24]
 
-LaTeX Warning: Citation `equ_Q_A' on page 25 undefined on input line 1947.
+LaTeX Warning: Citation `equ_Q_A' on page 25 undefined on input line 1950.
 
-[25] (20151005_liquidity.aux)
+[25] [26]
+("C:\Users\ranzhao\Documents\Liquidity Commit\Liquidity-Research\Paper\20151009
+_liquidity.aux")
 
 LaTeX Warning: There were undefined references.
 
  )
 (\end occurred when \ifx on line 678 was incomplete) 
 Here is how much of TeX's memory you used:
- 1433 strings out of 493674
- 15917 string characters out of 3141562
- 75361 words of memory out of 3000000
- 4795 multiletter control sequences out of 15000+200000
+ 1431 strings out of 493922
+ 16447 string characters out of 3144894
+ 73753 words of memory out of 3000000
+ 4738 multiletter control sequences out of 15000+200000
  15685 words of font info for 64 fonts, out of 3000000 for 9000
- 1025 hyphenation exceptions out of 8191
- 29i,13n,26p,278b,298s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 841 hyphenation exceptions out of 8191
+ 30i,17n,26p,278b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on 20151005_liquidity.dvi (25 pages, 113984 bytes).
+Output written on 20151009_liquidity.dvi (26 pages, 141012 bytes).

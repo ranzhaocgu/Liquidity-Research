@@ -11,7 +11,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Saturday, August 10, 2013 22:44:33}
-%TCIDATA{LastRevised=Monday, October 05, 2015 18:50:03}
+%TCIDATA{LastRevised=Thursday, October 08, 2015 19:41:19}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{CSTFile=40 LaTeX article.cst}
@@ -1724,59 +1724,62 @@ extra process in the presence of $\eta $ so that the number of processes is
 equal to the number of independent sources of noise, namely $S$. We will
 have then%
 \begin{eqnarray*}
+h_{0}(t) &=&h_{0}(0)\exp (-\frac{1}{2}\sigma _{h_{0}}^{2}t+\sigma
+_{h_{0}}(b_{h_{0,0}}\delta _{s}W_{1}(t)+b_{h_{0,1}}\delta
+_{s}W_{2}(t))+b_{h_{0,2}}\delta _{s}W_{3}(t))) \\
 h_{1}(t) &=&h_{1}(0)\exp (-\frac{1}{2}\sigma _{h_{1}}^{2}t+\sigma
-_{h_{1}}(b_{h_{1,1}}\delta _{s}W_{1}(t)+b_{h_{1,2}}\delta
-_{s}W_{2}(t))+b_{h_{1,3}}\delta _{s}W_{3}(t))) \\
-h_{2}(t) &=&h_{2}(0)\exp (-\frac{1}{2}\sigma _{h_{2}}^{2}t+\sigma
-_{h_{2}}(b_{h_{2,1}}\delta _{s}W_{1}(t)+b_{h_{2,2}}\delta
-_{s}W_{2}(t)+b_{h_{2,3}}\delta _{s}W_{3}(t))) \\
-d\eta &=&[..]dt+\sigma _{\eta }\sqrt{\eta (1-\eta )}d_{t}(b_{\eta ,1}\delta
-_{s}W_{1}(t)+b_{\eta ,2}\delta _{s}W_{2}(t)+b_{\eta ,3}\delta _{s}W_{3}(t)))
+_{h_{1}}(b_{h_{1,0}}\delta _{s}W_{1}(t)+b_{h_{1,1}}\delta
+_{s}W_{2}(t)+b_{h_{1,2}}\delta _{s}W_{3}(t))) \\
+\eta (t+\Delta )-\eta (t) &=&a[\bar{\eta}-\eta (t)]dt+\sigma _{\eta }\sqrt{%
+\eta (t)(1-\eta (t))}[(b_{\eta ,0}(\delta _{s}W_{1}(t+\Delta )-\delta
+_{s}W_{1}(t)) \\
+&&b_{\eta ,1}(\delta _{s}W_{2}(t+\Delta )-\delta _{s}W_{2}(t))+ \\
+&&b_{\eta ,2}(\delta _{s}W_{3}(t+\Delta )-\delta _{s}W_{3}(t))]
 \end{eqnarray*}
 
 where $\sigma _{h_{1}}$ and $\sigma _{h_{2}}$ are the relative vols of $\
 h_{1}$ and $h_{2}$, and:%
 \begin{eqnarray*}
-\sum_{j=1}^{3}b_{h_{1,j}}^{2} &=&1 \\
-\sum_{j=1}^{3}b_{h_{2,j}}^{2} &=&1 \\
-\sum_{j=1}^{3}b_{\eta ,j}^{2} &=&1
+\sum_{j=0}^{S-1}b_{h_{0,j}}^{2} &=&1 \\
+\sum_{j=0}^{S-1}b_{h_{1,j}}^{2} &=&1 \\
+\sum_{j=0}^{S-1}b_{\eta ,j}^{2} &=&1
 \end{eqnarray*}%
-\bigskip
+\bigskip 
 
 There are two equivalent ways to set up the unknown parameters. We can put
 in a big $S$-dimensional correlation matrix the correlations of $%
-dh_{1}/h_{1},..,dh_{S-1}/h_{S-1},d\eta $ and perform Choleski decomposition.
+dh_{0}/h_{0},..,dh_{S-2}/h_{S-2},d\eta $ and perform Choleski decomposition.
 Or we can ease the notation a little bit, and set:
 
 \begin{eqnarray*}
-b_{\eta ,1} &=&..=b_{\eta ,S-1}=0 \\
-b_{\eta ,S} &=&1
+b_{\eta ,0} &=&..=b_{0,S-2}=0 \\
+b_{\eta ,S-1} &=&1
 \end{eqnarray*}
 
 so that
 
 \begin{equation*}
-b_{h_{j,S}}dt=Corr[\frac{dh_{j}}{h_{j}},\frac{d\eta }{\sqrt{\eta (1-\eta )}}]
+b_{h_{j,S-1}}dt=Corr[\frac{dh_{j}}{h_{j}},\frac{d\eta }{\sqrt{\eta (1-\eta )}%
+}]
 \end{equation*}%
-\bigskip
+\bigskip 
 
-We are then left with calculating $B_{h}$ \ where
-
+We are then left with calculating $B_{h}$ \ where%
 \begin{equation*}
 B_{h}=\left( 
 \begin{array}{cccc}
-b_{11}^{h} &  &  & b_{1S}^{h} \\ 
+b_{00}^{h} &  &  & b_{0,S-2}^{h} \\ 
 &  &  &  \\ 
 &  &  &  \\ 
-b_{S,1}^{h} &  &  & b_{SS}^{h}%
+b_{S-2,0}^{h} &  &  & b_{S-2,S-2}^{h}%
 \end{array}%
-\right)
+\right) 
 \end{equation*}
 
 by Choleski decomposition of the correlation matrix of $%
-dh_{1}/h_{1},..,dh_{S-1}/h_{S-1}$
+dh_{0}/h_{0},..,dh_{S-2}/h_{S-2}$
 
-\textbf{Estimation in CIR}
+\textbf{Estimation in CIR - we are not going to use that}
 
 The value $\sigma $ is given by the quadratic variation 
 \begin{equation*}
@@ -1930,7 +1933,7 @@ necessarily $g_{k}^{\prime }$
 2. For simplicity I write $f_{k}^{\prime }$ and $g_{k}^{\prime }$, but what
 I mean are the finite differences
 
-\bigskip 
+\bigskip
 
 \textbf{Updated Algorithm (October 5)}
 
@@ -1945,7 +1948,7 @@ $
 run value) }of $\hat{\eta}$;
 
 \item Using \cite{equ_Q_A}, calculate the series of $\hat{q}(p,t)$ by taking
-first order difference on $Q(p,t)$. 
+first order difference on $Q(p,t)$.
 
 \item Set%
 \begin{equation*}
@@ -1964,9 +1967,49 @@ f_{right}^{^{\prime }}(f_{right}^{-1}(i))
 \end{eqnarray*}
 
 \item \textit{Estimate the parameters} of $h$ by calculating the
-instantaneous volatilities $\sigma _{h}$ and the correlation matrix $%
-Rdt=(Corr[\frac{dh_{i}}{h_{i}},\frac{dh_{j}]}{h_{j}}]$. Then $B_{h}$ is
-obtained by Choleski decomposition
+instantaneous volatilities $\sigma _{h}$ and the correlation matrix $\hat{R}%
+dt=Corr[\frac{dh_{i}}{h_{i}},\frac{dh_{j}]}{h_{j}}]$. Denote by $\Delta $
+the time lag. Let $N$ be the number of observations. Let $T=N\Delta $.
+Suppose that :%
+\begin{eqnarray*}
+\hat{\sigma}_{h,i}^{2} &=&\frac{1}{T}\sum_{n=1}^{N-1}\ln (\frac{%
+h(i,(n+1)\Delta )}{h(i,n\Delta )})^{2}/\Delta \text{ \ \ \ \ \ \ }i=0..,S-2
+\\
+\hat{\sigma}_{h,i,j}^{2} &=&\frac{1}{T}\sum_{n=1}^{N}\ln (\frac{%
+h(i,(n+1)\Delta )}{h(i,n\Delta )})\ln (\frac{h(j,(n+1)\Delta )}{h(j,n\Delta )%
+})/\Delta  \\
+\hat{\rho}_{i,j} &=&\frac{\hat{\sigma}_{h,i,j}^{2}}{\hat{\sigma}_{h,i}\hat{%
+\sigma}_{h,j}} \\
+R &=&\left( 
+\begin{array}{cccc}
+1 & \hat{\rho}_{0,1} &  & \hat{\rho}_{0,S-2} \\ 
+\hat{\rho}_{0,1} &  &  &  \\ 
+&  &  &  \\ 
+&  &  & 1%
+\end{array}%
+\right)  \\
+\hat{\sigma}_{\eta }^{2} &=&\frac{1}{T}\sum_{n=1}^{N}\frac{(\eta
+((n+1)\Delta )-\eta (n\Delta ))^{2}}{\eta (n\Delta )(1-\eta (n\Delta ))} \\
+Cov[\frac{dh_{j}}{h_{j}},\frac{d\eta }{\sqrt{\eta (1-\eta )}}] &=&\frac{dt}{T%
+}\sum_{n=1}^{N}\frac{h(i,(n+1)\Delta )-h(i,n\Delta ))}{h(i,n\Delta )}\frac{%
+(\eta ((n+1)\Delta )-\eta (n\Delta ))}{\sqrt{\eta (n\Delta )(1-\eta (n\Delta
+))}} \\
+Corr[\frac{dh_{j}}{h_{j}},\frac{d\eta }{\sqrt{\eta (1-\eta )}}] &=&\frac{Cov[%
+\frac{dh_{j}}{h_{j}},\frac{d\eta }{\sqrt{\eta (1-\eta )}}]}{\hat{\sigma}%
+_{h_{j}}\hat{\sigma}_{\eta }}
+\end{eqnarray*}
+
+Then we set:%
+\begin{eqnarray*}
+\sigma _{h,i} &=&\hat{\sigma}_{h,i}\text{\ \ \ \ \ \ }i=0..,S-2 \\
+B_{h} &=&chol(R)\rightarrow b_{h_{j,i}}\text{ for }j=0,..,S-2;i=0,..,S-2 \\
+b_{\eta ,0} &=&..=b_{\eta ,S-2}=0 \\
+b_{\eta ,S-1} &=&1 \\
+b_{h_{j,S-1}} &=&Corr[\frac{dh_{j}}{h_{j}},\frac{d\eta }{\sqrt{\eta (1-\eta )%
+}}]/\Delta \text{ \ \ \ for }j=0,..,S-2
+\end{eqnarray*}
+
+Then $B_{h}$ is obtained by Choleski decomposition. 
 
 \item Simulate $Q(p,t)$ by $n$ paths
 \end{enumerate}
