@@ -2,7 +2,7 @@
 % high frequency data contains milliseconds buy/sell shock orders
 
 %% Data processing
-company = 'AAPL'; date = '20110401';  % later functionalize
+company = 'GE'; date = '20110401';  % later functionalize
 
 filename = strcat(company, '_', date, '.xlsx');
 [num,str] = xlsread(filename);
@@ -136,6 +136,30 @@ for i = 1:total_time_steps
         end
      end
 end
+
+dim_mat_h = size(h,2)-1;
+
+var_matrix_h = zeros(dim_mat_h, dim_mat_h);
+corr_matrix_h = zeros(dim_mat_h, dim_mat_h);
+
+% calculate the variance-covariance matrix
+for xx1 = 1:dim_mat_h
+    for xx2 = 1:dim_mat_h
+        var_matrix_h(xx1, xx2) = (1/(total_time_steps*time_step_minute/60)) ...
+            * sum(log(h(xx1,2:end)./h(xx1,1:(end-1)))*log(h(xx1,2:end)./h(xx2,1:(end-1)))) ...
+            / (time_step_minute/60);
+    end
+end
+
+% calculate the correlation matrix
+for yy1 = 1:dim_mat_h
+    for yy2 = 1:dim_mat_h
+        corr_matrix_h(yy1, yy2) = var_matrix_h(yy1,yy2)^2 / ...
+            (var_matrix_h(yy1,yy1) * var_matrix_h(yy2,yy2));
+    end
+end
+
+
 % figure
 % plot(eta)
 % %title('Training set eta_t');
