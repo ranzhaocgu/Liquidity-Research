@@ -115,49 +115,131 @@ surf(63:156, price_range,Q_profile(:,63:156),'EdgeColor','none')
 % initialize h(f(p),t)
 h = zeros(length(price_range), total_time_steps);
 
+% change h to be 
+%   q(p,t) = exp(sum h(x,t))
+%   h(p,t) = ln(q(p,t)) - ln(q(p-1),t)
+
 for i = 1:total_time_steps
-    for j = 1:length(price_range)
-        coeff_f_p(3) = coeff_const - price_range(j);
-        inverse_f_p = roots(coeff_f_p);
-        f_left = min(inverse_f_p);
-        f_right = max(inverse_f_p);
-        
-        tmp_left = abs(price_range - f_left);
-        [~, idx_left] = min(tmp_left);
-        
-        tmp_right = abs(price_range - f_right);
-        [~, idx_right] = min(tmp_right);
-        % calculate h
-        try
-            h(j,i) = 0.5*((q(idx_left,i) - q((idx_left-1),i))*(2*coeff_f_p(1)*price_range(idx_left) + coeff_f_p(2)*price_range(idx_left))) + ...
-                 0.5*((q(idx_right,i) - q((idx_right-1),i))*(2*coeff_f_p(1)*price_range(idx_right) + coeff_f_p(2)*price_range(idx_right)));
-        catch
-            h(j,i) = 0;
+    for j = 2:length(price_range)
+        if q(j,i) == 0
+            temp1 = 0;
+        else
+            temp1 = q(j,i);
         end
-     end
+        
+        if q(j-1,i) == 0
+            temp2 = 0;
+        else
+            temp2 = q(j,i);
+        end
+        
+        h(j,i) = log(temp1) - log(temp2);
+    end
 end
 
-dim_mat_h = size(h,2)-1;
+% for i = 1:total_time_steps
+%     for j = 1:length(price_range)
+%         coeff_f_p(3) = coeff_const - price_range(j);
+%         inverse_f_p = roots(coeff_f_p);
+%         f_left = min(inverse_f_p);
+%         f_right = max(inverse_f_p);
+%         
+%         tmp_left = abs(price_range - f_left);
+%         [~, idx_left] = min(tmp_left);
+%         
+%         tmp_right = abs(price_range - f_right);
+%         [~, idx_right] = min(tmp_right);
+%         % calculate h
+%         try
+%             h(j,i) = 0.5*((q(idx_left,i) - q((idx_left-1),i))*(2*coeff_f_p(1)*price_range(idx_left) + coeff_f_p(2))) + ...
+%                  0.5*((q(idx_right,i) - q((idx_right-1),i))*(2*coeff_f_p(1)*price_range(idx_right) + coeff_f_p(2)));
+%         catch
+%             h(j,i) = 0;
+%         end
+%      end
+% end
 
-var_matrix_h = zeros(dim_mat_h, dim_mat_h);
-corr_matrix_h = zeros(dim_mat_h, dim_mat_h);
+% scale the h to have around 1 h's
+% h = 1 + 0.2 * h/(max(max(h)) - min(min(h)));
+
+var_matrix_h_eta = zeros(size(h,1), size(h,1));
+corr_matrix_h_eta = zeros(size(h,1), size(h,1));
 
 % calculate the variance-covariance matrix
-for xx1 = 1:dim_mat_h
-    for xx2 = 1:dim_mat_h
-        var_matrix_h(xx1, xx2) = (1/(total_time_steps*time_step_minute/60)) ...
-            * sum(log(h(xx1,2:end)./h(xx1,1:(end-1)))*log(h(xx1,2:end)./h(xx2,1:(end-1)))) ...
+for xx1 = 1:(size(h,1)-1)
+    for xx2 = 1:(size(h,1)-1)
+        var_matrix_h_eta(xx1, xx2) = (1/(total_time_steps*time_step_minute/60)) ...
+            * sum(log(h(xx1,2:end)./h(xx1,1:(end-1))).* ...
+            log(h(xx1,2:end)./h(xx2,1:(end-1)))) ...
             / (time_step_minute/60);
     end
 end
 
+eta = 0.05 + 0.90*eta;
+sigma_eta_square = (1/(total_time_steps*time_step_minute/60)) * ...
+    sum(((eta(2:end)-eta(1:end-1)).^2)./(eta(1:end-1).*(1-eta(1:end-1))));
+
+for i = 1:size(h,1)
+    var_matrix_h_eta(i,end) = (1/(length(h)-1)) * ...
+        sum(log(h(xx1,2:end)./h(xx1,1:(end-1))).* ...
+        ((eta(2:end)-eta(1:end-1)).^2)./(eta(1:end-1).*(1-eta(1:end-1))));
+end
+
+var_matrix_h_eta(end,1:end-1) = var_matrix_h_eta(1:end-1,end);
+var_matrix_h_eta(end,end) = sqrt(sigma_eta_square);
+
+% floor the varianc matrix
+% var_matrix_h_eta(var_matrix_h_eta <0) = 0;
+
 % calculate the correlation matrix
-for yy1 = 1:dim_mat_h
-    for yy2 = 1:dim_mat_h
-        corr_matrix_h(yy1, yy2) = var_matrix_h(yy1,yy2)^2 / ...
-            (var_matrix_h(yy1,yy1) * var_matrix_h(yy2,yy2));
+for yy1 = 1:(size(h,1)-1)
+    for yy2 = 1:(size(h,1)-1)
+        corr_matrix_h_eta(yy1, yy2) = var_matrix_h_eta(yy1,yy2) / ...
+            (sqrt(var_matrix_h_eta(yy1,yy1)) * sqrt(var_matrix_h_eta(yy2,yy2)));
     end
 end
+
+for j = 1:(size(h,1)-1)
+    corr_matrix_h_eta(j,end) = var_matrix_h_eta(j,end) / (sqrt(var_matrix_h_eta(j,j))*sqrt(sigma_eta_square));
+end
+
+% clean the correlation matrix 
+corr_matrix_h_eta(isnan(corr_matrix_h_eta)) = 0; 
+corr_matrix_h_eta(isinf(corr_matrix_h_eta)) = 0; 
+corr_matrix_h_eta = corr_matrix_h_eta/max(max(corr_matrix_h_eta));
+
+for j = 1:size(h,1)
+    corr_matrix_h_eta(j,j) = 1;
+end
+
+% simulate Q
+B_h = chol(corr_matrix_h_eta(1:end-1,1:end-1));
+corr_matrix = chol(corr_matrix_h_eta);
+
+simulate_time_steps = 60;
+normal_random_numbers = randn((size(h,1)-1)+1, simulate_time_steps);
+
+Brownian_sheets_sim = corr_matrix*normal_random_numbers;
+Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end-1));
+Brownian_sheets_eta_sim = Brownian_sheets_sim(1:end,end);
+
+eta_sim_init = 0.5;
+eta_sim = zeros(1,simulate_time_steps);
+a_eta = 0.5;
+
+for i = 1:simulate_time_steps
+    if i == 1
+        eta_sim(i) = eta_sim_init + a_eta*(mean(eta) - eta_sim_init)*(time_step_minute/60)...
+            + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i);
+    else
+        eta_sim(i) = eta_sim(i-1) + a_eta*(mean(eta) - eta_sim(i-1))*(time_step_minute/60)...
+            + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(time_step_minute/60) ...
+            * corr_matrix_h_eta(end-1,end);
+    end
+    
+    
+end
+
 
 
 % figure

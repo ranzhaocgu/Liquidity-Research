@@ -1,0 +1,29 @@
+% Designed by Thanh Hoang
+% Claremont Graduate University, 2012
+% This file may be distributed and/or modified under the LaTeX Project Public License and the GNU Public License
+
+\mode<presentation>
+
+\DeclareOptionBeamer{alternativetitlepage}[true]{\PassOptionsToPackage{alternativetitlepage=#1}{beamerinnerthemefancy}}
+\DeclareOptionBeamer{titlepagelogo}{\PassOptionsToPackage{titlepagelogo=#1}{beamerinnerthemefancy}}
+\DeclareOptionBeamer{bullet}{\PassOptionsToPackage{bullet=#1}{beamerinnerthemefancy}}
+\DeclareOptionBeamer{pageofpages}{\PassOptionsToPackage{pageofpages=#1}{beamerouterthemedecolines}}
+\DeclareOptionBeamer{titleline}[true]{\PassOptionsToPackage{titleline=#1}{beamerouterthemedecolines}}
+\DeclareOptionBeamer{watermark}{\PassOptionsToPackage{watermark=#1}{beamerouterthemedecolines}}
+\DeclareOptionBeamer{watermarkheight}{\PassOptionsToPackage{watermarkheight=#1}{beamerouterthemedecolines}}
+\DeclareOptionBeamer{watermarkheightmult}{\PassOptionsToPackage{watermarkheightmult=#1}{beamerouterthemedecolines}}
+
+\ProcessOptionsBeamer
+
+\usecolortheme{green}
+\usecolortheme{red}
+\useinnertheme{fancy}
+\useoutertheme{decolines}
+
+\setbeamertemplate{navigation symbols}{}
+
+\usecolortheme[named=magenta]{structure}
+\usepackage{multirow}
+
+\mode
+<all>
