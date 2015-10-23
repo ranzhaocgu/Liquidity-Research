@@ -2,7 +2,7 @@
 % high frequency data contains milliseconds buy/sell shock orders
 
 %% Data processing
-company = 'GE'; date = '20110401';  % later functionalize
+company = 'AAPL'; date = '20110401';  % later functionalize
 
 filename = strcat(company, '_', date, '.xlsx');
 [num,str] = xlsread(filename);
@@ -53,8 +53,8 @@ training_set_end = 84;
 price_step = 1;
 % min_price = round(min(price(1:training_set_end*time_step_minute*60)));
 % max_price = round(max(price(1:training_set_end*time_step_minute*60)));
-min_price = 10;
-max_price = 30;
+min_price = 340;
+max_price = 360;
 price_range = min_price:0.05:max_price;
 q = zeros(length(price_range), total_time_steps);
 
@@ -103,12 +103,12 @@ for i = 1:total_time_steps
 %     normal_rand_nums = randn(length(price_range), time_Rtep_minute*60);
 end
 
-f_p = mean(q(:,1:training_set_end),2);
-x = [min_price, 0.5*(min_price+max_price), max_price]';
-y = [min_price, max_price, min_price]';
-fit_f_p = fit(x,y,'poly2');
-coeff_f_p = coeffvalues(fit_f_p);
-coeff_const = coeff_f_p(3);
+% f_p = mean(q(:,1:training_set_end),2);
+% x = [min_price, 0.5*(min_price+max_price), max_price]';
+% y = [min_price, max_price, min_price]';
+% fit_f_p = fit(x,y,'poly2');
+% coeff_f_p = coeffvalues(fit_f_p);
+% coeff_const = coeff_f_p(3);
 
 surf(63:156, price_range,Q_profile(:,63:156),'EdgeColor','none')
 
