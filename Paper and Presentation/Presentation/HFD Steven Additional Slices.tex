@@ -1,0 +1,811 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[light,math]{iwona}
+\usetheme[pageofpages=of,	% String used between current page & total page count.
+   	alternativetitlepage=true,	% Use the fancy title page.
+      	titlepagelogo=logoCGU,	% Logo for the first page.
+       	watermark=logoCGU_45cut,	% Watermark used in every page.
+      	watermarkheight=50px,	% Height of the watermark.
+       	watermarkheightmult=4,	% 4 times bigger than watermarkheight.
+]{Claremont}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\graphicspath{{./figs/}} % graphic files in "figs"
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{animate}
+\usepackage{animfp}
+\usepackage{setspace}
+\usepackage{epstopdf}
+%\singlespacing
+%\onehalfspacing
+%\double spacing
+\setstretch{1.25}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%Get source code listings nicely printed%%%%%%
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\lstset{
+	backgroundcolor=\color{black},
+    %backgroundcolor=\color{white}, 	
+	rulecolor=,
+	language=C++,				% the language of the code
+        basicstyle=\scriptsize,		% the size of the fonts that are used for the code
+        numbers=left,				% where to put the line-numbers
+        numberstyle=\tiny,  			% the size of the fonts that are used for the line-numbers
+        stepnumber=2,                   	% the step between two line-numbers
+        numbersep=5pt,                  	% how far the line-numbers are from the code
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,		% underline spaces within strings
+        extendedchars=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        tabsize=2,                      		% sets default tabsize to 2 spaces
+        captionpos=b,                   		% sets the caption-position to bottom
+        breaklines=true,                		% sets automatic line breaking
+        breakatwhitespace=false,        	
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color{magenta},
+        ndkeywords={std, cout, cerr, cin, endl, is_open, setw, pow, exp, sqrt, fabs},
+        ndkeywordstyle=\color{cyan},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        %commentstyle=\color{white},
+        stringstyle=\color{red!75},
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[A No-Arbitrage Model Of Liquidity In Financial Markets Involving Stochastic Strings: Applications To High-Frequency Data]{{\fontsize{12}{30} \textsc{A No-Arbitrage Model Of Liquidity In Financial Markets Involving Stochastic Strings: Applications To High-Frequency Data}}}
+
+\author[Copyright \copyright Ran Zhao]{{\fontsize{10}{12}\textsc{Ran Zhao}} \qquad \qquad \qquad
+	\qquad \qquad \qquad\qquad \qquad \qquad\qquad \qquad \qquad\qquad \qquad \qquad
+	\and {\fontsize{8}{10}\textsc{With Henry Schellhorn}}
+	}
+	
+\institute[CGU]{{\fontsize{9}{10}
+	\textsc{Claremont Graduate University}
+}}
+\date[October 29, 2015]{{\fontsize{8}{8}October 29, 2015}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Page 1
+\begin{frame}[plain, shrink=0]
+	\titlepage
+\end{frame}
+
+% Page 2
+\section{Outline}
+\begin{frame}[shrink=20]{{\color{cyan}Outline}}
+\bigskip
+
+\begin{enumerate}
+
+\item Trading Limit Orders
+
+\vspace{8pt}
+\item Option Pricing in an Illiquid Market
+
+\vspace{8pt}
+\item Calibration and Simulation
+
+\vspace{8pt}
+\item Option Pricing Empirical Analysis
+
+\end{enumerate}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section 2
+\section{Trading Limit Orders}
+
+% Page 8
+\begin{frame}[shrink=25]{{\color{cyan}Market vs Limit Orders}}
+\bigskip
+A (buy) market order specifies
+\vspace{5pt}
+\begin{itemize}
+\item how many shares a trader wants to buy,
+\vspace{5pt}
+\item that he is willing to buy them at any price.
+\end{itemize}
+
+\bigskip
+A (buy) limit order specifies
+\vspace{5pt}
+\begin{itemize}
+\item how many shares a trader wants to buy,
+\vspace{5pt}
+\item at what maximum price he is willing to buy them.
+\end{itemize}
+
+\end{frame}
+
+% Page 9
+\begin{frame}[shrink=30]{{\color{cyan}Limit order matching mechanism}}
+\bigskip
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=0.9\textheight]{LOB_Match/LOB_Match_0.png}
+        \caption{Limit order matching mechanism.}
+        \label{fig:LOB_0}
+\end{figure}
+\end{frame}
+
+% Page 10
+\begin{frame}[shrink=30]{{\color{cyan}Limit order matching mechanism}}
+\bigskip
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=0.9\textheight]{LOB_Match/LOB_Match_1.png}
+        \caption{Limit order matching mechanism.}
+        \label{fig:LOB_1}
+\end{figure}
+\end{frame}
+
+% Page 11
+\begin{frame}[shrink=30]{{\color{cyan}Limit order matching mechanism}}
+\bigskip
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=0.9\textheight]{LOB_Match/LOB_Match_2.png}
+        \caption{Limit order matching mechanism.}
+        \label{fig:LOB_2}
+\end{figure}
+\end{frame}
+
+% Page 12
+\begin{frame}[shrink=30]{{\color{cyan}Limit order matching mechanism}}
+\bigskip
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=0.9\textheight]{LOB_Match/LOB_Match_3.png}
+        \caption{Limit order matching mechanism.}
+        \label{fig:LOB_3}
+\end{figure}
+\end{frame}
+
+% Page 13
+\begin{frame}[shrink=30]{{\color{cyan}Demand v.s. Supply}}
+\bigskip
+The order books contain all the information about demand and supply.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[height=0.9\textheight]{Demand_Supply.png}
+        \caption{Demand v.s. Supply.}
+        \label{fig:demand_supply}
+\end{figure}
+
+\end{frame}
+
+% Page 14
+\begin{frame}[shrink=40]{{\color{cyan}The dynamics of Limit Orders in 3D}}
+\vskip 0.5in
+
+\begin{columns}
+
+\begin{column}{0.48\textwidth}
+\begin{figure}[htbp]
+                \centering
+                \includegraphics[width=\textwidth]{ORCL/ORCL_20110404_BuySize_3D_5min.png}
+                \caption{Buy Limit Orders of ORCL on April 4, 2011.}
+                \label{fig:ORCL_BuySize_3D}
+\end{figure}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{figure}[htbp]
+                \centering
+                \includegraphics[width=\textwidth]{ORCL/ORCL_20110404_SellSize_3D_5min.png}
+                \caption{Sell Limit Orders of ORCL on April 4, 2011.}
+                \label{fig:ORCL_SellSize_3D}
+\end{figure}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+% Page 15
+\begin{frame}[shrink=30]{{\color{cyan}The dynamics of the Clearing Price process}}
+\bigskip
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[height=0.9\textheight]{/ORCL/ORCL_20110401_Clearing_Prices.png}
+\caption{The dynamics of Oracle Corporation's Clearing Prices on April 1, 2011.}
+\label{fig:the_dynamics_ORCL_pi_20110401}
+\end{center}
+\end{figure}
+\end{frame}
+
+% Page 17
+\section{Literature Review}
+\begin{frame}[shrink=30]{{\color{cyan}Literature Review: Liquidity Models}}
+\bigskip
+Market Manipulation (feedback) Models
+\begin{itemize}
+\item Jarrow (1994),
+\item Platen and Schweizer (1998),
+\item Sircar and Papanicolaou (1998),
+\item Frey (1998),
+\item Schonbucher and Wilmott (2000),
+\item Bank and Baum (2004).
+\end{itemize}
+
+\bigskip
+Price-taking (competitive)\ Models
+\begin{itemize}
+\item Cetin, Jarrow, and Protter (2004),
+\item Cetin and Rogers (2006),
+\item Cetin, Soner, and Touzi (2009),
+\item Kallsen and Rheinlaender (2009),
+\item Gokay and Soner (2011).
+\end{itemize}
+
+\end{frame}
+
+% Page 18
+\begin{frame}[shrink=38]{{\color{cyan}Net Demand Curve and Clearing Price}}
+\bigskip
+\begin{block}{Definition}
+The net demand curve $Q$ is a function $[0,P]\times \mathbb{R}^{+}\times \Omega \mathbb{\rightarrow R}$, which value $Q(p,t,\omega )$ is equal to the difference between the quantity of shares \textbf{available} for purchase and the quantity of shares \textbf{available} for sale at price $p$ at time $t$. For each $p$ the stochastic process $Q(.,t,)$ is a $\mathcal{F}_{t}$ adapted semimartingale.
+\end{block}
+
+{\color{magenta}\textbf{Remark:}} For the clearing price to be a diffusion, the demand must be defined on a continuum of limit prices.
+
+\vspace{5pt}
+{\color{magenta}\textbf{Remark:}} The net demand curve should be decreasing in $p$. The easiest way to do that is to model positive processes:
+\begin{itemize}
+\item $Q(0,t)$: total number of buy orders
+\item $q(p,t)$: density of buy orders + density of sell orders
+\end{itemize}
+\begin{equation*}
+Q(p,t)=Q(0,t)-\int_{0}^{p}q(y,t)dy
+\end{equation*}
+
+\begin{block}{Definition}
+The clearing price $\pi (t)$ is a $\mathcal{F}_{t}-$ adapted stochastic process which satisfies market clearing:
+\vspace{-8pt}
+\begin{equation*}
+Q(\pi (t),t)=0
+\end{equation*}
+\end{block}
+
+\end{frame}
+
+
+\section{The Model}
+% Page 19
+\begin{frame}[shrink=30]{{\color{cyan}The Model}}
+\bigskip
+\begin{itemize}
+\item It can be proved that the optimal strategy of a large trader is to disseminate her orders into infinitesimal orders.
+
+\qquad This shows that a continuous demand curve is a plausible model.
+
+\vspace{10pt}
+\item In order to avoid arbitrage, we choose to have as many factors as limit prices
+
+\end{itemize}
+
+\vspace{-10pt}
+\begin{equation*}
+dQ(p,t) =\mu _{Q}(p,t)dt-\sigma _{Q}(p,t)\int_{x=0}^{S} b_{q}(p,x,t)W(ds,dt) \text{ \ for }0<p\leq S
+\end{equation*}
+
+\end{frame}
+
+% Page 20
+\section{Main Result}
+\begin{frame}[shrink=30]{{\color{cyan}Main Result: Market with a Large Trader}}
+\bigskip
+\begin{block}{Main Result}
+\emph{Suppose in addition to our standing assumptions that
+
+C1) The demand curve is decreasing in price and continuous in time;
+
+C2) the volatility $\sigma _{Q}(p,t)$ is bounded away from zero, uniformly in $p$;
+
+C3) there is no path such that $Q(S,t)\geq 0$ or $Q(0,t)\leq 0$;
+
+C4) The market price of risk equations hold.
+
+\vskip 0.1in
+\noindent Then
+
+F1) there is no arbitrage strategy,
+
+F2) the net demand curve $Q$ is continuous in $t$,
+
+F3) the clearing price $\pi (t)$ is continuous,
+
+F4) The $\mathbb{Q}$-measure is also a martingale measure for $\pi (t)$}.
+\end{block}
+
+\end{frame}
+
+% Page 21
+\begin{frame}[shrink=30]{{\color{cyan}Characterization of the Risk-Neutral Measure $\mathbb{Q}$}}
+\bigskip
+%{\color{magenta}\textbf{Standing assumption:}} There is no path such that $Q(P,t)\geq 0$
+
+\bigskip
+\begin{block}{Change of Measure}
+\begin{equation*}
+W^{\mathbb{Q}}(ds,dt)=W(ds,dt)+\lambda (s,t)dt
+\end{equation*}
+
+\textbf{Goal:} determine $\lambda $ such that the market price of risk equations hold.
+\end{block}
+
+\end{frame}
+
+% Page 22
+\section{Market Price of Risk Equations}
+\begin{frame}[shrink=30]{{\color{cyan}Market Price of Risk Equations}}
+
+Let \{$%
+\mu _{Q}$, $\sigma _{Q}$, $b_{Q}\}$ be the parameters of net demand.
+Let the volatility of the clearing price be:
+
+\begin{equation*}
+\sigma _{\pi }(t)b_{\pi }(s,t)=-\frac{\sigma _{Q}(\pi
+(t),t)\int_{s=0}^{S}b_{Q}(\pi (t),s,t)ds}{q(\pi (t),t)}
+\end{equation*}
+
+\bigskip
+Define
+\begin{eqnarray*}
+C(\pi ,t) &=&\sigma _{\pi }(t)\int_{s=0}^{S}\frac{\partial \lbrack \sigma
+_{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\partial p}|_{p=\pi }b_{\pi }(s,t)ds \\
+B(\pi ,t) &=&\mu _{Q}(\pi ,t)-\frac{1}{2}\frac{\partial ^{2}Q(p,t)}{\partial
+p^{2}}|_{p=\pi }+C(\pi ,t) \\
+\Sigma (\pi ,s,t) &=&\sigma _{Q}(\pi ,t)b_{Q}(\pi ,s,t)
+\end{eqnarray*}
+
+\bigskip
+The market price of risk equations are:
+\begin{equation*}
+\int_{s=0}^{S}\Sigma (\pi ,s)\lambda (s)ds=B(\pi ) \text{ \ \ \ \ \ } 0\leq \pi \leq P
+\end{equation*}
+
+\end{frame}
+
+% Page 23
+\begin{frame}[shrink=30]{{\color{cyan}From a "MetaModel" to a Model}}
+\bigskip
+Reminder:
+\begin{eqnarray*}
+q(p,t)dp &=&\text{sum of buy and sell order quantities with limit price} \\
+&&\text{in }[p,p+dp]\text{ arriving in }[0,t]\text{ }
+\end{eqnarray*}
+
+Plausible dynamics for $q$:
+
+\begin{itemize}
+\item positive process
+
+\qquad \qquad not necessarily increasing: orders can be cancelled
+
+\item mean-reverting process
+
+\item to be implemented on a computer: $p$ and $t$ must take discrete values
+
+\end{itemize}
+
+{\color{magenta}\textbf{Our choice:}} the exponential of a (vector) Ornstein-Uhlenbeck process.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Simulation Process}
+
+% Page 29
+\section{Model Framework}
+\begin{frame}[shrink=30]{{\color{cyan}Model Framework}}
+\bigskip
+We define
+\begin{eqnarray*}
+%\frac{dh(p,t,\omega)}{h(p,t,\omega)} &=& [-a_h(p)+\mu_h (h(p,t,\omega),p,t)]dt + \int_{s=0}^{S}\sigma_h(h(p,t,\omega),p,s,t)W(ds,dt,\omega) \\
+dh(p,t,\omega) &=& [-a_h(p)h(p,t,\omega)+\mu_h (p)]dt + \int_{s=0}^{S}\sigma_h(p,s)W(ds,dt,\omega)  \\
+q(p,t,\omega) &=& \exp\left(\int_{x=0}^{p}h(x,y,\omega) dx\right)  \qquad \qquad \qquad \qquad \quad (Density) \\
+dQ(p,t,\omega) &=& \int_{x=0}^{S}q(x,t,\omega)dx \eta(t,\omega) - \int_{x=0}^{p}q(x,t,\omega)dx \qquad \textrm{(Net Demand)} \\
+d\eta(t,\omega)  &=& a_\eta (\bar{\eta}-\eta(t,\omega))dt  \\
+    &+& \sqrt{\eta(t,\omega)(1-\eta(t,\omega))}\int_{s=0}^{S}\sigma_\eta(s) W(ds,dt,\omega)  \qquad \textrm{(Demand Volume Ratio) }
+\end{eqnarray*}
+
+\end{frame}
+
+% Page 30
+\section{Reasoning of Modeling Framework}
+\begin{frame}[shrink=30]{{\color{cyan}Reasoning of Modeling Framework}}
+\bigskip
+\begin{itemize}
+% The first argument
+\item The reason of modeling demand but not demand/supply separately
+
+\qquad {Smooth semi-martingale assumption holds for net demand curve }
+
+% The second argument
+\vspace{10pt}
+\item The reason of modeling the ratio of demand and volume $\eta$ process
+
+\qquad {To guarantee the robustness of the estimation: $Q(0) > 0$ and $Q(S) < 0$}
+
+% The third argument
+\vspace{10pt}
+\item The reason for $Q$ to be twice differentiable
+
+\qquad {Need to apply Ito-Wentzell formula.}
+
+% The fourth argument
+\vspace{10pt}
+\item The reason for $q$ to be positive
+
+\qquad {Guarantee that the net demand is downward sloping (decreases with price).}
+
+% The fifth argument
+\vspace{10pt}
+\item The reason for using Stochastic strings
+
+\qquad {Rule out arbitrage opportunity}
+\end{itemize}
+
+\end{frame}
+
+
+% Page 24
+\section{Empirical Analysis}
+\begin{frame}[shrink=35]{{\color{cyan}NYSE Arcabook Data}}
+\bigskip
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{llll}
+\hline
+\textbf{Industry} & \textbf{Exchange} & \textbf{Ticker} & \textbf{Firm}\\
+\hline \hline
+
+\multirow{2}{*}{Energy} & NYSE & CVX & Chevron Corporation\\
+ & NYSE & XOM & Exxon Mobil Corporation\\
+
+\hline
+\multirow{2}{*}{Financial Banks} & NYSE & JPM & JPMorgan Chase \& Co.\\
+ & NYSE & WFC & Wells Fargo \& Company \\
+
+ \hline
+ \multirow{2}{*}{Materials and Mining} & NYSE & ABX & Barrick Gold Corporation \\
+ & NYSE & FCX & Freeport-McMoRan Copper \& Gold Inc. \\
+
+ \hline
+ \multirow{3}{*}{Technology} & NASDAQ & CSCO & Cisco Systems, Inc. \\
+ & NASDAQ & MSFT & Microsoft Corporation \\
+ & NASDAQ & ORCL & Oracle Corporation \\
+\hline
+\end{tabular}
+\end{center}
+\caption{NYSE Arcabook data selection.}
+\label{table:NYSE_Arcabook_Selection}
+\end{table}
+
+\end{frame}
+
+
+% Page 31
+\section{Simulation Process}
+\begin{frame}[shrink=30]{{\color{cyan}Simulation Process}}
+\bigskip
+Market Calibration
+\begin{itemize}
+\item Estimate excess demand $\bar{Q}(p,t)$ from $p$ and $t$ from the high frequency data;
+\item Calculate the $\eta(t)$ process by $\frac{\bar{Q}(0,t)}{\bar{Q}(0,t)-\bar{Q}(S,t)}$;
+\item Calculate process $q$ and $h$. Estimate the variance-covariance matrix of $h$ and $\eta$;
+\item Apply Cholesky decomposition to the correlation matrix, where $\bar{R}dt=Corr[\frac{dh_i}{h_i},\frac{dh_j}{h_j}]$
+\end{itemize}
+
+\begin{columns}
+
+\begin{column}{0.48\textwidth}
+\begin{figure}[htbp]
+                \centering
+                \includegraphics[width=0.7\textwidth]{Q_net_demand.png}
+                \caption{The net demand of GE as of 04/01/2011}
+                \label{fig:Sim_Q}
+\end{figure}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{figure}[htbp]
+                \centering
+                \includegraphics[width=0.82\textwidth]{q_diff_of_Q.png}
+                \caption{The q process of GE as of 04/01/2011}
+                \label{fig:Sim_q}
+\end{figure}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+% Page 32
+\section{Simulation Process}
+\begin{frame}[shrink=30]{{\color{cyan}Simulation Process}}
+\bigskip
+Excess Demand Simulation \\
+(The process of the simulation is to demonstrate that the 	calibrated 	parameters in framework are market consistent)
+\begin{itemize}
+\item Randomly generate $n$ paths for $h$;
+\item Use $h$ to integrate for $q$ process;
+\item Simulate $\eta$ process using the correlation estimated in market calibration process;
+\item Combine $h$, $q$ and $\eta$ to simulate excess demand $Q$.
+\end{itemize}
+
+\end{frame}
+
+% Page 33
+\begin{frame}[shrink=30]{{\color{cyan}{\large Simulation Result}}}
+\bigskip
+GE stock net demand curve with 04/01/2015 market data calibrated:
+
+\vspace{10pt}
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[height=0.8\textheight]{Q_sim.png}
+\caption{Simulated net demand Q for GE using 04/01/2015 order book calibration.}
+\label{fig:Sim_Q_GE}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+% Page 21
+\begin{frame}[shrink=30]{{\color{cyan}Characterization of the Risk-Neutral Measure $\mathbb{Q}$}}
+\bigskip
+%{\color{magenta}\textbf{Standing assumption:}} There is no path such that $Q(P,t)\geq 0$
+
+\bigskip
+\begin{block}{Change of Measure}
+\begin{equation*}
+W^{\mathbb{Q}}(ds,dt)=W(ds,dt)+\lambda (s,t)dt
+\end{equation*}
+
+\textbf{Goal:} determine $\lambda $ such that the market price of risk equations hold.
+\end{block}
+
+\end{frame}
+
+% Page 22
+\section{Market Price of Risk Equations}
+\begin{frame}[shrink=30]{{\color{cyan}Market Price of Risk Equations}}
+
+Let \{$%
+\mu _{Q}$, $\sigma _{Q}$, $b_{Q}\}$ be the parameters of net demand.
+Let the volatility of the clearing price be:
+
+\begin{equation*}
+\sigma _{\pi }(t)b_{\pi }(s,t)=-\frac{\sigma _{Q}(\pi
+(t),t)\int_{s=0}^{S}b_{Q}(\pi (t),s,t)ds}{q(\pi (t),t)}
+\end{equation*}
+
+\bigskip
+Define
+\begin{eqnarray*}
+C(\pi ,t) &=&\sigma _{\pi }(t)\int_{s=0}^{S}\frac{\partial \lbrack \sigma
+_{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\partial p}|_{p=\pi }b_{\pi }(s,t)ds \\
+B(\pi ,t) &=&\mu _{Q}(\pi ,t)-\frac{1}{2}\frac{\partial ^{2}Q(p,t)}{\partial
+p^{2}}|_{p=\pi }+C(\pi ,t) \\
+\Sigma (\pi ,s,t) &=&\sigma _{Q}(\pi ,t)b_{Q}(\pi ,s,t)
+\end{eqnarray*}
+
+\bigskip
+The market price of risk equations are:
+\begin{equation*}
+\int_{s=0}^{S}\Sigma (\pi ,s)\lambda (s)ds=B(\pi ) \text{ \ \ \ \ \ } 0\leq \pi \leq P
+\end{equation*}
+
+\end{frame}
+
+
+% Page 26
+\begin{frame}[shrink=50]{{\color{cyan}Volatility Smile ({\color{magenta}ORCL})}}
+\bigskip
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{cc}
+\hline
+\textbf{Strike Price}	& \textbf{Implied Volatility}\\
+\hline \hline
+33.77	& 22.66\%\\
+33.80	& 21.05\%\\
+33.83	& 19.40\%\\
+33.87	& 17.71\%\\
+33.90	& 15.94\%\\
+33.93	& 14.10\%\\
+33.97	& 12.16\%\\
+34.00	& 10.11\%\\
+{\color{orange}34.04}	& 9.35\%\\
+34.07	& 10.26\%\\
+34.10	& 11.03\%\\
+34.14	& 11.70\%\\
+34.17	& 12.25\%\\
+34.20	& 12.71\%\\
+34.24	& 13.06\%\\
+34.27	& 13.25\%\\
+34.31	& 13.34\%\\
+34.34	& 13.32\%\\
+34.37	& 13.23\%\\
+34.41	& 12.99\%\\
+\hline
+\end{tabular}
+\label{tab:ORCL_volatility_smile}
+\end{center}
+\end{table}
+\end{column}
+
+\begin{column}{0.7\textwidth}
+\begin{figure}[htbp]
+                \centering
+                \includegraphics[height=0.75\textheight]{ORCL/ORCL_20110404_Simulated_Volatility_Smile.png}\\
+                \includegraphics[height=0.75\textheight]{ORCL/ORCL_20110404_B.png}\\
+                \caption{Simulated v.s. real-time volatility smile of ORCL on April 4, 2011. \textit{Source: Bloomberg}}
+                \label{fig:ORCL_VolSmile_SimvsReal}
+\end{figure}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% Page 27
+\begin{frame}[shrink=50]{{\color{cyan}Volatility Smile ({\color{magenta}ABX})}}
+\bigskip
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{cc}
+\hline
+\textbf{Strike Price}	& \textbf{Implied Volatility}\\
+\hline \hline
+50.98	& 23.64\%\\
+51.03	& 21.98\%\\
+51.08	& 20.27\%\\
+51.13	& 18.51\%\\
+51.18	& 16.70\%\\
+51.23	& 14.84\%\\
+51.29	& 12.93\%\\
+{\color{orange}51.34}	& 11.69\%\\
+51.39	& 12.24\%\\
+51.44	& 12.75\%\\
+51.49	& 13.20\%\\
+51.54	& 13.58\%\\
+51.59	& 13.92\%\\
+51.64	& 14.18\%\\
+51.69	& 14.37\%\\
+51.74	& 14.46\%\\
+51.79	& 14.54\%\\
+51.85	& 14.55\%\\
+51.90	& 14.46\%\\
+51.95	& 14.39\%\\
+\hline
+\end{tabular}
+\label{tab:ABX_volatility_smile}
+\end{center}
+\end{table}
+\end{column}
+
+\begin{column}{0.7\textwidth}
+\begin{figure}[htbp]
+                \centering
+                \includegraphics[height=0.75\textheight]{ABX/ABX_20110404_Simulated_Volatility_Smile.png}\\
+                \includegraphics[height=0.75\textheight]{ABX/ABX_20110404_B.png}\\
+                \caption{Simulated v.s. real-time volatility smile of ABX on April 4, 2011. \textit{Source: Bloomberg}}
+                \label{fig:ABX_VolSmile_SimvsReal}
+\end{figure}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% Page 28
+\begin{frame}[shrink=50]{{\color{cyan}Volatility Smile ({\color{magenta}CSCO})}}
+\bigskip
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{cc}
+\hline
+\textbf{Strike Price}	& \textbf{Implied Volatility}\\
+\hline \hline
+16.88	& 13.30\%\\
+16.90	& 12.17\%\\
+16.92	& 11.02\%\\
+16.93	& 9.84\%\\
+16.95	& 8.63\%\\
+16.97	& 7.37\%\\
+16.99	& 6.04\%\\
+17.00	& 4.63\%\\
+{\color{orange}17.02}	& 4.16\%\\
+17.04	& 4.84\%\\
+17.05	& 5.28\%\\
+17.07	& 5.53\%\\
+17.09	& 5.68\%\\
+17.10	& 5.73\%\\
+17.12	& 5.79\%\\
+17.14	& 5.85\%\\
+\hline
+\end{tabular}
+\label{tab:CSCO_volatility_smile}
+\end{center}
+\end{table}
+\end{column}
+
+\begin{column}{0.7\textwidth}
+\begin{figure}[htbp]
+                \centering
+                \includegraphics[height=0.75\textheight]{CSCO/CSCO_20110404_Simulated_Volatility_Smile.png}\\
+                \includegraphics[height=0.75\textheight]{CSCO/CSCO_20110404_B.png}\\
+                \caption{Simulated v.s. real-time volatility smile of CSCO on April 4, 2011. \textit{Source: Bloomberg}}
+                \label{fig:CSCO_VolSmile_SimvsReal}
+\end{figure}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+
+% Page 34
+\begin{frame}[shrink=25]{{\color{cyan}Conclusions}}
+\bigskip
+\begin{enumerate}
+\item We developed a liquidity model with stands between
+		\begin{itemize}
+			\item traditional no-arbitrage (option pricing)\ models and
+			\item financial economics models.
+		\end{itemize}
+
+\vspace{5pt}
+\item This model uses Ito-Wentzell's formula and Girsanov's theorem for Brownian sheets.
+
+\vspace{5pt}
+\item We give conditions for no-arbitrage, which allows us to price options
+
+\vspace{5pt}
+\item We specified a model
+		\begin{itemize}
+			\item with positive demand density,
+			\item with mean-reversion,
+			\item where parameters are centered on the clearing price.
+		\end{itemize}
+
+\vspace{5pt}	
+\item We calibrate the model parameters from high frequency stock data of GE as of 04-01-2015. The simulated net demand curve shows a downward sloping shape, as expected.
+
+\vspace{5pt}	
+\item The model generates an implied volatility smile which matches the observed smile much better than the traditional Black-Scholes model.
+\end{enumerate}
+\end{frame}
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 

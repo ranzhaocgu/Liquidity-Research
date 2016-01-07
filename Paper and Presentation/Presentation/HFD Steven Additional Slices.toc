@@ -1,0 +1,15 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Outline}{2}{0}{1}
+\beamer@sectionintoc {2}{Trading Limit Orders}{3}{0}{2}
+\beamer@sectionintoc {3}{Literature Review}{11}{0}{3}
+\beamer@sectionintoc {4}{The Model}{13}{0}{4}
+\beamer@sectionintoc {5}{Main Result}{14}{0}{5}
+\beamer@sectionintoc {6}{Market Price of Risk Equations}{16}{0}{6}
+\beamer@sectionintoc {7}{Simulation Process}{18}{0}{7}
+\beamer@sectionintoc {8}{Model Framework}{18}{0}{8}
+\beamer@sectionintoc {9}{Reasoning of Modeling Framework}{19}{0}{9}
+\beamer@sectionintoc {10}{Empirical Analysis}{20}{0}{10}
+\beamer@sectionintoc {11}{Simulation Process}{21}{0}{11}
+\beamer@sectionintoc {12}{Simulation Process}{22}{0}{12}
+\beamer@sectionintoc {13}{Market Price of Risk Equations}{25}{0}{13}
+\beamer@sectionintoc {14}{Conclusions}{29}{0}{14}

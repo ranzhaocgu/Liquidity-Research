@@ -39,9 +39,9 @@ shares = num(:,strcmp(title, 'Stock_Selected_Shares'));
 
 %% Market Data Calibration
 % time steps
-time_step_minute = 5;
+time_step_minute = 15;
 start_time = min(second); end_time = max(second);
-total_time_steps = (end_time - start_time) / (time_step_minute*60);
+total_time_steps = round((end_time - start_time) / (time_step_minute*60));
 
 % initialize Q
 Q_0 = zeros(1, total_time_steps);
@@ -49,13 +49,11 @@ Q_S = zeros(1, total_time_steps);
 eta = zeros(1, total_time_steps);
 
 % initialize q
-training_set_end = 84;
-price_step = 1;
-% min_price = round(min(price(1:training_set_end*time_step_minute*60)));
-% max_price = round(max(price(1:training_set_end*time_step_minute*60)));
-min_price = 340;
-max_price = 360;
-price_range = min_price:0.05:max_price;
+training_set_end = 8 * (60 / time_step_minute);
+min_price = quantile(price(1:training_set_end*time_step_minute*60), 0.01);
+max_price = quantile(price(1:training_set_end*time_step_minute*60), 0.99);
+price_step = (max_price-min_price)/100;
+price_range = min_price:price_step:max_price;
 q = zeros(length(price_range), total_time_steps);
 
 % initialize Q
@@ -64,6 +62,9 @@ Q_profile = zeros(length(price_range), total_time_steps);
 % define f(p)
 %f_p = @(p) sqrt(p*(max_price-p));
 f_p = zeros(length(price_range),1);
+
+% initialize h(f(p),t)
+h = zeros(length(price_range), total_time_steps);
 
 % for i = 1:total_time_steps
 for i = 1:total_time_steps  
@@ -88,7 +89,20 @@ for i = 1:total_time_steps
             shares(ismember(second, real_time_seconds)), ...
             buy_or_sell(ismember(second, real_time_seconds)), price_range(j));
         if j > 1
-            q(j,i) = Q_profile(j,i) - Q_profile((j-1),i); 
+            q(j,i) = -(Q_profile(j,i) - Q_profile((j-1),i)); 
+            
+            if q(j,i) == 0
+                temp1 = 1;
+            else
+                temp1 = q(j,i);
+            end
+
+            if q(j-1,i) == 0
+                temp2 = 1;
+            else
+                temp2 = q(j-1,i);
+            end
+            h(j,i) = log(temp1) - log(temp2);
         end
     end
     
@@ -103,199 +117,144 @@ for i = 1:total_time_steps
 %     normal_rand_nums = randn(length(price_range), time_Rtep_minute*60);
 end
 
-% f_p = mean(q(:,1:training_set_end),2);
-% x = [min_price, 0.5*(min_price+max_price), max_price]';
-% y = [min_price, max_price, min_price]';
-% fit_f_p = fit(x,y,'poly2');
-% coeff_f_p = coeffvalues(fit_f_p);
-% coeff_const = coeff_f_p(3);
+% plot the Q (net demand) from 9:15 AM to 5 PM of the trading day
+figure
+surf(1:size(Q_profile,2), price_range,Q_profile,'EdgeColor','none')
+clear title;
+title('Actual Net Demand Q over Price and Time');
+xlabel('time');
+ylabel('price');
+zlabel('net demand Q');
 
-surf(63:156, price_range,Q_profile(:,63:156),'EdgeColor','none')
+% variance-covariance matrix of h and eta, Q measure
+var_matrix_h_eta = cov([h(2:end,:);eta]');
+corr_matrix_h_eta = corr([h(2:end,:);eta]');
 
-% initialize h(f(p),t)
-h = zeros(length(price_range), total_time_steps);
+sigma_eta_square = var(eta);
 
-% change h to be 
-%   q(p,t) = exp(sum h(x,t))
-%   h(p,t) = ln(q(p,t)) - ln(q(p-1),t)
+% adjust the correlation matrix
+corr_matrix_h_eta(isnan(corr_matrix_h_eta)) = 0;
+corr_matrix = corr_matrix_h_eta;
 
-for i = 1:total_time_steps
-    for j = 2:length(price_range)
-        if q(j,i) == 0
-            temp1 = 0;
-        else
-            temp1 = q(j,i);
-        end
-        
-        if q(j-1,i) == 0
-            temp2 = 0;
-        else
-            temp2 = q(j,i);
-        end
-        
-        h(j,i) = log(temp1) - log(temp2);
-    end
-end
+simulate_time_steps = 32;
+omega = 10;
 
-% for i = 1:total_time_steps
-%     for j = 1:length(price_range)
-%         coeff_f_p(3) = coeff_const - price_range(j);
-%         inverse_f_p = roots(coeff_f_p);
-%         f_left = min(inverse_f_p);
-%         f_right = max(inverse_f_p);
-%         
-%         tmp_left = abs(price_range - f_left);
-%         [~, idx_left] = min(tmp_left);
-%         
-%         tmp_right = abs(price_range - f_right);
-%         [~, idx_right] = min(tmp_right);
-%         % calculate h
-%         try
-%             h(j,i) = 0.5*((q(idx_left,i) - q((idx_left-1),i))*(2*coeff_f_p(1)*price_range(idx_left) + coeff_f_p(2))) + ...
-%                  0.5*((q(idx_right,i) - q((idx_right-1),i))*(2*coeff_f_p(1)*price_range(idx_right) + coeff_f_p(2)));
-%         catch
-%             h(j,i) = 0;
-%         end
-%      end
-% end
+eta_sim_init = 1;
+eta_sim = zeros(simulate_time_steps,omega);
+a_eta = 0.9;
 
-% scale the h to have around 1 h's
-% h = 1 + 0.2 * h/(max(max(h)) - min(min(h)));
+h_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
+q_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
+Q_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
 
-var_matrix_h_eta = zeros(size(h,1), size(h,1));
-corr_matrix_h_eta = zeros(size(h,1), size(h,1));
+for sim_sce = 1:omega
+    normal_random_numbers = randn((size(h,1)-1)+1, simulate_time_steps);
 
-% calculate the variance-covariance matrix
-for xx1 = 1:(size(h,1)-1)
-    for xx2 = 1:(size(h,1)-1)
-        var_matrix_h_eta(xx1, xx2) = (1/(total_time_steps*time_step_minute/60)) ...
-            * sum(log(h(xx1,2:end)./h(xx1,1:(end-1))).* ...
-            log(h(xx1,2:end)./h(xx2,1:(end-1)))) ...
-            / (time_step_minute/60);
-    end
-end
+    Brownian_sheets_sim = corr_matrix*normal_random_numbers;
+    Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
+    Brownian_sheets_eta_sim = Brownian_sheets_sim(end,:);
+%     Brownian_sheets_h_sim = Brownian_sheets_sim(1:end-1,1:end);
 
-eta = 0.05 + 0.90*eta;
-sigma_eta_square = (1/(total_time_steps*time_step_minute/60)) * ...
-    sum(((eta(2:end)-eta(1:end-1)).^2)./(eta(1:end-1).*(1-eta(1:end-1))));
-
-for i = 1:size(h,1)
-    var_matrix_h_eta(i,end) = (1/(length(h)-1)) * ...
-        sum(log(h(xx1,2:end)./h(xx1,1:(end-1))).* ...
-        ((eta(2:end)-eta(1:end-1)).^2)./(eta(1:end-1).*(1-eta(1:end-1))));
-end
-
-var_matrix_h_eta(end,1:end-1) = var_matrix_h_eta(1:end-1,end);
-var_matrix_h_eta(end,end) = sqrt(sigma_eta_square);
-
-% floor the varianc matrix
-% var_matrix_h_eta(var_matrix_h_eta <0) = 0;
-
-% calculate the correlation matrix
-for yy1 = 1:(size(h,1)-1)
-    for yy2 = 1:(size(h,1)-1)
-        corr_matrix_h_eta(yy1, yy2) = var_matrix_h_eta(yy1,yy2) / ...
-            (sqrt(var_matrix_h_eta(yy1,yy1)) * sqrt(var_matrix_h_eta(yy2,yy2)));
-    end
-end
-
-for j = 1:(size(h,1)-1)
-    corr_matrix_h_eta(j,end) = var_matrix_h_eta(j,end) / (sqrt(var_matrix_h_eta(j,j))*sqrt(sigma_eta_square));
-end
-
-% clean the correlation matrix 
-corr_matrix_h_eta(isnan(corr_matrix_h_eta)) = 0; 
-corr_matrix_h_eta(isinf(corr_matrix_h_eta)) = 0; 
-corr_matrix_h_eta = corr_matrix_h_eta/max(max(corr_matrix_h_eta));
-
-for j = 1:size(h,1)
-    corr_matrix_h_eta(j,j) = 1;
-end
-
-% simulate Q
-B_h = chol(corr_matrix_h_eta(1:end-1,1:end-1));
-corr_matrix = chol(corr_matrix_h_eta);
-
-simulate_time_steps = 60;
-normal_random_numbers = randn((size(h,1)-1)+1, simulate_time_steps);
-
-Brownian_sheets_sim = corr_matrix*normal_random_numbers;
-Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end-1));
-Brownian_sheets_eta_sim = Brownian_sheets_sim(1:end,end);
-
-eta_sim_init = 0.5;
-eta_sim = zeros(1,simulate_time_steps);
-a_eta = 0.5;
-
-for i = 1:simulate_time_steps
-    if i == 1
-        eta_sim(i) = eta_sim_init + a_eta*(mean(eta) - eta_sim_init)*(time_step_minute/60)...
-            + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i);
-    else
-        eta_sim(i) = eta_sim(i-1) + a_eta*(mean(eta) - eta_sim(i-1))*(time_step_minute/60)...
-            + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(time_step_minute/60) ...
+    % annualize the timestep
+    dt = time_step_minute/60;
+    eta_sim(1,sim_sce) = eta_sim_init + a_eta*(mean(eta) - eta_sim_init)* dt ...
+                + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(1);
+            
+    for i = 2:simulate_time_steps
+        eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
+            + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(dt) ...
             * corr_matrix_h_eta(end-1,end);
+        for j = 2:size(h_sim,1)
+            h_sim(j,i,sim_sce) = h_sim(j-1,i,sim_sce) + sqrt(var_matrix_h_eta(j,j))*corr_matrix(j,1:end-1)*Brownian_sheets_h_sim(:,i);
+        end
     end
     
+    % adjustment of h_sim
+    h_sim(:,:,sim_sce) = h_sim(:,:,sim_sce)/1000;
+%      h_sim(h_sim <= 0.7*max(max(h_sim)) & h_sim >= 0.7*min(min(h_sim))) = 0;
+    h_sim(1:round(0.4*size(h_sim,1)),:,sim_sce) = 0;
+    h_sim(round(0.6*size(h_sim,1)):end,:,sim_sce) = 0;
+
+
+    for i = 1:simulate_time_steps
+        for j = 1:size(h_sim,1)
+            q_sim(j,i,sim_sce) = exp(sum(h_sim(1:j,i,sim_sce)));
+        end
+    end
     
+    % simulation of Q
+    for i = 1:simulate_time_steps
+        for j = 1:size(h_sim,1)
+            Q_sim(j,i,sim_sce) = sum(q_sim(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim(1:j,i,sim_sce));
+        end
+    end
 end
 
+figure
+surf(1:simulate_time_steps,price_range(2:end),Q_sim(:,:,1),'EdgeColor','none');
+clear title;
+title('Simulated Net Demand Q over Price and Time');
+xlabel('time');
+ylabel('price');
+zlabel('net demand Q');
+
+% option pricing
+% market price of risk equation
+
+atm_price = zeros(simulate_time_steps, omega);
+Sigma = zeros(size(h_sim,1),size(h_sim,1),simulate_time_steps, omega);
+dQ_sim = (Q_sim(:,2:end,:) - Q_sim(:,1:end-1,:))./Q_sim(:,1:end-1,:);
 
 
-% figure
-% plot(eta)
-% %title('Training set eta_t');
-% xlabel('t'); ylabel('eta');
+for each_sce = 1:omega % outer loop for the scenarios
+    for xxx = 1:simulate_time_steps
+        atm_index = find(Q_sim(:, xxx) <= 0, 1);
+        atm_price(xxx,each_sce) = price_range(atm_index);
+    end
+
+    % calculate sigma and b's
+    corr_dQ_sim = corr(dQ_sim(:,:,each_sce));
+
+    % calculation the sigma matrix
+    for i = 1:simulate_time_steps
+        for j = 1:size(h_sim,1)
+            for z = 1:(size(h_sim,2)-1)
+
+                %A = Q_sim(1,i,each_sce)*((Q_sim(2,i,each_sce)-Q_sim(1,i,each_sce))/Q_sim(1,i,each_sce))^2;
+                A = 0;
+                for y = 1:(size(h_sim,1)-1);
+                    dh_t = (h_sim(2:y+1,:,each_sce) - h_sim(1:y,:,each_sce))./h_sim(1:y,:,each_sce);
+                    dh_t(isnan(dh_t)) = 0;
+                    dh_t = dh_t(z);
+                    A = A + exp(sum(h_sim(1:y,i,each_sce)))*sum(h_sim(1:y,i,each_sce) * norm(dh_t,2));
+                end
+
+                A = A*eta_sim(i,each_sce);
+                B = (Q_sim(1,i,each_sce) + sum(q_sim(:,i,each_sce))*corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,each_sce)*(1-eta_sim(i,each_sce)))) ...
+                    * corr_matrix_h_eta(end-1,end);
+                
+                C = 0;
+                for y = 1:(j-1);
+                    dh_t = (h_sim(2:y+1,:,each_sce) - h_sim(1:y,:,each_sce))./h_sim(1:y,:,each_sce);
+                    dh_t(isnan(dh_t)) = 0;
+                    dh_t = dh_t(z);
+                    C = C + exp(sum(h_sim(1:y,i,each_sce)))*sum(h_sim(1:y,i,each_sce) * norm(dh_t,2));
+                end
+
+                Sigma(j,z,i,each_sce) = A + B + C;
+            end
+        end
+    end
+end
+
+% atm_price = zeros(length(simulate_time_steps), 0);
+% option_price_matrix = zeros(price_range, simulate_time_steps);
 % 
-% figure
-% subplot(1,3,1)
-% plot(q(:,round(training_set_end/3)));
-% xlabel('p'); ylabel('q at 1/3 training set');
-% subplot(1,3,2)
-% plot(q(:,round(training_set_end*2/3)));
-% xlabel('p'); ylabel('q at 2/3 training set');
-% subplot(1,3,3)
-% plot(q(:,training_set_end));
-% xlabel('p'); ylabel('q at training set end');
-
-% out_of_sample_set = training_set_end + 1;
-% for i = out_of_sample_set  % just find a interim time point 
-%     real_time_seconds = start_time + [((i-1)*time_step_minute*60+1):(i*time_step_minute*60)];
 % 
-%     % calculate excess demand Q 
-%     Q_0(i) = Q(price(ismember(second, real_time_seconds)), ...
-%         shares(ismember(second, real_time_seconds)), ...
-%         buy_or_sell(ismember(second, real_time_seconds)), 0);
-%     
-%     try
-%         Q_S(i) = Q(price(ismember(second, real_time_seconds)), ...
-%             shares(ismember(second, real_time_seconds)), ...
-%             buy_or_sell(ismember(second, real_time_seconds)), 'S');
-%     catch
-%         Q_S(i) = 0;
-%     end
-%     
-%     % calculate excess demand Q profile
-%     for xx = 1:length(price_range)
-%         Q_profile(xx) = Q(price(ismember(second, real_time_seconds)), ...
-%             shares(ismember(second, real_time_seconds)), ...
-%             buy_or_sell(ismember(second, real_time_seconds)), price_range(xx));
-%     end
-%     
-%     % calculate q
-%     for j = 2:size(q,1)
-%         temp1 = Q(price(ismember(second, real_time_seconds)), ...
-%             shares(ismember(second, real_time_seconds)), ...
-%             buy_or_sell(ismember(second, real_time_seconds)), price_range(j-1));
-%         temp2 = Q(price(ismember(second, real_time_seconds)), ...
-%             shares(ismember(second, real_time_seconds)), ...
-%             buy_or_sell(ismember(second, real_time_seconds)), price_range(j));
-%         q(j,i) = temp2 - temp1; 
-%     end
-%     
-%     eta(i) = Q_0(i) / (Q_0(i) + Q_S(i));
-%     if isnan(eta(i)) 
-%         eta(i) = 0;
+% implied_vol = std(atm_price)/sqrt(simulate_time_steps*time_step_minute);
+% 
+% for xxx = 1:simulate_time_steps
+%     for yy = 1:length(price_range)
+%         option_price_matrix(yy,xxx) = blsprice(atm_price(xxx), price_range(yy), 0.05, 0.25, implied_vol, 0);
 %     end
 % end
-% 
