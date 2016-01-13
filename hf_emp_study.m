@@ -66,7 +66,7 @@ f_p = zeros(length(price_range),1);
 % initialize h(f(p),t)
 h = zeros(length(price_range), total_time_steps);
 
-% for i = 1:total_time_steps
+% calibration of the real time data
 for i = 1:total_time_steps  
     if i == 1  % include the starting second of the trading day
         real_time_seconds = start_time + [((i-1)*time_step_minute*60):(i*time_step_minute*60)];
@@ -137,7 +137,7 @@ corr_matrix_h_eta(isnan(corr_matrix_h_eta)) = 0;
 corr_matrix = corr_matrix_h_eta;
 
 simulate_time_steps = 32;
-omega = 10;
+omega = 3;
 
 eta_sim_init = 1;
 eta_sim = zeros(simulate_time_steps,omega);
@@ -147,6 +147,7 @@ h_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
 q_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
 Q_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
 
+% simulate the results into next pre-defined periods
 for sim_sce = 1:omega
     normal_random_numbers = randn((size(h,1)-1)+1, simulate_time_steps);
 
@@ -172,8 +173,9 @@ for sim_sce = 1:omega
     % adjustment of h_sim
     h_sim(:,:,sim_sce) = h_sim(:,:,sim_sce)/1000;
 %      h_sim(h_sim <= 0.7*max(max(h_sim)) & h_sim >= 0.7*min(min(h_sim))) = 0;
-    h_sim(1:round(0.4*size(h_sim,1)),:,sim_sce) = 0;
-    h_sim(round(0.6*size(h_sim,1)):end,:,sim_sce) = 0;
+% 
+%     h_sim(1:round(0.4*size(h_sim,1)),:,sim_sce) = 0;
+%     h_sim(round(0.6*size(h_sim,1)):end,:,sim_sce) = 0;
 
 
     for i = 1:simulate_time_steps
@@ -198,14 +200,18 @@ xlabel('time');
 ylabel('price');
 zlabel('net demand Q');
 
-% option pricing
-% market price of risk equation
+
+%% Market price of risk equation
 
 atm_index = zeros(simulate_time_steps, omega);
 atm_price = zeros(simulate_time_steps, omega);
 Sigma = zeros(size(h_sim,1),size(h_sim,1),simulate_time_steps, omega);
 dQ_sim = (Q_sim(:,2:end,:) - Q_sim(:,1:end-1,:))./Q_sim(:,1:end-1,:);
 
+% the calculation of SIGMA 
+A = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+B = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+C = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
 
 for each_sce = 1:omega % outer loop for the scenarios
     for xxx = 1:simulate_time_steps
@@ -217,12 +223,11 @@ for each_sce = 1:omega % outer loop for the scenarios
     corr_dQ_sim = corr(dQ_sim(:,:,each_sce));
 
     % calculation the sigma matrix
-    for i = 1:simulate_time_steps
-        for j = 1:size(h_sim,1)
-            for z = 1:(size(h_sim,2)-1)
+    % Sigma(pi, s, t, omega)
+    for i = 1:simulate_time_steps  % t loop
+        for j = 1:size(h_sim,1)    % pi loop
+            for z = 1:(size(h_sim,1)-1)  % s loop
 
-                %A = Q_sim(1,i,each_sce)*((Q_sim(2,i,each_sce)-Q_sim(1,i,each_sce))/Q_sim(1,i,each_sce))^2;
-                A = 0;
                 for y = 1:(size(h_sim,1)-1);
                     dh_t = (h_sim(2:y+1,:,each_sce) - h_sim(1:y,:,each_sce))./h_sim(1:y,:,each_sce);
                     dh_t(isnan(dh_t)) = 0;
