@@ -201,6 +201,7 @@ zlabel('net demand Q');
 % option pricing
 % market price of risk equation
 
+atm_index = zeros(simulate_time_steps, omega);
 atm_price = zeros(simulate_time_steps, omega);
 Sigma = zeros(size(h_sim,1),size(h_sim,1),simulate_time_steps, omega);
 dQ_sim = (Q_sim(:,2:end,:) - Q_sim(:,1:end-1,:))./Q_sim(:,1:end-1,:);
@@ -208,8 +209,8 @@ dQ_sim = (Q_sim(:,2:end,:) - Q_sim(:,1:end-1,:))./Q_sim(:,1:end-1,:);
 
 for each_sce = 1:omega % outer loop for the scenarios
     for xxx = 1:simulate_time_steps
-        atm_index = find(Q_sim(:, xxx) <= 0, 1);
-        atm_price(xxx,each_sce) = price_range(atm_index);
+        atm_index(xxx,each_sce) = find(Q_sim(:, xxx) <= 0, 1);
+        atm_price(xxx,each_sce) = price_range(atm_index(xxx,each_sce));
     end
 
     % calculate sigma and b's
@@ -247,14 +248,28 @@ for each_sce = 1:omega % outer loop for the scenarios
     end
 end
 
-% atm_price = zeros(length(simulate_time_steps), 0);
-% option_price_matrix = zeros(price_range, simulate_time_steps);
-% 
-% 
-% implied_vol = std(atm_price)/sqrt(simulate_time_steps*time_step_minute);
-% 
-% for xxx = 1:simulate_time_steps
-%     for yy = 1:length(price_range)
-%         option_price_matrix(yy,xxx) = blsprice(atm_price(xxx), price_range(yy), 0.05, 0.25, implied_vol, 0);
+C_pi_t = zeros(simulate_time_steps, omega);
+B_pi_t = zeros(simulate_time_steps, omega);
+ 
+for each_sce = 1:omega 
+    for xxx = 1:simulate_time_steps
+        if atm_index(xxx,each_sce) > 1
+            C_pi_t(xxx,each_sce) = std(atm_price)*sum((Sigma(atm_index(xxx,each_sce),:,xxx)-Sigma(atm_index(xxx,each_sce)-1,:,xxx)/price_step));
+            B_pi_t(xxx,each_sce) = C_pi_t(xxx,each_sce) - ...
+                0.5*(Q_sim(atm_index(xxx,each_sce)-1, xxx)-2*Q_sim(atm_index(xxx,each_sce), xxx)+Q_sim(atm_index(xxx,each_sce)+1, xxx));
+        else
+            C_pi_t(xxx,each_sce) = 0;
+            B_pi_t(xxx,each_sce) = 0;
+        end
+    end
+end
+
+lambda = zeros(simulate_time_steps, omega);
+lambda = pinv(sum(Sigma(:,:,:),2))*B_pi_t;
+
+
+% for each_sce = 1:omega 
+%     for xxx = 1:simulate_time_steps
+%         
 %     end
 % end
