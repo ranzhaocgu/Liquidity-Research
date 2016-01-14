@@ -153,6 +153,7 @@ for sim_sce = 1:omega
 
     Brownian_sheets_sim = corr_matrix*normal_random_numbers;
     Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
+    Brownian_sheets_h_sim(2:end,:) = Brownian_sheets_h_sim(2:end,:) - Brownian_sheets_h_sim(1:end-1,:);
     Brownian_sheets_eta_sim = Brownian_sheets_sim(end,:);
 %     Brownian_sheets_h_sim = Brownian_sheets_sim(1:end-1,1:end);
 
@@ -226,8 +227,13 @@ for each_sce = 1:omega % outer loop for the scenarios
     % Sigma(pi, s, t, omega)
     for i = 1:simulate_time_steps  % t loop
         dh_t = (h_sim(2:end,i,each_sce) - h_sim(1:end-1,i,each_sce))./h_sim(1:end-1,i,each_sce);
+<<<<<<< HEAD
+        dh_t(1,:) = 0; %dh_t(:,1) = 0;
+        sigma_h_x_b_h_x_s = dh_t*dh_t';
+=======
         dh_t(1,:) = 0; dh_t(:,1) = 0;
         sigma_h_x_b_h_x_s = corr(dh_t');
+>>>>>>> origin/master
         sigma_h_x_b_h_x_s(isnan(sigma_h_x_b_h_x_s)) = 0;
         
         for j = 1:(size(h_sim,1)-1)    % pi loop
@@ -254,6 +260,22 @@ for each_sce = 1:omega
     for t = 1:simulate_time_steps
         C_pi_t(2:end,t,each_sce) = -sum((Sigma(2:end,:,t,each_sce) - ...
             Sigma(1:end-1,:,t,each_sce))./ Sigma(1:end-1,:,t,each_sce),2);
+<<<<<<< HEAD
+        C_pi_t(isnan(C_pi_t)) = 0;
+        B_pi_t(3:end,t,each_sce) = C_pi_t(3:end,t,each_sce) - ...
+            0.5*(Q_sim(1:end-2,t,each_sce)-2*Q_sim(2:end-1,t,each_sce)+Q_sim(3:end,t,each_sce));
+    end
+end
+
+lambda_s_omega = zeros(size(h_sim,1),simulate_time_steps, omega);
+
+for each_sce = 1:omega 
+    for t = 1:simulate_time_steps
+        lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
+            B_pi_t(:,t,each_sce);
+    end
+end
+=======
         B_pi_t(2:end,t,each_sce) = C_pi_t(2:end,t,each_sce) - 0.5;
     end
 end
@@ -265,3 +287,4 @@ end
 %         
 %     end
 % end
+>>>>>>> origin/master
