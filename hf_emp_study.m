@@ -225,52 +225,39 @@ for each_sce = 1:omega % outer loop for the scenarios
     % calculation the sigma matrix
     % Sigma(pi, s, t, omega)
     for i = 1:simulate_time_steps  % t loop
-        for j = 1:size(h_sim,1)    % pi loop
+        dh_t = (h_sim(2:end,i,each_sce) - h_sim(1:end-1,i,each_sce))./h_sim(1:end-1,i,each_sce);
+        dh_t(1,:) = 0; dh_t(:,1) = 0;
+        sigma_h_x_b_h_x_s = corr(dh_t');
+        sigma_h_x_b_h_x_s(isnan(sigma_h_x_b_h_x_s)) = 0;
+        
+        for j = 1:(size(h_sim,1)-1)    % pi loop
             for z = 1:(size(h_sim,1)-1)  % s loop
+                temp = h_sim(2:end,i,each_sce) * sigma_h_x_b_h_x_s(:,z)';
+                A(j,z,i,each_sce) = sum(exp(sum(h_sim(:,i,each_sce)))*temp(:,z))*eta_sim(i,each_sce);
 
-                for y = 1:(size(h_sim,1)-1);
-                    dh_t = (h_sim(2:y+1,:,each_sce) - h_sim(1:y,:,each_sce))./h_sim(1:y,:,each_sce);
-                    dh_t(isnan(dh_t)) = 0;
-                    dh_t = dh_t(z);
-                    A = A + exp(sum(h_sim(1:y,i,each_sce)))*sum(h_sim(1:y,i,each_sce) * norm(dh_t,2));
-                end
-
-                A = A*eta_sim(i,each_sce);
-                B = (Q_sim(1,i,each_sce) + sum(q_sim(:,i,each_sce))*corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,each_sce)*(1-eta_sim(i,each_sce)))) ...
+                B(j,z,i,each_sce) = (Q_sim(1,i,each_sce) + sum(q_sim(:,i,each_sce))*...
+                    corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,each_sce)*(1-eta_sim(i,each_sce)))) ...
                     * corr_matrix_h_eta(end-1,end);
                 
-                C = 0;
-                for y = 1:(j-1);
-                    dh_t = (h_sim(2:y+1,:,each_sce) - h_sim(1:y,:,each_sce))./h_sim(1:y,:,each_sce);
-                    dh_t(isnan(dh_t)) = 0;
-                    dh_t = dh_t(z);
-                    C = C + exp(sum(h_sim(1:y,i,each_sce)))*sum(h_sim(1:y,i,each_sce) * norm(dh_t,2));
-                end
-
-                Sigma(j,z,i,each_sce) = A + B + C;
+                C(j,z,i,each_sce) = sum(exp(sum(h_sim(:,i,each_sce)))*temp(1:j,z));
             end
         end
     end
+    
+    Sigma(:,:,:,each_sce) = A(:,:,:,each_sce) + B(:,:,:,each_sce) + C(:,:,:,each_sce);
 end
 
-C_pi_t = zeros(simulate_time_steps, omega);
-B_pi_t = zeros(simulate_time_steps, omega);
+C_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
+B_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
  
 for each_sce = 1:omega 
-    for xxx = 1:simulate_time_steps
-        if atm_index(xxx,each_sce) > 1
-            C_pi_t(xxx,each_sce) = std(atm_price)*sum((Sigma(atm_index(xxx,each_sce),:,xxx)-Sigma(atm_index(xxx,each_sce)-1,:,xxx)/price_step));
-            B_pi_t(xxx,each_sce) = C_pi_t(xxx,each_sce) - ...
-                0.5*(Q_sim(atm_index(xxx,each_sce)-1, xxx)-2*Q_sim(atm_index(xxx,each_sce), xxx)+Q_sim(atm_index(xxx,each_sce)+1, xxx));
-        else
-            C_pi_t(xxx,each_sce) = 0;
-            B_pi_t(xxx,each_sce) = 0;
-        end
+    for t = 1:simulate_time_steps
+        C_pi_t(2:end,t,each_sce) = -sum((Sigma(2:end,:,t,each_sce) - ...
+            Sigma(1:end-1,:,t,each_sce))./ Sigma(1:end-1,:,t,each_sce),2);
+        B_pi_t(2:end,t,each_sce) = C_pi_t(2:end,t,each_sce) - 0.5;
     end
 end
 
-lambda = zeros(simulate_time_steps, omega);
-lambda = pinv(sum(Sigma(:,:,:),2))*B_pi_t;
 
 
 % for each_sce = 1:omega 
