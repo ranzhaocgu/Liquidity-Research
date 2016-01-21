@@ -11,7 +11,7 @@
 %TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{Created=Saturday, August 10, 2013 22:44:33}
-%TCIDATA{LastRevised=Friday, December 04, 2015 17:55:59}
+%TCIDATA{LastRevised=Monday, December 14, 2015 17:13:32}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
 %TCIDATA{CSTFile=40 LaTeX article.cst}
@@ -2106,8 +2106,64 @@ Q(p,t) &=&(Q(0,t)+\sum_{x=0}^{S-1}q(x,t))\eta
 d\eta (t) &=&a_{\eta }[\bar{\eta}-\eta (t)]dt+\sigma _{\eta }\sqrt{\eta
 (t)(1-\eta (t))}d\delta (b_{_{\eta ,0}}\delta _{s}W_{0}(t)+...+b_{q_{\eta
 ,S}}\delta _{s}W_{S}(t))
-\end{eqnarray*}%
-\bigskip 
+\end{eqnarray*}
+
+\textbf{Determination of missing parameters (Dec 14 2015)}
+
+Once the parameters $\sigma _{h_{0}},...,\sigma _{h_{S-2}}$ as well as $%
+b_{h_{S-2,0}}$,...,$b_{h_{S-2,S}}$ are known, we can calculate.$\sigma
+_{q_{0}}$ and $b_{q_{0,0}},...,b_{q_{0,S}}:$
+
+\begin{equation*}
+\hat{\sigma}_{q_{0}}=\text{ historical volatility of }q(0,.)
+\end{equation*}
+
+For each $t_{i}$ we solve the following linear system for $\delta
+_{s}W_{0}(t_{i})$,...,$\delta _{s}W_{S-2}(t_{i})$
+
+\begin{equation*}
+\left[ 
+\begin{array}{cccc}
+\sigma _{h_{0}}b_{h_{0,0}} &  &  & \sigma _{h_{0}}b_{h_{0,S-2}} \\ 
+&  &  &  \\ 
+&  &  &  \\ 
+\sigma _{h_{S-2}}b_{h_{S-2,0}} &  &  & \sigma _{h_{S-2}}b_{h_{S-2,S-2}}%
+\end{array}%
+\right] \left[ 
+\begin{array}{c}
+d\delta _{s}W_{0}(t_{i}) \\ 
+\\ 
+\\ 
+d\delta _{s}W_{S-2}(t_{i})%
+\end{array}%
+\right] =\left[ 
+\begin{array}{c}
+h_{0}(t_{i+1})-h_{0}(t_{i}) \\ 
+\\ 
+\\ 
+h_{S-2}(t_{i+1})-h_{S-2}(t_{i})%
+\end{array}%
+\right] 
+\end{equation*}
+
+Then given the time series for $q(0,t_{i})/\hat{\sigma}_{q_{0}}$, the
+coefficients $b_{q_{0,0}},...,b_{q_{0,S-2}}$ are the regression coefficients
+of $q(0,.)/\hat{\sigma}_{q_{0}}$ on d$\delta _{s}W_{0}(t_{i}),....,d\delta
+_{s}W_{S-2}(t_{i}).$ We can determine $b_{q_{0,S-1}}$ by the equation
+
+\begin{equation*}
+\sum_{s=0}^{S-1}b_{q_{0},s}^{2}=1
+\end{equation*}
+
+Then the value of $\delta _{s}W_{S-1}(t_{i})$ is determined.by the equation:
+
+\begin{equation*}
+\frac{dq(0,t)}{q(0,t)}-\sigma _{q_{0}}d(b_{q_{0,0}}\delta
+_{s}W_{0}(t)+...+b_{q_{0,S-2}}\delta _{s}W_{S-2}(t))=\hat{\sigma}%
+_{q_{0}}b_{q_{0,S-1}}\delta _{s}W_{S-1}(t))
+\end{equation*}
+
+Set $b_{q_{0,S}}=0$. Then do the same thing for $Q$. 
 
 I do not have the time to express the market price of risk equations as a
 function of the coefficients \{$\mu _{h}$, $a_{h},\sigma _{h}$, $b_{h}\}$,\{$%
@@ -2123,7 +2179,7 @@ Let the volatility of the clearing price be:
 \sigma _{\pi }(t,\omega )b_{\pi }(s,t,\omega )=-\frac{\sigma _{Q}(\pi
 (t),t)b_{Q}(s,t,\omega )}{q(\pi (t),t,\omega )}
 \end{equation*}%
-\bigskip 
+\bigskip
 
 Define:
 
@@ -2158,7 +2214,7 @@ _{h_{x}}b_{h_{x,s}}\right) \eta (t)+ \\
 &&\left( Q(0,t)\sigma _{Q_{0}}b_{Q_{0},s}+q(0,t)\sigma
 _{q_{0}}b_{q_{0},s}+q(0,t)\sigma _{q_{0}}b_{q_{0},s}+\sum_{y=1}^{p-1}\exp
 (\sum_{x=0}^{y-1}h_{x}(t))\sum_{x=0}^{y-1}h_{x}(t)\sigma
-_{h_{x}}b_{h_{x,s}}\right) 
+_{h_{x}}b_{h_{x,s}}\right)
 \end{eqnarray*}
 
 \end{document}

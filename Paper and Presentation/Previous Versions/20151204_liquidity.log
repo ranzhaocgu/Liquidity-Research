@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2015.10.22)  13 DEC 2015 22:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2015.10.22)  7 JAN 2016 10:14
 entering extended mode
 **20151204_liquidity.tex
 (20151204_liquidity.tex
@@ -175,7 +175,7 @@ LaTeX Warning: Citation `equ_Q_A' on page 22 undefined on input line 1622.
 
 LaTeX Warning: Citation `equ_Q_A' on page 26 undefined on input line 1952.
 
-[26] [27] [28] [29] (20151204_liquidity.aux)
+[26] [27] [28] [29] [30] (20151204_liquidity.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -190,4 +190,4 @@ Here is how much of TeX's memory you used:
  1025 hyphenation exceptions out of 8191
  29i,17n,26p,278b,298s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on 20151204_liquidity.dvi (29 pages, 128996 bytes).
+Output written on 20151204_liquidity.dvi (30 pages, 132172 bytes).
