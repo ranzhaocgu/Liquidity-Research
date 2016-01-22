@@ -2,9 +2,11 @@
 % high frequency data contains milliseconds buy/sell shock orders
 
 %% Data processing
-company = 'AAPL'; date = '20110401';  % later functionalize
+% company = 'AAPL'; date = '20110401';  % later functionalize
+% 
+% filename = strcat(company, '_', date, '.xlsx');
 
-filename = strcat(company, '_', date, '.xlsx');
+filename = 'Test_trade.xlsx';
 [num,str] = xlsread(filename);
 
 % the name of each item of the data matrix
@@ -39,7 +41,7 @@ shares = num(:,strcmp(title, 'Stock_Selected_Shares'));
 
 %% Market Data Calibration
 % time steps
-time_step_minute = 15;
+time_step_minute = 25/60;
 start_time = min(second); end_time = max(second);
 total_time_steps = round((end_time - start_time) / (time_step_minute*60));
 
@@ -50,9 +52,12 @@ eta = zeros(1, total_time_steps);
 
 % initialize q
 training_set_end = 8 * (60 / time_step_minute);
-min_price = quantile(price(1:training_set_end*time_step_minute*60), 0.01);
-max_price = quantile(price(1:training_set_end*time_step_minute*60), 0.99);
-price_step = (max_price-min_price)/100;
+% min_price = quantile(price(1:training_set_end*time_step_minute*60), 0.01);
+% max_price = quantile(price(1:training_set_end*time_step_minute*60), 0.99);
+% price_step = (max_price-min_price)/100;
+min_price = 1;
+max_price = 4;
+price_step = 1;
 price_range = min_price:price_step:max_price;
 q = zeros(length(price_range), total_time_steps);
 
@@ -137,7 +142,7 @@ sigma_eta_square = var(eta);
 corr_matrix_h_eta(isnan(corr_matrix_h_eta)) = 0;
 corr_matrix = corr_matrix_h_eta;
 
-simulate_time_steps = 32;
+simulate_time_steps = 6;
 omega = 1;   % only 1 scenario
 
 eta_sim_init = 1;
