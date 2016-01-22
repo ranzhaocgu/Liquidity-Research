@@ -126,6 +126,7 @@ xlabel('time');
 ylabel('price');
 zlabel('net demand Q');
 
+%% Simulations using the calibrated parameters
 % variance-covariance matrix of h and eta, Q measure
 var_matrix_h_eta = cov([h(2:end,:);eta]');
 corr_matrix_h_eta = corr([h(2:end,:);eta]');
@@ -227,13 +228,10 @@ for each_sce = 1:omega % outer loop for the scenarios
     % Sigma(pi, s, t, omega)
     for i = 1:simulate_time_steps  % t loop
         dh_t = (h_sim(2:end,i,each_sce) - h_sim(1:end-1,i,each_sce))./h_sim(1:end-1,i,each_sce);
-<<<<<<< HEAD
         dh_t(1,:) = 0; %dh_t(:,1) = 0;
         sigma_h_x_b_h_x_s = dh_t*dh_t';
-=======
         dh_t(1,:) = 0; dh_t(:,1) = 0;
         sigma_h_x_b_h_x_s = corr(dh_t');
->>>>>>> origin/master
         sigma_h_x_b_h_x_s(isnan(sigma_h_x_b_h_x_s)) = 0;
         
         for j = 1:(size(h_sim,1)-1)    % pi loop
@@ -260,7 +258,6 @@ for each_sce = 1:omega
     for t = 1:simulate_time_steps
         C_pi_t(2:end,t,each_sce) = -sum((Sigma(2:end,:,t,each_sce) - ...
             Sigma(1:end-1,:,t,each_sce))./ Sigma(1:end-1,:,t,each_sce),2);
-<<<<<<< HEAD
         C_pi_t(isnan(C_pi_t)) = 0;
         B_pi_t(3:end,t,each_sce) = C_pi_t(3:end,t,each_sce) - ...
             0.5*(Q_sim(1:end-2,t,each_sce)-2*Q_sim(2:end-1,t,each_sce)+Q_sim(3:end,t,each_sce));
@@ -275,11 +272,6 @@ for each_sce = 1:omega
             B_pi_t(:,t,each_sce);
     end
 end
-=======
-        B_pi_t(2:end,t,each_sce) = C_pi_t(2:end,t,each_sce) - 0.5;
-    end
-end
-
 
 
 % for each_sce = 1:omega 
@@ -287,4 +279,3 @@ end
 %         
 %     end
 % end
->>>>>>> origin/master
