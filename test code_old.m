@@ -3,7 +3,7 @@
 
 %% Data processing
 % company = 'AAPL'; date = '20110401';  % later functionalize
-
+% 
 % filename = strcat(company, '_', date, '.xlsx');
 
 filename = 'Test_trade.xlsx';
@@ -41,7 +41,7 @@ shares = num(:,strcmp(title, 'Stock_Selected_Shares'));
 
 %% Market Data Calibration
 % time steps
-time_step_minute = 15;
+time_step_minute = 25/60;
 start_time = min(second); end_time = max(second);
 total_time_steps = round((end_time - start_time) / (time_step_minute*60));
 
@@ -52,9 +52,12 @@ eta = zeros(1, total_time_steps);
 
 % initialize q
 training_set_end = 8 * (60 / time_step_minute);
-min_price = quantile(price(1:training_set_end*time_step_minute*60), 0.01);
-max_price = quantile(price(1:training_set_end*time_step_minute*60), 0.99);
-price_step = (max_price-min_price)/100;
+% min_price = quantile(price(1:training_set_end*time_step_minute*60), 0.01);
+% max_price = quantile(price(1:training_set_end*time_step_minute*60), 0.99);
+% price_step = (max_price-min_price)/100;
+min_price = 1;
+max_price = 4;
+price_step = 1;
 price_range = min_price:price_step:max_price;
 q = zeros(length(price_range), total_time_steps);
 
@@ -130,39 +133,16 @@ zlabel('net demand Q');
 
 %% Simulations using the calibrated parameters
 % variance-covariance matrix of h and eta, Q measure
-smooth_h = h;
-for z = 1:size(h,1)
-    smooth_h(z,:) = smooth_vector(h(z,:));
-end
-
-d_smooth_h_by_h = (smooth_h(2:end,2:end)-smooth_h(2:end,1:(end-1)))./smooth_h(2:end,1:(end-1));
-d_smooth_h_by_h(isnan(d_smooth_h_by_h)) = 0;
-d_smooth_h_by_h(isinf(d_smooth_h_by_h)) = 10;
-% further smooth the matrix
-large_index = find(abs(d_smooth_h_by_h) > 100);
-if ~isempty(large_index) 
-    for j = 1:length(large_index)
-        d_smooth_h_by_h(large_index(j)) = mean([d_smooth_h_by_h(large_index(j)-1) d_smooth_h_by_h(large_index(j)+1)]);
-    end
-end
-
-d_eta_by_eta = (eta(2:end) - eta(1:(end-1)))./ sqrt(eta(1:(end-1)).*(1-eta(1:(end-1))));
-
-var_matrix_h_eta = cov([d_smooth_h_by_h;d_eta_by_eta]');
-corr_matrix_h_eta = corr([d_smooth_h_by_h;d_eta_by_eta]');
-corr_matrix_h_eta(end,1:(end-1)) = 0;
-corr_matrix_h_eta(1:(end-1),end) = 0;
-
-try
-    b_h_eta_matrix = chol(corr_matrix_h_eta);
-catch
-    [U,S] = schur(corr_matrix_h_eta);
-    b_h_eta_matrix = U*diag(sqrt(abs(diag(S))));
-end
+var_matrix_h_eta = cov([h(2:end,:);eta]');
+corr_matrix_h_eta = corr([h(2:end,:);eta]');
 
 sigma_eta_square = var(eta);
 
-simulate_time_steps = 32;
+% adjust the correlation matrix
+corr_matrix_h_eta(isnan(corr_matrix_h_eta)) = 0;
+corr_matrix = corr_matrix_h_eta;
+
+simulate_time_steps = 6;
 omega = 1;   % only 1 scenario
 
 eta_sim_init = 1;
@@ -177,7 +157,7 @@ normal_random_numbers = randn(size(h,1), simulate_time_steps, omega);
 
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
-    Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
+    Brownian_sheets_sim = corr_matrix*normal_random_numbers(:,:,sim_sce);
     Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
     % get delta_s_W
     Brownian_sheets_h_sim(2:end,:) = Brownian_sheets_h_sim(2:end,:) - Brownian_sheets_h_sim(1:end-1,:);
@@ -192,16 +172,16 @@ for sim_sce = 1:omega   % loop on the each scenario
     for i = 2:simulate_time_steps
         eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
             + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(dt) ...
-            * b_h_eta_matrix(end,end);
+            * corr_matrix_h_eta(end-1,end);
         for j = 2:size(h_sim,1)
-            h_sim(j,i,sim_sce) = h_sim(j,i-1,sim_sce) + ...
-                sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
+            h_sim(j,i,sim_sce) = h_sim(j-1,i,sim_sce) + ...
+                sqrt(var_matrix_h_eta(j,j))*corr_matrix(j,1:end-1)*...
                 normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*sqrt(price_step);
         end
     end
     
     % adjustment of h_sim
-     h_sim(:,:,sim_sce) = h_sim(:,:,sim_sce)/1000;
+    h_sim(:,:,sim_sce) = h_sim(:,:,sim_sce)/1000;
 %      h_sim(h_sim <= 0.7*max(max(h_sim)) & h_sim >= 0.7*min(min(h_sim))) = 0;
 % 
 %     h_sim(1:round(0.4*size(h_sim,1)),:,sim_sce) = 0;
@@ -225,7 +205,7 @@ end
 figure
 surf(1:simulate_time_steps,price_range(2:end),Q_sim(:,:,1),'EdgeColor','none');
 clear title;
-title('Simulated Net Demand Q over Price and Time (Physical Measure)');
+title('Simulated Net Demand Q over Price and Time');
 xlabel('time');
 ylabel('price');
 zlabel('net demand Q');
@@ -255,7 +235,7 @@ for each_sce = 1:omega % outer loop for the scenarios
     % calculation the sigma matrix
     % Sigma(pi, s, t, omega)
     for i = 1:simulate_time_steps  % t loop
-        sigma_h_x_b_h_x_s = b_h_eta_matrix(2:end-1,2:end-1);
+        sigma_h_x_b_h_x_s = corr_matrix_h_eta(2:end-1,2:end-1);
 
         for j = 1:(size(h_sim,1)-1)    % pi loop
             for z = 1:(size(h_sim,1)-1)  % s loop
@@ -304,7 +284,7 @@ Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
-    Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
+    Brownian_sheets_sim = corr_matrix*normal_random_numbers(:,:,sim_sce);
     Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
     % get delta_s_W
     Brownian_sheets_h_sim(2:end,:) = Brownian_sheets_h_sim(2:end,:) - Brownian_sheets_h_sim(1:end-1,:);
@@ -319,10 +299,10 @@ for sim_sce = 1:omega   % loop on the each scenario
     for i = 2:simulate_time_steps
         eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
             + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(dt) ...
-            * b_h_eta_matrix(end,end);
+            * corr_matrix_h_eta(end-1,end);
         for j = 2:size(h_sim,1)
-            h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i-1,sim_sce) + ...
-                sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
+            h_sim_rn(j,i,sim_sce) = h_sim_rn(j-1,i,sim_sce) + ...
+                sqrt(var_matrix_h_eta(j,j))*corr_matrix(j,1:end-1)*...
                 (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*sqrt(price_step) - lambda_s_omega(:,i,sim_sce)*sqrt(dt)*sqrt(price_step));
         end
     end
@@ -352,7 +332,7 @@ end
 figure
 surf(1:simulate_time_steps,price_range(2:end),Q_sim_rn(:,:,1),'EdgeColor','none');
 clear title;
-title('Simulated Net Demand Q over Price and Time (P Measure)');
+title('Simulated Net Demand Q over Price and Time');
 xlabel('time');
 ylabel('price');
 zlabel('net demand Q');
