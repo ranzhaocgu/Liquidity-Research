@@ -175,7 +175,7 @@ normal_random_numbers = randn(size(h,1), simulate_time_steps, omega);
 
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
-    Brownian_sheets_sim = corr_matrix_h_eta*normal_random_numbers(:,:,sim_sce);
+    Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
     Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
     % get delta_s_W
     Brownian_sheets_h_sim(2:end,:) = Brownian_sheets_h_sim(2:end,:) - Brownian_sheets_h_sim(1:end-1,:);
@@ -190,10 +190,10 @@ for sim_sce = 1:omega   % loop on the each scenario
     for i = 2:simulate_time_steps
         eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
             + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(dt) ...
-            * corr_matrix_h_eta(end-1,end);
+            * b_h_eta_matrix(end,end);
         for j = 2:size(h_sim,1)
             h_sim(j,i,sim_sce) = h_sim(j,i-1,sim_sce) + ...
-                sqrt(var_matrix_h_eta(j,j))*corr_matrix_h_eta(j,1:end-1)*...
+                sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
                 normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*sqrt(price_step);
         end
     end
@@ -253,7 +253,7 @@ for each_sce = 1:omega % outer loop for the scenarios
     % calculation the sigma matrix
     % Sigma(pi, s, t, omega)
     for i = 1:simulate_time_steps  % t loop
-        sigma_h_x_b_h_x_s = corr_matrix_h_eta(2:end-1,2:end-1);
+        sigma_h_x_b_h_x_s = b_h_eta_matrix(2:end-1,2:end-1);
 
         for j = 1:(size(h_sim,1)-1)    % pi loop
             for z = 1:(size(h_sim,1)-1)  % s loop
@@ -302,7 +302,7 @@ Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
-    Brownian_sheets_sim = corr_matrix_h_eta*normal_random_numbers(:,:,sim_sce);
+    Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
     Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
     % get delta_s_W
     Brownian_sheets_h_sim(2:end,:) = Brownian_sheets_h_sim(2:end,:) - Brownian_sheets_h_sim(1:end-1,:);
@@ -317,10 +317,10 @@ for sim_sce = 1:omega   % loop on the each scenario
     for i = 2:simulate_time_steps
         eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
             + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(dt) ...
-            * corr_matrix_h_eta(end-1,end);
+            * b_h_eta_matrix(end,end);
         for j = 2:size(h_sim,1)
             h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i-1,sim_sce) + ...
-                sqrt(var_matrix_h_eta(j,j))*corr_matrix_h_eta(j,1:end-1)*...
+                sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
                 (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*sqrt(price_step) - lambda_s_omega(:,i,sim_sce)*sqrt(dt)*sqrt(price_step));
         end
     end
