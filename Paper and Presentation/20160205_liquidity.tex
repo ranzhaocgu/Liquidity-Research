@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
+\usepackage{graphicx}
 
 \setcounter{MaxMatrixCols}{10}
 %TCIDATA{OutputFilter=LATEX.DLL}
@@ -49,8 +50,7 @@
 \title{A No-arbitrage Model of Liquidity in Financial Markets involving
 Brownian Sheets\thanks{%
 With the collaboration of Thanh Hoang and Jennifer Thompson.}}
-\author{David German\thanks{%
-Claremont McKenna College} and Henry Schellhorn\thanks{%
+\author{Henry Schellhorn and Ran Zhao\thanks{%
 Claremont Graduate University}}
 \date{\today }
 \maketitle
@@ -774,7 +774,7 @@ We define:
 \frac{dh(p,t,\omega )}{h(p,t,\omega )} &=&(-a_{h}(p)+\mu _{h}(h(p,t,\omega
 ),p,t)dt+\int_{s=0}^{S}\sigma _{h}(h(p,t,\omega ),p,s,t)W(ds,dt,\omega )%
 \text{ \ \ \ \ \ \ \ \ \ \ \ }\forall p\in \lbrack 0,S]  \label{equ_h_A} \\
-q(p,t,\omega ) &=&\int_{x=0}^{f(p)}h(x,t,\omega )dx\text{ \ \ \ \ \ \ \ \ \
+q(p,t,\omega ) &=&\exp{\int_{x=0}^{p}h(x,t,\omega )dx}\text{ \ \ \ \ \ \ \ \ \
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
 \ \ \ \ \ \ \ \ }\forall p\in \lbrack 0,S]  \label{equ_q_A} \\
 Q(p,t,\omega ) &=&\int_{x=0}^{S}q(x,t,\omega )dx\eta (t,\omega
@@ -1475,11 +1475,60 @@ This model is not smooth in time. Indeed, it starts with an infinite drift
 and volatility.
 
 \section{Simulations}
-In this section, we introduce the simulation techniques and methods for the market model of net demand curve $Q$. Empirical high frequency data on millisecond magnitude are applied to parameter calibration process, which is detailed in following subsections. Then these calibrated parameters are utilized in the discretized simulation model on both physical measure and risk neutral measure. When simulating the net demand curve $Q$ in risk neutral measure, the market price of risk equation is solved. 
+In this section, we introduce the calibration and simulation process for the market model of net demand curve $Q$. Empirical high frequency data on millisecond magnitude are applied to parameter calibration process, which is detailed in following subsections. Then the calibrated parameters are utilized in the discretized simulation model on both physical measure and risk neutral measure. When simulating the net demand curve $Q$ in risk neutral measure, the market price of risk equation is solved.
 
 \subsection{Data}
+The high frequency trading data are collected from the NYSE Arcabook limit orders for April 2011.
+Historical NYSE Arcabook data provide information of the complete LOB from NYSE, NYSE Arca, NYSE MKT, NASDAQ and the ArcaEdge platforms from 3:30 a.m. to 8:00 p.m. ET
+under the high speed of latencies (less than 5 milliseconds). Each limit order contains the unique reference number, the time stamp in seconds and milliseconds, the limit
+price in U.S. dollars, the quantity in number of shares, and the trading type (“B”: buy or “S”:sell).
+
+All the limit order book records are categorized into three groups: ''A'' Add, ''M'' Modified and ''D'' Deleted.
+For the market liquidity model, we consider the net demand of the stock, which is captured by summing added records (''A'') with modified (''M'') adjustment and subtracting.
+To be specific, within a certain partitioned time period, the added orders would be updated by the modified orders, if applicable and the orders occur in the same partitioned period.
+Then cancel off the the corresponding record with deleted order. The records after modifications and deletion are considered to be effective when calculating the net demand curve.
+
+In this section, we take the dynamics of Apple Inc. stock (AAPL) as of April 1st 2011 as example to illustrate the calibration and simulation processes.
+
+\subsection{Calibration}
+The calibration process starts with the discretized version of the model, with the partitioning on both time $t$ and price $p$. Within a particular time partition, the net demand $Q$ at price $p$ is calculated, by definition, as the the difference between the total number of buy orders with limit order price less than $p$ and the total number of sell orders with limit order price greater than $p$. That is,
+
+$$
+\hat{Q}(p) = \# \textrm{of buy order with limit order price} > p - \# \textrm{of sell order with limit order price} < p
+$$
+
+Note that $Q(0)$ measures the total number of buy orders on the market, whereas $Q(S)$ measures the total number of sell order on the market. And $Q(\pi) = 0$. A typical net demand $Q$ surface with two dimension as price and time for AAPL stock on April 1st, 2011 is shown in Figure~\ref{fig::AAPL_20110401_Calibration_Q}.
+
+\begin{center}
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale = 0.7]{AAPL_20110401_Calibration_Q.eps}\\
+  \caption{The calculated net demand surface $Q$ by price and time, from market data of April 1st, 2011.}\label{fig::AAPL_20110401_Calibration_Q}
+\end{figure}
+\end{center}
+
+After the net demand surface $Q$ is calculate, the net demand sensitivity $q$ is simply taking the first order differential of $Q(p)$. That is,
+
+$$
+\hat{q}(p,t) = \frac{\partial}{\partial p} \hat{Q}(p, t)
+$$
+
+and the $h(p,t)$ is the first order difference on $q(p, t)$. Since $q(p,t,\omega ) =\exp{\int_{x=0}^{p}h(x,t,\omega )dx}$, we have
+
+$$
+\hat(h)(p,t) = \log(\hat{q}(p,t)) - \log{\hat{q}(p-\delta p,t)}
+$$
+where $\delta p$ represents the price partition. The $\eta$ at each time measures the net demand elasticity and is calculated by 
+
+$$
+\hat{\eta}(t} = \frac{\hat{Q}(0, t)}{\hat{Q}(0, t) + \hat{Q}(S, t)}
+$$
+
+
 
 \subsection{Simulation Results on Physical Measure}
+
 
 \subsection{Simulation Results on Risk Neutral Measure}
 
