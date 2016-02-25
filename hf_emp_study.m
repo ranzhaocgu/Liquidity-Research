@@ -5,7 +5,8 @@
 company = 'AAPL'; date = '20110401';  % later functionalize
 
 filename = strcat(company, '_', date, '.xlsx');
-[num,str] = xlsread(filename);
+% [num,str] = xlsread(filename);
+load('AAPL_20110401.mat');
 
 % the name of each item of the data matrix
 title = str(1,:);
@@ -125,6 +126,23 @@ title('Actual Net Demand Q over Price and Time');
 xlabel('time');
 ylabel('price');
 zlabel('net demand Q');
+
+figure
+subplot(1,2,1)
+surf(1:size(Q_profile,2), price_range,q,'EdgeColor','none')
+clear title;
+title('Calculated q(p,t)');
+xlabel('time');
+ylabel('price');
+zlabel('Net Demand Sensitivity q');
+
+subplot(1,2,2)
+surf(1:size(Q_profile,2), price_range,h,'EdgeColor','none')
+clear title;
+title('Calculated h(p,t)');
+xlabel('time');
+ylabel('price');
+zlabel('h(p,t)');
 
 %% Simulations using the calibrated parameters
 % variance-covariance matrix of h and eta, Q measure

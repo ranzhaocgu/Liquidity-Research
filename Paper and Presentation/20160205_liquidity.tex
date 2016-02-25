@@ -771,7 +771,7 @@ ADD second condition
 We define:
 
 \begin{eqnarray}
-\frac{dh(p,t,\omega )}{h(p,t,\omega )} &=&(-a_{h}(p)+\mu _{h}(h(p,t,\omega
+dh(p,t,\omega ) &=&(-a_{h}(p)+\mu _{h}(h(p,t,\omega
 ),p,t)dt+\int_{s=0}^{S}\sigma _{h}(h(p,t,\omega ),p,s,t)W(ds,dt,\omega )%
 \text{ \ \ \ \ \ \ \ \ \ \ \ }\forall p\in \lbrack 0,S]  \label{equ_h_A} \\
 q(p,t,\omega ) &=&\exp{\int_{x=0}^{p}h(x,t,\omega )dx}\text{ \ \ \ \ \ \ \ \ \
@@ -1490,7 +1490,7 @@ Then cancel off the the corresponding record with deleted order. The records aft
 
 In this section, we take the dynamics of Apple Inc. stock (AAPL) as of April 1st 2011 as example to illustrate the calibration and simulation processes.
 
-\subsection{Calibration}
+\subsection{Calibration Methodology}
 The calibration process starts with the discretized version of the model, with the partitioning on both time $t$ and price $p$. Within a particular time partition, the net demand $Q$ at price $p$ is calculated, by definition, as the the difference between the total number of buy orders with limit order price less than $p$ and the total number of sell orders with limit order price greater than $p$. That is,
 
 $$
@@ -1504,32 +1504,166 @@ Note that $Q(0)$ measures the total number of buy orders on the market, whereas 
   \centering
   % Requires \usepackage{graphicx}
   \includegraphics[scale = 0.7]{AAPL_20110401_Calibration_Q.eps}\\
-  \caption{The calculated net demand surface $Q$ by price and time, from market data of April 1st, 2011.}\label{fig::AAPL_20110401_Calibration_Q}
+  \caption{The calculated net demand surface $Q$ by price and time, from market data for AAPL as of April 1st, 2011.}\label{fig::AAPL_20110401_Calibration_Q}
 \end{figure}
 \end{center}
 
-After the net demand surface $Q$ is calculate, the net demand sensitivity $q$ is simply taking the first order differential of $Q(p)$. That is,
+After the net demand surface $Q$ is calculate, the net demand sensitivity $q$ is simply taking the first order differential of $Q(p)$, where $p = 0,1,\ldots,S$. That is,
 
 $$
 \hat{q}(p,t) = \frac{\partial}{\partial p} \hat{Q}(p, t)
 $$
 
-and the $h(p,t)$ is the first order difference on $q(p, t)$. Since $q(p,t,\omega ) =\exp{\int_{x=0}^{p}h(x,t,\omega )dx}$, we have
+or in discrete expression,
 
 $$
-\hat(h)(p,t) = \log(\hat{q}(p,t)) - \log{\hat{q}(p-\delta p,t)}
+\hat{q}(p,t) = \frac{\hat{Q}(p, t) - \hat{Q}(p - \delta p, t)}{\delta p}
 $$
-where $\delta p$ represents the price partition. The $\eta$ at each time measures the net demand elasticity and is calculated by 
+where $p=1,2,\ldots,S$.
+
+And the $h(p,t)$ is the first order difference on $q(p, t)$. Since $q(p,t,\omega ) =\exp{\int_{x=0}^{p}h(x,t,\omega )dx}$, we have
 
 $$
-\hat{\eta}(t} = \frac{\hat{Q}(0, t)}{\hat{Q}(0, t) + \hat{Q}(S, t)}
+\hat{h}(p,t) = \log(\hat{q}(p,t)) - \log{\hat{q}(p-\delta p,t)}
+$$
+where $\delta p$ represents the price partition. The $\eta$ at each time measures the net demand elasticity and is calculated by
+
+$$
+\hat{\eta}(t) = \frac{\hat{Q}(0, t)}{\hat{Q}(0, t) + \hat{Q}(S, t)}
 $$
 
+Now we have the grids of $\hat{Q}(p,t)$ with $p = 0,1,\ldots, S$ and $\hat{q}(p,t)$ with $p = 1,2,\ldots, S$ and $\hat{h}(p,t)$ with $p = 2,3,\ldots, S$. Let $HE$ matrix as
 
+$$
+\left(
+  \begin{array}{cccc}
+    dh_{2,0} & \cdots & dh_{S,0} & \frac{d\eta_{0}}{\sqrt{\eta_{0}(1-\eta_{0})}} \\
+    \vdots & \ddots & \vdots & \vdots \\
+    dh_{2,T} & \cdots & dh_{S,T} & \frac{d\eta_{T}}{\sqrt{\eta_{T}(1-\eta_{T})}}  \\
+  \end{array}
+\right)
+$$
+
+Calculate the instantaneous volatilities $\sigma_h$ and the correlation matrix $\hat{R}dt = Corr(HE)$. And take Cholesky decomposition with respect to $\hat{R}$. That is,
+
+$$
+B_{HE} = chol(HE)
+$$
+
+where $b_{h_{i,j}}$ has $i,j = 2,3,\ldots,S$. And $b_{\eta,h_p}=0$ except for $b_{\eta,h_S}=1$.
+
+\begin{center}
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale = 0.5]{q_and_h.eps}\\
+  \caption{The calculated q(p,t) and h(p,t) from market data for AAPL as of April 1st, 2011.}\label{fig::AAPL_20110401_q_and_h}
+\end{figure}
+\end{center}
+
+
+\subsection{Simulation Methodology}
+Set $a_h = 0$ and $\mu_h = 0$. First simulate the $h(p,t)$ process using the calibrated parameters over simulated time,
+
+\begin{eqnarray*}
+dh(p,t) &=& h_p(t+\delta t) - h_p(t) = [...]dt + \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \\
+        &=& \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \qquad p = 2, 3, \ldots, S
+\end{eqnarray*}
+
+and $h(0,t) = h(1,t) = 0$ for computational convenience. The boundary condition of the $q(p,t)$ process can be computed from $q(1,t)$ and $q(2,t)$. To be specific,
+
+$$
+q(1,t) = \max(0, q(2,t) - q(2,t)h(2,t))
+$$
+
+And the rest of the numerical $q(p,t)$ values are
+
+$$
+q(p,t) = q(1,t) + \exp{\Sigma_{i=2}^{S}h_x(t)} \qquad p = 2, 3, \ldots, S
+$$
+
+Then the boundary condition of the net demand $Q(0,t)$ is calculated as
+
+$$
+Q(0,t) = \max(Q(1,t), Q(1,t) - Q(1,t)q(1,t))
+$$
+
+and the rest of the $Q(p,t)$ is
+
+$$
+Q(p,t) = [Q(0,t) + \Sigma_{i=1}^{S}q(i,t)\eta(t)] - [Q(0,t) + \Sigma_{i=1}^{p}q(i,t)\eta(t)]  \qquad p = 1, 2, \ldots, S
+$$
+where
+
+\begin{eqnarray*}
+d\eta(t) &=& \eta(t+\delta t) - \eta(t) = a_{\eta}(\bar{\eta} - \eta(t)) dt + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))}  \Sigma_{i=2}^{S} b_{\eta,h_p} z(i,t) \sqrt{\delta t } \\
+         &=& a_{\eta}(\bar{\eta} - \eta(t)) dt + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))} z(S,t) \sqrt{\delta t }
+\end{eqnarray*}
 
 \subsection{Simulation Results on Physical Measure}
+The simulated net demand curve under physical measure using the above methods is shown in Figure~\ref{fig::AAPL_20110401_simulated_Q_physical_measure}.
 
+\begin{center}
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale = 0.5]{Simulated_Q_Physical_Measure.eps}\\
+  \caption{The simulated net demand surface Q(p,t) under physical measure.}\label{fig::AAPL_20110401_simulated_Q_physical_measure}
+\end{figure}
+\end{center}
 
 \subsection{Simulation Results on Risk Neutral Measure}
+Changing from physical measure simulation to P measure simulate requires the following adjustments on $h(p,t)$ process simulation.
+
+$$
+dh(p,t) = \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} [z(i,t) \sqrt{\delta t \delta p} - \lambda(i)\delta t \delta p] \qquad p = 2, 3, \ldots, S
+$$
+
+To solve for $\lambda(i)$, let \{$\mu _{Q}$, $a_{Q},\sigma _{Q}$, $b_{Q}\}$ be the parameters of net demand.
+Let the volatility of the clearing price be:
+
+\begin{equation*}
+\sigma _{\pi }(t,\omega )b_{\pi }(s,t,\omega )=-\frac{\sigma _{Q}(\pi
+(t),t)b_{Q}(s,t,\omega )}{q(\pi (t),t,\omega )}
+\end{equation*}
+\bigskip
+
+Define:
+
+\begin{eqnarray*}
+C(\pi ,t) &=&\sigma _{\pi }(t)\int_{s=0}^{S}\frac{\partial \lbrack \sigma_{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\partial p}|_{p=\pi }b_{\pi }(s,t)ds \\
+&=&\int_{s=0}^{S}\frac{\partial \lbrack \sigma _{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\partial p}|_{p=\pi }\sigma _{\pi }(t)b_{\pi }(s,t)ds \\
+&=&-\int_{s_{2}=0}^{S}\frac{\partial \lbrack \sigma _{Q}(p,t,\omega)b_{Q}(p,s_{2},t)]}{\partial p}|_{p=\pi }\frac{\sigma _{Q}(\pi(t),t)\int_{s=0}^{S}b_{Q}(\pi (t),s,t)ds}{q(\pi (t),t)}ds_{2} \\
+B(\pi ,t) &=&\mu _{Q}(\pi ,t)-\frac{1}{2}\frac{\partial ^{2}Q(p,t)}{\partial p^{2}}|_{p=\pi }+C(\pi ,t) \\
+\Sigma (\pi ,s,t) &=&\sigma _{Q}(\pi ,t)b_{Q}(\pi ,s,t)
+\end{eqnarray*}
+\bigskip
+
+The M.P.R. are, for each $t$ and $\omega $ to find $\lambda (s)$ that
+satisfy:%
+\begin{equation*}
+\int_{s=0}^{S}\Sigma (\pi ,s)\lambda (s)ds=B(\pi )
+\end{equation*}
+
+The value of $\sigma _{Q}(p,t)b_{Q}(p,s,t)$ is given by:%
+\begin{eqnarray*}
+&&\left( Q(0,t)\sigma _{Q_{0}}b_{Q_{0},s}+q(1,t)\sigma _{q_{1}}b_{q_{1},s}+\sum_{y=3}^{S}\exp
+(\sum_{i=2}^{p-1}h_{i}(t))\sum_{x=2}^{p-1}h_{x}(t)\sigma_{h_{x}}b_{h_{x,y}}\right) \eta (t)+ \\
+&&\left( [Q(0,t)+\sum_{x=1}^{S}q(x,t)]\sigma _{\eta }\sqrt{\eta (t)(1-\eta
+(t))}\right) b_{\eta ,s}+ \\
+&&\left( Q(0,t)\sigma_{Q_{0}}b_{Q_{0},s}+q(1,t)\sigma_{q_{1}}b_{q_{1},s}+\sum_{y=3}^{p}\exp
+(\sum_{i=2}^{p-1}h_{i}(t))\sum_{x=2}^{p-1}h_{x}(t)\sigma_{h_{x}}b_{h_{x,y}}\right)
+\end{eqnarray*}
+
+The simulated net demand curve under risk neutral measure using the above methods is shown in Figure~\ref{fig::AAPL_20110401_simulated_Q_P_measure}.
+
+\begin{center}
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale = 0.5]{Simulated_Q_P_Measure.eps}\\
+  \caption{The simulated net demand surface Q(p,t) under risk neutral measure.}\label{fig::AAPL_20110401_simulated_Q_P_measure}
+\end{figure}
+\end{center}
 
 \end{document}
