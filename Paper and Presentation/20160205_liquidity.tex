@@ -1585,10 +1585,10 @@ $$
 Then the boundary condition of the net demand $Q(0,t)$ is calculated as
 
 $$
-Q(0,t) = \max(Q(1,t), Q(1,t) - Q(1,t)q(1,t))
+Q(0,t) = Q(1,t) + q(1,t)
 $$
 
-and the rest of the $Q(p,t)$ is
+which is consistent with the intuition that $Q(0,t) \geq Q(1,t)$ given $q(1,t)\geq 0$. And the rest of the $Q(p,t)$ is
 
 $$
 Q(p,t) = [Q(0,t) + \Sigma_{i=1}^{S}q(i,t)\eta(t)] - [Q(0,t) + \Sigma_{i=1}^{p}q(i,t)\eta(t)]  \qquad p = 1, 2, \ldots, S

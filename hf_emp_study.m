@@ -194,9 +194,6 @@ normal_random_numbers = randn(size(h,1), simulate_time_steps, omega);
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
     Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
-    Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
-    % get delta_s_W
-    Brownian_sheets_h_sim(2:end,:) = Brownian_sheets_h_sim(2:end,:) - Brownian_sheets_h_sim(1:end-1,:);
     Brownian_sheets_eta_sim = Brownian_sheets_sim(end,:);
 
 
@@ -228,6 +225,7 @@ for sim_sce = 1:omega   % loop on the each scenario
         for j = 1:size(h_sim,1)
             q_sim(j,i,sim_sce) = exp(sum(h_sim(1:j,i,sim_sce)));
         end
+        q_sim(2,i,sim_sce) = max(0,q_sim(3,i,sim_sce)-q_sim(3,i,sim_sce)*h_sim(3,i,sim_sce));
     end
     
     % simulation of Q
@@ -235,6 +233,7 @@ for sim_sce = 1:omega   % loop on the each scenario
         for j = 1:size(h_sim,1)
             Q_sim(j,i,sim_sce) = sum(q_sim(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim(1:j,i,sim_sce));
         end
+        Q_sim(1,i,sim_sce) = Q_sim(2,i,sim_sce) + q_sim(2,i,sim_sce);
     end
 end
 
@@ -321,9 +320,6 @@ Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
     Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
-    Brownian_sheets_h_sim = cumsum(Brownian_sheets_sim(1:end-1,1:end));
-    % get delta_s_W
-    Brownian_sheets_h_sim(2:end,:) = Brownian_sheets_h_sim(2:end,:) - Brownian_sheets_h_sim(1:end-1,:);
     Brownian_sheets_eta_sim = Brownian_sheets_sim(end,:);
 
 
@@ -355,6 +351,7 @@ for sim_sce = 1:omega   % loop on the each scenario
         for j = 1:size(h_sim_rn,1)
             q_sim_rn(j,i,sim_sce) = exp(sum(h_sim_rn(1:j,i,sim_sce)));
         end
+        q_sim(2,i,sim_sce) = max(0,q_sim(3,i,sim_sce)-q_sim(3,i,sim_sce)*h_sim(3,i,sim_sce));
     end
     
     % simulation of Q
@@ -362,6 +359,7 @@ for sim_sce = 1:omega   % loop on the each scenario
         for j = 1:size(h_sim_rn,1)
             Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
         end
+        Q_sim(1,i,sim_sce) = Q_sim(2,i,sim_sce) + q_sim(2,i,sim_sce);
     end
 end
 
