@@ -1511,17 +1511,15 @@ Note that $Q(0)$ measures the total number of buy orders on the market, whereas 
 After the net demand surface $Q$ is calculate, the net demand sensitivity $q$ is simply taking the first order differential of $Q(p)$, where $p = 0,1,\ldots,S$. That is,
 
 $$
-\hat{q}(p,t) = \frac{\partial}{\partial p} \hat{Q}(p, t)
+\hat{q}(p,t) = -\frac{\partial}{\partial p} \hat{Q}(p, t)
 $$
 
 or in discrete expression,
 
 $$
-\hat{q}(p,t) = \frac{\hat{Q}(p, t) - \hat{Q}(p - \delta p, t)}{\delta p}
+\hat{q}(p,t) = - \frac{\hat{Q}(p, t) - \hat{Q}(p - \delta p, t)}{\delta p}
 $$
-where $p=1,2,\ldots,S$.
-
-And the $h(p,t)$ is the first order difference on $q(p, t)$. Since $q(p,t,\omega ) =\exp{\int_{x=0}^{p}h(x,t,\omega )dx}$, we have
+where $p=1,2,\ldots,S$. By this definition, $q(p,t)$ is no less than 0, since $\hat{Q}(p, t) \geq \hat{Q}(p - \delta p, t)$ if $\delta p \geq 0$. The $h(p,t)$ is the first order difference on $q(p, t)$. Since $q(p,t,\omega ) =\exp{\int_{x=0}^{p}h(x,t,\omega )dx}$, we have
 
 $$
 \hat{h}(p,t) = \log(\hat{q}(p,t)) - \log{\hat{q}(p-\delta p,t)}
@@ -1529,25 +1527,27 @@ $$
 where $\delta p$ represents the price partition. The $\eta$ at each time measures the net demand elasticity and is calculated by
 
 $$
-\hat{\eta}(t) = \frac{\hat{Q}(0, t)}{\hat{Q}(0, t) + \hat{Q}(S, t)}
+\hat{\eta}(t) = \frac{\hat{Q}(0, t)}{\hat{Q}(0, t) - \hat{Q}(S, t)}
 $$
+and $0 \leq \hat{\eta}(t) \leq 1$, since $\hat{Q}(0, t) > 0$ and $\hat{Q}(S, t)<0$.
 
-Now we have the grids of $\hat{Q}(p,t)$ with $p = 0,1,\ldots, S$ and $\hat{q}(p,t)$ with $p = 1,2,\ldots, S$ and $\hat{h}(p,t)$ with $p = 2,3,\ldots, S$. Let $HE$ matrix as
+
+Now we have the grids of $\hat{Q}(p,t)$ with $p = 0,1,\ldots, S$ and $\hat{q}(p,t)$ with $p = 1,2,\ldots, S$ and $\hat{h}(p,t)$ with $p = 2,3,\ldots, S$. Let $H$ matrix as
 
 $$
 \left(
-  \begin{array}{cccc}
-    dh_{2,0} & \cdots & dh_{S,0} & \frac{d\eta_{0}}{\sqrt{\eta_{0}(1-\eta_{0})}} \\
-    \vdots & \ddots & \vdots & \vdots \\
-    dh_{2,T} & \cdots & dh_{S,T} & \frac{d\eta_{T}}{\sqrt{\eta_{T}(1-\eta_{T})}}  \\
+  \begin{array}{ccccc}
+    q(1,0) & dh_{2,0} & \cdots & dh_{S,0} & \frac{d\eta_{0}}{\sqrt{\eta_{0}(1-\eta_{0})}} \\
+    \vdots & \vdots & \ddots & \vdots & \vdots \\
+    q(1,T) & dh_{2,T} & \cdots & dh_{S,T} & \frac{d\eta_{T}}{\sqrt{\eta_{T}(1-\eta_{T})}}  \\
   \end{array}
 \right)
 $$
 
-Calculate the instantaneous volatilities $\sigma_h$ and the correlation matrix $\hat{R}dt = Corr(HE)$. And take Cholesky decomposition with respect to $\hat{R}$. That is,
+Calculate the instantaneous volatilities $\sigma_h$ and the correlation matrix $\hat{R}dt = Corr(H)$. And take Cholesky decomposition with respect to $\hat{R}$. That is,
 
 $$
-B_{HE} = chol(HE)
+B_{H} = chol(H)
 $$
 
 where $b_{h_{i,j}}$ has $i,j = 2,3,\ldots,S$. And $b_{\eta,h_p}=0$ except for $b_{\eta,h_S}=1$.
@@ -1566,37 +1566,39 @@ where $b_{h_{i,j}}$ has $i,j = 2,3,\ldots,S$. And $b_{\eta,h_p}=0$ except for $b
 Set $a_h = 0$ and $\mu_h = 0$. First simulate the $h(p,t)$ process using the calibrated parameters over simulated time,
 
 \begin{eqnarray*}
-dh(p,t) &=& h_p(t+\delta t) - h_p(t) = [...]dt + \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \\
-        &=& \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \qquad p = 2, 3, \ldots, S
+dh(p,t) &=& h_p(t+\delta t) - h_p(t) \\
+        &=& [...]dt + \sigma_{h_p} \sum_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \\
+        &=& \sigma_{h_p} \sum_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \qquad p = 2, 3, \ldots, S
 \end{eqnarray*}
 
-and $h(0,t) = h(1,t) = 0$ for computational convenience. The boundary condition of the $q(p,t)$ process can be computed from $q(1,t)$ and $q(2,t)$. To be specific,
+and $h(0,t) = h(1,t) = 0$ for computational convenience. The boundary condition of the $q(p,t)$ process, $q(1,t)$, is simulated by
 
 $$
-q(1,t) = \max(0, q(2,t) - q(2,t)h(2,t))
+q(1,t) = [...]dt + \sigma_{q_0} \sum_{i=2}^{S} b_{q_{0, i}} z(i,t) \sqrt{\delta t \delta p} 
 $$
 
 And the rest of the numerical $q(p,t)$ values are
 
 $$
-q(p,t) = q(1,t) + \exp{\Sigma_{i=2}^{S}h_x(t)} \qquad p = 2, 3, \ldots, S
+q(p,t) = q(1,t) \exp{\sum_{i=2}^{p}h_i(t)} \qquad p = 2, 3, \ldots, S
 $$
 
 Then the boundary condition of the net demand $Q(0,t)$ is calculated as
 
 $$
-Q(0,t) = Q(1,t) + q(1,t)
+Q(0,t) = \frac{\eta(t)}{2-\eta(t)} \sum_{p=1}^{S} q(p)
 $$
 
 which is consistent with the intuition that $Q(0,t) \geq Q(1,t)$ given $q(1,t)\geq 0$. And the rest of the $Q(p,t)$ is
 
 $$
-Q(p,t) = [Q(0,t) + \Sigma_{i=1}^{S}q(i,t)\eta(t)] - [Q(0,t) + \Sigma_{i=1}^{p}q(i,t)\eta(t)]  \qquad p = 1, 2, \ldots, S
+Q(p,t) = [Q(0,t) + \sum_{i=1}^{S}q(i,t)]\eta(t) - [Q(0,t) + \sum_{i=1}^{p}q(i,t)]  \qquad p = 1, 2, \ldots, S
 $$
 where
 
 \begin{eqnarray*}
-d\eta(t) &=& \eta(t+\delta t) - \eta(t) = a_{\eta}(\bar{\eta} - \eta(t)) dt + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))}  \Sigma_{i=2}^{S} b_{\eta,h_p} z(i,t) \sqrt{\delta t } \\
+d\eta(t) &=& \eta(t+\delta t) - \eta(t) \\
+         &=& a_{\eta}(\bar{\eta} - \eta(t)) dt + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))}  \sum_{i=2}^{S} b_{\eta,h_p} z(i,t) \sqrt{\delta t } \\
          &=& a_{\eta}(\bar{\eta} - \eta(t)) dt + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))} z(S,t) \sqrt{\delta t }
 \end{eqnarray*}
 
@@ -1616,7 +1618,7 @@ The simulated net demand curve under physical measure using the above methods is
 Changing from physical measure simulation to P measure simulate requires the following adjustments on $h(p,t)$ process simulation.
 
 $$
-dh(p,t) = \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} [z(i,t) \sqrt{\delta t \delta p} - \lambda(i)\delta t \delta p] \qquad p = 2, 3, \ldots, S
+dh(p,t) = \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} [z(i,t) \sqrt{\delta t \delta p} - \lambda(i)\sqrt{\delta p}] \qquad p = 2, 3, \ldots, S
 $$
 
 To solve for $\lambda(i)$, let \{$\mu _{Q}$, $a_{Q},\sigma _{Q}$, $b_{Q}\}$ be the parameters of net demand.
@@ -1645,14 +1647,14 @@ satisfy:%
 \int_{s=0}^{S}\Sigma (\pi ,s)\lambda (s)ds=B(\pi )
 \end{equation*}
 
-The value of $\sigma _{Q}(p,t)b_{Q}(p,s,t)$ is given by:%
+The value of $\sigma _{Q}(p,t)b_{Q}(p,s,t)$ is given by ($p > 2$):%
 \begin{eqnarray*}
-&&\left( Q(0,t)\sigma _{Q_{0}}b_{Q_{0},s}+q(1,t)\sigma _{q_{1}}b_{q_{1},s}+\sum_{y=3}^{S}\exp
-(\sum_{i=2}^{p-1}h_{i}(t))\sum_{x=2}^{p-1}h_{x}(t)\sigma_{h_{x}}b_{h_{x,y}}\right) \eta (t)+ \\
+&&\left( Q(0,t)\sigma _{Q_{0}}b_{Q_{0},s}+q(1,t)\sigma _{q_{1}}b_{q_{1},s}+\sum_{y=2}^{S}\exp
+(\sum_{i=2}^{y-1}h_{i}(t))\sum_{x=2}^{y-1}\sigma_{h_{x}}b_{h_{x,y}}\right) \eta (t)+ \\
 &&\left( [Q(0,t)+\sum_{x=1}^{S}q(x,t)]\sigma _{\eta }\sqrt{\eta (t)(1-\eta
 (t))}\right) b_{\eta ,s}+ \\
-&&\left( Q(0,t)\sigma_{Q_{0}}b_{Q_{0},s}+q(1,t)\sigma_{q_{1}}b_{q_{1},s}+\sum_{y=3}^{p}\exp
-(\sum_{i=2}^{p-1}h_{i}(t))\sum_{x=2}^{p-1}h_{x}(t)\sigma_{h_{x}}b_{h_{x,y}}\right)
+&&\left( Q(0,t)\sigma_{Q_{0}}b_{Q_{0},s}+q(1,t)\sigma_{q_{1}}b_{q_{1},s}+\sum_{y=2}^{p}\exp
+(\sum_{i=2}^{y-1}h_{i}(t))\sum_{x=2}^{y-1}\sigma_{h_{x}}b_{h_{x,y}}\right)
 \end{eqnarray*}
 
 The simulated net demand curve under risk neutral measure using the above methods is shown in Figure~\ref{fig::AAPL_20110401_simulated_Q_P_measure}.
@@ -1665,5 +1667,15 @@ The simulated net demand curve under risk neutral measure using the above method
   \caption{The simulated net demand surface Q(p,t) under risk neutral measure.}\label{fig::AAPL_20110401_simulated_Q_P_measure}
 \end{figure}
 \end{center}
+
+
+\subsection{Option Pricing under Risk Neutral Measure}
+With the simulations under risk neutral measure, the corresponding call option price, $c(\pi, \omega)$, with strike $K$ at given time $t$ is
+
+$$
+c(\pi, \omega) = \frac{1}{N} \max{\pi(t,\omega)-K,0} \qquad \omega = 1,2,\ldots,N 
+$$
+
+where $\pi$ is the clearing price at simulation time $t$. 
 
 \end{document}

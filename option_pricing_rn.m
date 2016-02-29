@@ -1,6 +1,8 @@
 %% Empirical study framework using high frequency data
 % high frequency data contains milliseconds buy/sell shock orders
 
+omega = 100;
+
 %% Data processing
 company = 'AAPL'; date = '20110401';  % later functionalize
 
@@ -117,33 +119,6 @@ for i = 1:total_time_steps
     
 %     normal_rand_nums = randn(length(price_range), time_Rtep_minute*60);
 end
-
-% plot the Q (net demand) from 9:15 AM to 5 PM of the trading day
-figure
-surf(1:size(Q_profile,2), price_range,Q_profile,'EdgeColor','none')
-clear title;
-title('Actual Net Demand Q over Price and Time');
-xlabel('time');
-ylabel('price');
-zlabel('net demand Q');
-
-figure
-subplot(1,2,1)
-surf(1:size(Q_profile,2), price_range,q,'EdgeColor','none')
-clear title;
-title('Calculated q(p,t)');
-xlabel('time');
-ylabel('price');
-zlabel('Net Demand Sensitivity q');
-
-subplot(1,2,2)
-surf(1:size(Q_profile,2), price_range,h,'EdgeColor','none')
-clear title;
-title('Calculated h(p,t)');
-xlabel('time');
-ylabel('price');
-zlabel('h(p,t)');
-
 %% Simulation under Physical Measure
 % variance-covariance matrix of h and eta, Q measure
 smooth_h = h;
@@ -186,7 +161,6 @@ end
 sigma_eta_square = var(eta);
 
 simulate_time_steps = 32;
-omega = 1;   % only 1 scenario
 
 eta_sim_init = 1;
 eta_sim = zeros(simulate_time_steps,omega);
@@ -228,7 +202,8 @@ for sim_sce = 1:omega   % loop on the each scenario
                 normal_random_numbers(1:end-1,i,sim_sce) *sqrt(dt)*sqrt(price_step);
         q_sim(2,i,sim_sce) = abs(q_sim(2,i,sim_sce));
         for j = 3:size(h_sim,1)
-            q_sim(j,i,sim_sce) = q_sim(2,i,sim_sce) + sum(exp(h_sim(3:j,i,sim_sce)));
+            %q_sim(j,i,sim_sce) = q_sim(2,i,sim_sce) + sum(exp(h_sim(3:j,i,sim_sce)));
+            q_sim(j,i,sim_sce) = q_sim(j-1,i,sim_sce) *exp(h_sim(j,i,sim_sce));
         end
     end
     
@@ -240,14 +215,6 @@ for sim_sce = 1:omega   % loop on the each scenario
         end
     end
 end
-
-figure
-surf(1:simulate_time_steps,price_range(2:end),Q_sim(:,:,1),'EdgeColor','none');
-clear title;
-title('Simulated Net Demand Q over Price and Time (Physical Measure)');
-xlabel('time');
-ylabel('price');
-zlabel('net demand Q');
 
 %% Market price of risk equation
 
@@ -314,11 +281,14 @@ for each_sce = 1:omega
     end
 end
 
-
-%% Simulation under the risk neutral regime
+%% Option Pricing under Risk Neutral Measure
 h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
+
+clear_prices = zeros(simulate_time_steps,omega);
+
+normal_random_numbers = randn(size(h,1), simulate_time_steps, omega);
 
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
@@ -351,7 +321,8 @@ for sim_sce = 1:omega   % loop on the each scenario
                 normal_random_numbers(1:end-1,i,sim_sce) *sqrt(dt)*sqrt(price_step);
         q_sim_rn(2,i,sim_sce) = abs(q_sim_rn(2,i,sim_sce));
         for j = 3:size(h_sim,1)
-            q_sim_rn(j,i,sim_sce) = q_sim_rn(2,i,sim_sce) + sum(exp(h_sim_rn(3:j,i,sim_sce)));
+            %q_sim_rn(j,i,sim_sce) = q_sim_rn(2,i,sim_sce) + sum(exp(h_sim_rn(3:j,i,sim_sce)));
+            q_sim_rn(j,i,sim_sce) = q_sim_rn(j-1,i,sim_sce) *exp(h_sim_rn(j,i,sim_sce));
         end
     end
     
@@ -361,15 +332,45 @@ for sim_sce = 1:omega   % loop on the each scenario
         for j = 1:size(h_sim,1)
             Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
         end
+        ind = find(Q_sim_rn(:,i,sim_sce)<0,1);
+        clear_prices(i, sim_sce) = price_range(ind+1);
+    end
+end
+
+
+option_strikes = linspace(0.8*min(min(clear_prices)),1.2*max(max(clear_prices)),20);
+
+call_option_price = zeros(simulate_time_steps, length(option_strikes));
+put_option_price = zeros(simulate_time_steps, length(option_strikes));
+implied_vol_call = zeros(simulate_time_steps, length(option_strikes));
+implied_vol_put = zeros(simulate_time_steps, length(option_strikes));
+
+% calculate the call option price
+for t = 1:simulate_time_steps
+    for k = 1:length(option_strikes)
+        call_option_price(t,k) = sum(max(clear_prices(t,:)-option_strikes(k),0))/omega;
+        put_option_price(t,k) = sum(max(option_strikes(k) - clear_prices(t,:),0))/omega;
+    end
+end
+
+% calculate the 3M implied vol
+for t = 1:simulate_time_steps
+    for k = 1:length(option_strikes)
+        implied_vol_call(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.01, 0.25, call_option_price(i,k), [], 0, [], {'Call'});
+        implied_vol_put(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.01, 0.25, put_option_price(i,k), [], 0, [], {'Put'});
     end
 end
 
 figure
-surf(1:simulate_time_steps,price_range(2:end),Q_sim_rn(:,:,1),'EdgeColor','none');
+plot((option_strikes/mean(clear_prices(13,:))),implied_vol_put(13,:));
 clear title;
-title('Simulated Net Demand Q over Price and Time (P Measure)');
-xlabel('time');
-ylabel('price');
-zlabel('net demand Q');
+title('3-month Implied Volatility for Put Options');
+xlabel('strike/moneyness');
+ylabel('vol');
 
-diff_Q_rn_q = Q_sim_rn(:,:,1) - Q_sim(:,:,1);
+figure
+plot((option_strikes/mean(clear_prices(13,:))),implied_vol_call(13,:));
+clear title;
+title('3-month Implied Volatility for Call Options');
+xlabel('strike/moneyness');
+ylabel('vol');
