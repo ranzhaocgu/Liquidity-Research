@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2015.9.29)  27 FEB 2016 23:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2015.9.29)  28 FEB 2016 20:11
 entering extended mode
 **20160205_liquidity.tex
 (20160205_liquidity.tex
@@ -215,19 +215,21 @@ File: Simulated_Q_Physical_Measure.eps Graphic file (type eps)
 <Simulated_Q_Physical_Measure.eps> [22] [23]
 File: Simulated_Q_P_Measure.eps Graphic file (type eps)
  <Simulated_Q_P_Measure.eps>
-[24] (20160205_liquidity.aux)
+[24]
+File: implied_vol.eps Graphic file (type eps)
+ <implied_vol.eps> [25] (20160205_liquidity.aux)
 
 LaTeX Warning: There were undefined references.
 
  )
 (\end occurred when \ifx on line 678 was incomplete) 
 Here is how much of TeX's memory you used:
- 1747 strings out of 493674
- 20221 string characters out of 3141562
+ 1749 strings out of 493674
+ 20251 string characters out of 3141562
  79628 words of memory out of 3000000
- 5086 multiletter control sequences out of 15000+200000
+ 5087 multiletter control sequences out of 15000+200000
  15685 words of font info for 64 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  28i,13n,26p,527b,308s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on 20160205_liquidity.dvi (24 pages, 102024 bytes).
+Output written on 20160205_liquidity.dvi (25 pages, 103636 bytes).

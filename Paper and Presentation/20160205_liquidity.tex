@@ -1574,7 +1574,7 @@ dh(p,t) &=& h_p(t+\delta t) - h_p(t) \\
 and $h(0,t) = h(1,t) = 0$ for computational convenience. The boundary condition of the $q(p,t)$ process, $q(1,t)$, is simulated by
 
 $$
-q(1,t) = [...]dt + \sigma_{q_0} \sum_{i=2}^{S} b_{q_{0, i}} z(i,t) \sqrt{\delta t \delta p} 
+q(1,t) = [...]dt + \sigma_{q_0} \sum_{i=2}^{S} b_{q_{0, i}} z(i,t) \sqrt{\delta t \delta p}
 $$
 
 And the rest of the numerical $q(p,t)$ values are
@@ -1668,14 +1668,30 @@ The simulated net demand curve under risk neutral measure using the above method
 \end{figure}
 \end{center}
 
-
+\newpage
 \subsection{Option Pricing under Risk Neutral Measure}
-With the simulations under risk neutral measure, the corresponding call option price, $c(\pi, \omega)$, with strike $K$ at given time $t$ is
+With the simulations under risk neutral measure, the corresponding call/put option price, $c(\pi, \omega)$, with strike $K$ at given time $t$ is
+
+\begin{eqnarray*}
+c(\pi, \omega) &=& \frac{1}{N} \max{\pi(t,\omega)-K,0} \\
+p(\pi, \omega) &=& \frac{1}{N} \max{K - \pi(t,\omega),0} \qquad \omega = 1,2,\ldots,N 
+\end{eqnarray*}
+
+where $\pi$ is the clearing price at simulation time $t$. With the option prices, the implied volatility for different strike levels are calculated.
 
 $$
-c(\pi, \omega) = \frac{1}{N} \max{\pi(t,\omega)-K,0} \qquad \omega = 1,2,\ldots,N 
+\sigma(\pi, K) = BS^{-1}(\pi,K,r,T,p)
 $$
+where $\pi$ is the clearing price, $K$ is the strike level, $r$ is the interest rate, $T$ is time to maturity and $p$ is the put option price
 
-where $\pi$ is the clearing price at simulation time $t$. 
+The 3-month volatility smile generated from the put options at simulation period is shown in the following graph. %Figure~\ref{fig::Put_Option_Vols}.
 
+\begin{center}
+%\begin{figure}
+  %\centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale = 0.5]{implied_vol.eps}\\
+  %\caption{The 3-month implied volatility levels from put options.}\label{fig::Put_Option_Vols}
+%\end{figure}
+\end{center}
 \end{document}

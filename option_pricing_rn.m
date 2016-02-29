@@ -362,7 +362,7 @@ for t = 1:simulate_time_steps
 end
 
 figure
-plot((option_strikes/mean(clear_prices(13,:))),implied_vol_put(13,:));
+plot((option_strikes(6:end)/mean(clear_prices(13,:))),implied_vol_put(13,6:end));
 clear title;
 title('3-month Implied Volatility for Put Options');
 xlabel('strike/moneyness');
