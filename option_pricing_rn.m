@@ -1,7 +1,7 @@
 %% Empirical study framework using high frequency data
 % high frequency data contains milliseconds buy/sell shock orders
 
-omega = 100;
+omega = 500;
 
 %% Data processing
 company = 'AAPL'; date = '20110401';  % later functionalize
@@ -362,7 +362,7 @@ for t = 1:simulate_time_steps
 end
 
 figure
-plot((option_strikes(6:end)/mean(clear_prices(13,:))),implied_vol_put(13,6:end));
+plot((mean(clear_prices(13,:))./option_strikes(6:end)),implied_vol_put(13,6:end));
 clear title;
 title('3-month Implied Volatility for Put Options');
 xlabel('strike/moneyness');

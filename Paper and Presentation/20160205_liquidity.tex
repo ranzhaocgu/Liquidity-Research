@@ -1674,7 +1674,7 @@ With the simulations under risk neutral measure, the corresponding call/put opti
 
 \begin{eqnarray*}
 c(\pi, \omega) &=& \frac{1}{N} \max{\pi(t,\omega)-K,0} \\
-p(\pi, \omega) &=& \frac{1}{N} \max{K - \pi(t,\omega),0} \qquad \omega = 1,2,\ldots,N 
+p(\pi, \omega) &=& \frac{1}{N} \max{K - \pi(t,\omega),0} \qquad \omega = 1,2,\ldots,N
 \end{eqnarray*}
 
 where $\pi$ is the clearing price at simulation time $t$. With the option prices, the implied volatility for different strike levels are calculated.
@@ -1687,11 +1687,11 @@ where $\pi$ is the clearing price, $K$ is the strike level, $r$ is the interest 
 The 3-month volatility smile generated from the put options at simulation period is shown in the following graph. %Figure~\ref{fig::Put_Option_Vols}.
 
 \begin{center}
-%\begin{figure}
-  %\centering
+\begin{figure}
+  \centering
   % Requires \usepackage{graphicx}
   \includegraphics[scale = 0.5]{implied_vol.eps}\\
-  %\caption{The 3-month implied volatility levels from put options.}\label{fig::Put_Option_Vols}
-%\end{figure}
+  \caption{The 3-month implied volatility levels from put options.}\label{fig::Put_Option_Vols}
+\end{figure}
 \end{center}
 \end{document}
