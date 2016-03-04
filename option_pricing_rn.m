@@ -274,10 +274,24 @@ end
 
 lambda_s_omega = zeros(size(h_sim,1),simulate_time_steps, omega);
 
+count_inverse = 0;
+inverse_error = [];
+
 for each_sce = 1:omega 
     for t = 1:simulate_time_steps
+%         try
+%             lambda_s_omega(:,t,each_sce) = Sigma(:,:,t,each_sce)\...
+%                 B_pi_t(:,t,each_sce);
+%         catch
+%             lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
+%                 B_pi_t(:,t,each_sce);
+%             count_inverse = count_inverse + 1;
+%             inverse_error(count_inverse) = ...
+%                 norm(Sigma(:,:,t,each_sce)*lambda_s_omega(:,t,each_sce)-B_pi_t(:,t,each_sce),2) / ...
+%                 norm(B_pi_t(:,t,each_sce),2);
+%         end
         lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
-            B_pi_t(:,t,each_sce);
+                 B_pi_t(:,t,each_sce);
     end
 end
 
