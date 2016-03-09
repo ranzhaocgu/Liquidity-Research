@@ -290,8 +290,18 @@ for each_sce = 1:omega
 %                 norm(Sigma(:,:,t,each_sce)*lambda_s_omega(:,t,each_sce)-B_pi_t(:,t,each_sce),2) / ...
 %                 norm(B_pi_t(:,t,each_sce),2);
 %         end
-        lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
+        
+        lambda_s_omega(:,t,each_sce) = Sigma(:,:,t,each_sce)\...
                  B_pi_t(:,t,each_sce);
+        [warnmsg, msgid] = lastwarn;
+        if strcmp(msgid,'MATLAB:singularMatrix')
+            count_inverse = count_inverse + 1;
+            lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
+                 B_pi_t(:,t,each_sce);
+             inverse_error(count_inverse) = ...
+                 norm(Sigma(:,:,t,each_sce)*lambda_s_omega(:,t,each_sce)-B_pi_t(:,t,each_sce),2) / ...
+                 norm(B_pi_t(:,t,each_sce),2);
+        end
     end
 end
 
