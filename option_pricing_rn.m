@@ -1,3 +1,8 @@
+sprintf('======================================= \n')
+sprintf('Start of the process. \n')
+sprintf('======================================= \n')
+tStart=tic;
+
 %% Empirical study framework using high frequency data
 % high frequency data contains milliseconds buy/sell shock orders
 
@@ -39,6 +44,9 @@ millisecond = num(:,strcmp(title, 'Stock_Selected_Milliseconds'));
 price = num(:,strcmp(title, 'Stock_Selected_Price')); 
 shares = num(:,strcmp(title, 'Stock_Selected_Shares')); 
 
+out = sprintf('======================================= \n')
+out = sprintf('The data loading is done. \n')
+out = sprintf('======================================= \n')
 
 %% Market Data Calibration
 % time steps
@@ -119,6 +127,11 @@ for i = 1:total_time_steps
     
 %     normal_rand_nums = randn(length(price_range), time_Rtep_minute*60);
 end
+
+out = sprintf('======================================= \n')
+out = sprintf('The parameter calibration is done. \n')
+out = sprintf('======================================= \n')
+
 %% Simulation under Physical Measure
 % variance-covariance matrix of h and eta, Q measure
 smooth_h = h;
@@ -198,6 +211,8 @@ for sim_sce = 1:omega   % loop on the each scenario
 
     % simulate q
     for i = 1:simulate_time_steps
+        q_sim(1,i,sim_sce) = abs(std(q(2,:))* normal_random_numbers(1:size(h_sim,1),i,sim_sce)' * ...
+            q_b_h_eta_matrix(1:size(h_sim,1),1) *sqrt(dt)*sqrt(price_step)/100);
         q_sim(2,i,sim_sce) = std(q(2,:))*q_b_h_eta_matrix(1,2:end-1)* ...
                 normal_random_numbers(1:end-1,i,sim_sce) *sqrt(dt)*sqrt(price_step);
         q_sim(2,i,sim_sce) = abs(q_sim(2,i,sim_sce));
@@ -216,7 +231,14 @@ for sim_sce = 1:omega   % loop on the each scenario
     end
 end
 
+out = sprintf('======================================= \n')
+out = sprintf('Simulation under physical measure is done. \n')
+out = sprintf('======================================= \n')
+
 %% Market price of risk equation
+
+out = sprintf('======================================= \n')
+out = sprintf('Start solving the market price of risk equation. \n')
 
 atm_index = zeros(simulate_time_steps, omega);
 atm_price = zeros(simulate_time_steps, omega);
@@ -242,21 +264,34 @@ for each_sce = 1:omega % outer loop for the scenarios
     for i = 1:simulate_time_steps  % t loop
         sigma_h_x_b_h_x_s = b_h_eta_matrix(2:end-1,2:end-1);
 
-        for j = 1:(size(h_sim,1)-1)    % pi loop
-            for z = 1:(size(h_sim,1)-1)  % s loop
-                temp = h_sim(2:end,i,each_sce) * sigma_h_x_b_h_x_s(:,z)';
-                A(j,z,i,each_sce) = sum(exp(sum(h_sim(:,i,each_sce)))*temp(:,z))*eta_sim(i,each_sce);
+        for j = 1:(size(h_sim,1))    % pi loop
+            for z = 1:(size(h_sim,1))  % s loop
+                if i == 1
+                    temp = std(std(h_sim(2:end,:,each_sce))) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
+                else
+                    temp = std(h_sim(2:end,i,each_sce)) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
+                end
+                temp = [temp;std(h_sim(2:end,i,each_sce)) * q_b_h_eta_matrix(end,2:end-1)*1000];
+                A(j,z,i,each_sce) = q_sim(1,i,each_sce)*std(q(2,:))*q_b_h_eta_matrix(z,1)/100 ...
+                    + sum(exp(sum(h_sim(:,i,each_sce)))*temp(:,z))*eta_sim(i,each_sce);
 
                 B(j,z,i,each_sce) = (Q_sim(1,i,each_sce) + sum(q_sim(:,i,each_sce))*...
                     corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,each_sce)*(1-eta_sim(i,each_sce)))) ...
                     * corr_matrix_h_eta(end-1,end);
                 
-                C(j,z,i,each_sce) = sum(exp(sum(h_sim(:,i,each_sce)))*temp(1:j,z));
+                cohort = exp(sum(h_sim(1:j,i,each_sce)))*temp(1:j,z);
+                C(j,z,i,each_sce) = q_sim(1,i,each_sce)*std(q(2,:))*q_b_h_eta_matrix(j,1)/100 ...
+                    + sum(cohort(1:j));
             end
         end
     end
     
     Sigma(:,:,:,each_sce) = A(:,:,:,each_sce) + B(:,:,:,each_sce) + C(:,:,:,each_sce);
+    
+    if mod(each_sce, 10) == 0
+        out = sprintf('The iteration %d, with completion percentage of %0.5g%%. \n',each_sce,each_sce/omega*100)
+    end
+    
 end
 
 C_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
@@ -296,7 +331,7 @@ for each_sce = 1:omega
         [warnmsg, msgid] = lastwarn;
         if strcmp(msgid,'MATLAB:singularMatrix')
             count_inverse = count_inverse + 1;
-            lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
+            lambda_s_omega(:,t,each_sce) = inv(Sigma(:,:,t,each_sce))*...
                  B_pi_t(:,t,each_sce);
              inverse_error(count_inverse) = ...
                  norm(Sigma(:,:,t,each_sce)*lambda_s_omega(:,t,each_sce)-B_pi_t(:,t,each_sce),2) / ...
@@ -305,7 +340,14 @@ for each_sce = 1:omega
     end
 end
 
+out = sprintf('End of solving the market price of risk equation. \n')
+out = sprintf('======================================= \n')
+
 %% Option Pricing under Risk Neutral Measure
+
+out = sprintf('======================================= \n')
+out = sprintf('Start option pricing. \n')
+
 h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
@@ -385,6 +427,10 @@ for t = 1:simulate_time_steps
     end
 end
 
+% Implied Vol Surface from Bloomberg
+put_option_strike_bbg = 0.7:0.05:1.15;
+put_option_vol_bbg = [0.3839,0.3617,0.3475,0.3343,0.3216,0.3096,0.2984,0.2874,0.2774,0.2692];
+
 figure
 plot((mean(clear_prices(13,:))./option_strikes(6:end)),implied_vol_put(13,6:end));
 clear title;
@@ -398,3 +444,11 @@ clear title;
 title('3-month Implied Volatility for Call Options');
 xlabel('strike/moneyness');
 ylabel('vol');
+
+out = sprintf('End of option pricing. \n')
+out = sprintf('======================================= \n')
+
+tElapsed=toc(tStart);
+out = sprintf('======================================= \n')
+out = sprintf('End of the process. Taking %d seconds. \n', tElapsed)
+out = sprintf('======================================= \n')

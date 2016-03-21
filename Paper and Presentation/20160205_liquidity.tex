@@ -1620,10 +1620,10 @@ Let the volatility of the clearing price be:
 Define:
 
 \begin{eqnarray*}
-C(\pi ,t) &=&\sigma _{\pi }(t)\int_{s=0}^{S}\frac{\partial \lbrack \sigma_{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\partial p}|_{p=\pi }b_{\pi }(s,t)ds \\
-&=&\int_{s=0}^{S}\frac{\partial \lbrack \sigma _{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\partial p}|_{p=\pi }\sigma _{\pi }(t)b_{\pi }(s,t)ds \\
-&=&-\int_{s_{2}=0}^{S}\frac{\partial \lbrack \sigma _{Q}(p,t,\omega)b_{Q}(p,s_{2},t)]}{\partial p}|_{p=\pi }\frac{\sigma _{Q}(\pi(t),t)\int_{s=0}^{S}b_{Q}(\pi (t),s,t)ds}{q(\pi (t),t)}ds_{2} \\
-B(\pi ,t) &=&\mu _{Q}(\pi ,t)-\frac{1}{2}\frac{\partial ^{2}Q(p,t)}{\partial p^{2}}|_{p=\pi }+C(\pi ,t) \\
+C(\pi ,t) &=&\sigma _{\pi }(t)\sum_{s=0}^{S}\frac{\Delta \lbrack \sigma_{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\Delta p}|_{p=\pi }b_{\pi }(s,t) \\
+&=&\sum_{s=0}^{S}\frac{\Delta \lbrack \sigma _{Q}(p,t,\omega )b_{Q}(p,s,t)]}{\Delta p}|_{p=\pi }\sigma _{\pi }(t)b_{\pi }(s,t) \\
+&=&-\sum_{s_{2}=0}^{S}\frac{\Delta \lbrack \sigma _{Q}(p,t,\omega)b_{Q}(p,s_{2},t)]}{\Delta p}|_{p=\pi }\frac{\sigma _{Q}(\pi(t),t)\sum_{s=0}^{S}b_{Q}(\pi (t),s,t)}{q(\pi (t),t)} \\
+B(\pi ,t) &=&\mu _{Q}(\pi ,t)-\frac{1}{2}\frac{Q(p+1,t) - 2Q(p,t) + Q(p-1,t)}{\Delta p^{2}}|_{p=\pi }+C(\pi ,t) \\
 \Sigma (\pi ,s,t) &=&\sigma _{Q}(\pi ,t)b_{Q}(\pi ,s,t)
 \end{eqnarray*}
 \bigskip
@@ -1631,7 +1631,7 @@ B(\pi ,t) &=&\mu _{Q}(\pi ,t)-\frac{1}{2}\frac{\partial ^{2}Q(p,t)}{\partial p^{
 The M.P.R. are, for each $t$ and $\omega $ to find $\lambda (s)$ that
 satisfy:%
 \begin{equation*}
-\int_{s=0}^{S}\Sigma (\pi ,s)\lambda (s)ds=B(\pi )
+\sum_{s=0}^{S}\Sigma (\pi ,s)\lambda (s) = B(\pi )
 \end{equation*}
 
 The value of $\sigma _{Q}(p,t)b_{Q}(p,s,t)$ is given by ($p > 2$):%
@@ -1669,9 +1669,11 @@ where $\pi$ is the clearing price at simulation time $t$. With the option prices
 $$
 p(K) = BS(\pi,K,r,T,\sigma(K))
 $$
-where $\pi$ is the clearing price, $K$ is the strike level, $r$ is the interest rate, $T$ is time to maturity and $p$ is the put option price
+where $\pi$ is the clearing price, $K$ is the strike level, $r$ is the interest rate, $T$ is time to maturity and $p$ is the put option price corresponding to the strike $K$.
+The implied volatility $\sigma(K)$ is being solved.
 
-The 3-month volatility smile generated from the put options at simulation period is shown in the following graph. %Figure~\ref{fig::Put_Option_Vols}.
+The 3-month volatility smile generated from the put options at simulation period is shown in Figure~\ref{fig::Put_Option_Vols}.
+The implied volatilities by simulations under risk neutral measure are plotted as blue line, which are compared to the real historical implied volatility levels from Bloomberg. The interest rate level is selected as 0.301\%, and the maturity of the option is 3 month (91 days).
 
 \begin{center}
 \begin{figure}
