@@ -222,8 +222,10 @@ for sim_sce = 1:omega   % loop on the each scenario
     % adjustment of h_sim
     h_sim(:,:,sim_sce) = h_sim(:,:,sim_sce)/1000;
 
-    % simulate q
+    % simulate q    
     for i = 1:simulate_time_steps
+        q_sim(1,i,sim_sce) = abs(std(q(2,:))* normal_random_numbers(1:size(h_sim,1),i,sim_sce)' * ...
+            q_b_h_eta_matrix(1:size(h_sim,1),1) *sqrt(dt)*sqrt(price_step)/100);
         q_sim(2,i,sim_sce) = std(q(2,:))*q_b_h_eta_matrix(1,2:end-1)* ...
                 normal_random_numbers(1:end-1,i,sim_sce) *sqrt(dt)*sqrt(price_step);
         q_sim(2,i,sim_sce) = abs(q_sim(2,i,sim_sce));
@@ -275,16 +277,24 @@ for each_sce = 1:omega % outer loop for the scenarios
     for i = 1:simulate_time_steps  % t loop
         sigma_h_x_b_h_x_s = b_h_eta_matrix(2:end-1,2:end-1);
 
-        for j = 1:(size(h_sim,1)-1)    % pi loop
-            for z = 1:(size(h_sim,1)-1)  % s loop
-                temp = h_sim(2:end,i,each_sce) * sigma_h_x_b_h_x_s(:,z)';
-                A(j,z,i,each_sce) = sum(exp(sum(h_sim(:,i,each_sce)))*temp(:,z))*eta_sim(i,each_sce);
+        for j = 1:(size(h_sim,1))    % pi loop
+            for z = 1:(size(h_sim,1))  % s loop
+                if i == 1
+                    temp = std(std(h_sim(2:end,:,each_sce))) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
+                else
+                    temp = std(h_sim(2:end,i,each_sce)) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
+                end
+                temp = [temp;std(h_sim(2:end,i,each_sce)) * q_b_h_eta_matrix(end,2:end-1)*1000];
+                A(j,z,i,each_sce) = q_sim(1,i,each_sce)*std(q(2,:))*q_b_h_eta_matrix(z,1)/100 ...
+                    + sum(exp(sum(h_sim(:,i,each_sce)))*temp(:,z))*eta_sim(i,each_sce);
 
                 B(j,z,i,each_sce) = (Q_sim(1,i,each_sce) + sum(q_sim(:,i,each_sce))*...
                     corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,each_sce)*(1-eta_sim(i,each_sce)))) ...
                     * corr_matrix_h_eta(end-1,end);
                 
-                C(j,z,i,each_sce) = sum(exp(sum(h_sim(:,i,each_sce)))*temp(1:j,z));
+                cohort = exp(sum(h_sim(1:j,i,each_sce)))*temp(1:j,z);
+                C(j,z,i,each_sce) = q_sim(1,i,each_sce)*std(q(2,:))*q_b_h_eta_matrix(j,1)/100 ...
+                    + sum(cohort(1:j));
             end
         end
     end
@@ -309,11 +319,13 @@ lambda_s_omega = zeros(size(h_sim,1),simulate_time_steps, omega);
 
 for each_sce = 1:omega 
     for t = 1:simulate_time_steps
-        lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
+        lambda_s_omega(:,t,each_sce) = inv(Sigma(:,:,t,each_sce))*...
             B_pi_t(:,t,each_sce);
     end
 end
 
+% rank(Sigma(:,:,t,each_sce))
+% Sigma(:,:,3,each_sce)
 
 %% Simulation under the risk neutral regime
 h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
@@ -343,7 +355,7 @@ for sim_sce = 1:omega   % loop on the each scenario
     end
     
     % adjustment of h_sim
-    h_sim_rn(:,:,sim_sce) = h_sim_rn(:,:,sim_sce)/1000;
+    h_sim_rn(:,:,sim_sce) = h_sim_rn(:,:,sim_sce)/1e5;
 
     % simulate q
     for i = 1:simulate_time_steps

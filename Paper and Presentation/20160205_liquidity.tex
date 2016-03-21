@@ -1479,7 +1479,7 @@ In this section, we introduce the calibration and simulation process for the mar
 
 \subsection{Data}
 The high frequency trading data are collected from the NYSE Arcabook limit orders for April 2011.
-Historical NYSE Arcabook data provide information of the complete LOB from NYSE, NYSE Arca, NYSE MKT, NASDAQ and the ArcaEdge platforms from 3:30 a.m. to 8:00 p.m. ET
+Historical NYSE Arcabook data provide information of the complete limit order book (LOB) from NYSE, NYSE Arca, NYSE MKT, NASDAQ and the ArcaEdge platforms from 3:30 a.m. to 8:00 p.m. ET
 under the high speed of latencies (less than 5 milliseconds). Each limit order contains the unique reference number, the time stamp in seconds and milliseconds, the limit
 price in U.S. dollars, the quantity in number of shares, and the trading type (“B”: buy or “S”:sell).
 
@@ -1497,7 +1497,7 @@ $$
 \hat{Q}(p) = \# \textrm{of buy order with limit order price} > p - \# \textrm{of sell order with limit order price} < p
 $$
 
-Note that $Q(0)$ measures the total number of buy orders on the market, whereas $Q(S)$ measures the total number of sell order on the market. And $Q(\pi) = 0$. A typical net demand $Q$ surface with two dimension as price and time for AAPL stock on April 1st, 2011 is shown in Figure~\ref{fig::AAPL_20110401_Calibration_Q}.
+Note that $\hat{Q}(0)$ measures the total number of buy orders on the market, whereas $\hat{Q}(S)$ measures the total number of sell order on the market. And $\hat{Q}(\pi) = 0$. A typical net demand $\hat{Q}$ surface with two dimension as price and time for AAPL stock on April 1st, 2011 is shown in Figure~\ref{fig::AAPL_20110401_Calibration_Q}.
 
 \begin{center}
 \begin{figure}
@@ -1508,49 +1508,37 @@ Note that $Q(0)$ measures the total number of buy orders on the market, whereas 
 \end{figure}
 \end{center}
 
-After the net demand surface $Q$ is calculate, the net demand sensitivity $q$ is simply taking the first order differential of $Q(p)$, where $p = 0,1,\ldots,S$. That is,
+After the net demand surface $\hat{Q}$ is calculated, the net demand sensitivity $\hat{q}$ is calculated by taking the first order difference of $\hat{Q}(p)$, where $p = 0,1,\ldots,S$. That is,
 
 $$
-\hat{q}(p,t) = -\frac{\partial}{\partial p} \hat{Q}(p, t)
+\hat{q}(p,t) = - \frac{\hat{Q}(p, t) - \hat{Q}(p - \Delta p, t)}{\Delta p}
 $$
-
-or in discrete expression,
-
-$$
-\hat{q}(p,t) = - \frac{\hat{Q}(p, t) - \hat{Q}(p - \delta p, t)}{\delta p}
-$$
-where $p=1,2,\ldots,S$. By this definition, $q(p,t)$ is no less than 0, since $\hat{Q}(p, t) \geq \hat{Q}(p - \delta p, t)$ if $\delta p \geq 0$. The $h(p,t)$ is the first order difference on $q(p, t)$. Since $q(p,t,\omega ) =\exp{\int_{x=0}^{p}h(x,t,\omega )dx}$, we have
+where $p=1,2,\ldots,S$. And $\Delta p = \$1.91$. By this definition, $\hat{q}(p,t)$ is no less than 0, since $\hat{Q}(p, t) \geq \hat{Q}(p - \delta p, t)$ if $\delta p \geq 0$. The discretization of  $q(p,t,\omega ) =\exp{\int_{x=0}^{p}h(x,t,\omega )dx}$ yields
 
 $$
-\hat{h}(p,t) = \log(\hat{q}(p,t)) - \log{\hat{q}(p-\delta p,t)}
+\hat{h}(p,t) = \log(\hat{q}(p,t)) - \log{\hat{q}(p-\Delta p,t)}
 $$
-where $\delta p$ represents the price partition. The $\eta$ at each time measures the net demand elasticity and is calculated by
+where $\delta p$ represents the price partition. The net demand elasticity $\hat{\eta}$ is calculated by
 
 $$
 \hat{\eta}(t) = \frac{\hat{Q}(0, t)}{\hat{Q}(0, t) - \hat{Q}(S, t)}
 $$
 and $0 \leq \hat{\eta}(t) \leq 1$, since $\hat{Q}(0, t) > 0$ and $\hat{Q}(S, t)<0$.
 
-
-Now we have the grids of $\hat{Q}(p,t)$ with $p = 0,1,\ldots, S$ and $\hat{q}(p,t)$ with $p = 1,2,\ldots, S$ and $\hat{h}(p,t)$ with $p = 2,3,\ldots, S$. Let $H$ matrix as
+Now we have all the values of $\hat{Q}(p,t)$ with $p = 0,1,\ldots, S$ and $\hat{q}(p,t)$ with $p = 1,2,\ldots, S$ and $\hat{h}(p,t)$ with $p = 2,3,\ldots, S$. Let the $H$ matrix be
 
 $$
+H =
 \left(
   \begin{array}{ccccc}
-    q(1,0) & dh_{2,0} & \cdots & dh_{S,0} & \frac{d\eta_{0}}{\sqrt{\eta_{0}(1-\eta_{0})}} \\
+    \hat{q}(1,0) & \Delta \hat{h}_{2,0} & \cdots & \Delta \hat{h}_{S,0} & \frac{\Delta \hat{\eta}_{0}}{\sqrt{\hat{\eta}_{0}(1-\hat{\eta}_{0})}} \\
     \vdots & \vdots & \ddots & \vdots & \vdots \\
-    q(1,T) & dh_{2,T} & \cdots & dh_{S,T} & \frac{d\eta_{T}}{\sqrt{\eta_{T}(1-\eta_{T})}}  \\
+    \hat{q}(1,T) & \Delta \hat{h}_{2,T} & \cdots & \Delta \hat{h}_{S,T} & \frac{\Delta \hat{\eta}_{T}}{\sqrt{\hat{\eta}_{T}(1-\hat{\eta}_{T})}}  \\
   \end{array}
 \right)
 $$
 
-Calculate the instantaneous volatilities $\sigma_h$ and the correlation matrix $\hat{R}dt = Corr(H)$. And take Cholesky decomposition with respect to $\hat{R}$. That is,
-
-$$
-B_{H} = chol(H)
-$$
-
-where $b_{h_{i,j}}$ has $i,j = 2,3,\ldots,S$. And $b_{\eta,h_p}=0$ except for $b_{\eta,h_S}=1$.
+We calculate the instantaneous volatilities $\sigma_h$ and $\sigma_{\eta}$ by the method of moments. We use Cholesky and Schur decomposition with respect to calculate $B_{H}=H^{1/2}$, where $b_{\eta,h_p}=0$ except for $b_{\eta,h_S}=1$.
 
 \begin{center}
 \begin{figure}
@@ -1563,21 +1551,20 @@ where $b_{h_{i,j}}$ has $i,j = 2,3,\ldots,S$. And $b_{\eta,h_p}=0$ except for $b
 
 
 \subsection{Simulation Methodology}
-Set $a_h = 0$ and $\mu_h = 0$. First simulate the $h(p,t)$ process using the calibrated parameters over simulated time,
+We first simulate the $h(p,t)$ process using the calibrated parameters over simulated time. For simplicity we remove the ''hat'' sign on the parameters. We also assume the $h$ and $q$ processes have zero drift.
 
 \begin{eqnarray*}
-dh(p,t) &=& h_p(t+\delta t) - h_p(t) \\
-        &=& [...]dt + \sigma_{h_p} \sum_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \\
-        &=& \sigma_{h_p} \sum_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\delta t \delta p} \qquad p = 2, 3, \ldots, S
+\Delta h(p,t) &=& h_p(t+\Delta t) - h_p(t) \\
+        &=& \sigma_{h_p} \sum_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\Delta t \Delta p} \\
+        &=& \sigma_{h_p} \sum_{i=2}^{S} b_{h_{p, i}} z(i,t) \sqrt{\Delta t \Delta p} \qquad p = 2, 3, \ldots, S
 \end{eqnarray*}
 
-and $h(0,t) = h(1,t) = 0$ for computational convenience. The boundary condition of the $q(p,t)$ process, $q(1,t)$, is simulated by
+and $h(0,t) = h(1,t) = 0$ for computational convenience. The time step $\Delta t$ is 15 minutes in this case. The boundary condition of the $q(p,t)$ process, $q(1,t)$, is simulated by
 
 $$
-q(1,t) = [...]dt + \sigma_{q_0} \sum_{i=2}^{S} b_{q_{0, i}} z(i,t) \sqrt{\delta t \delta p}
+q(1,t) = \sigma_{q_0} \sum_{i=2}^{S} b_{q_{0, i}} z(i,t) \sqrt{\Delta t \Delta p}
 $$
-
-And the rest of the numerical $q(p,t)$ values are
+where $z(i,t)$ is a random normally distributed number. The rest of the numerical $q(p,t)$ values are
 
 $$
 q(p,t) = q(1,t) \exp{\sum_{i=2}^{p}h_i(t)} \qquad p = 2, 3, \ldots, S
@@ -1597,9 +1584,9 @@ $$
 where
 
 \begin{eqnarray*}
-d\eta(t) &=& \eta(t+\delta t) - \eta(t) \\
-         &=& a_{\eta}(\bar{\eta} - \eta(t)) dt + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))}  \sum_{i=2}^{S} b_{\eta,h_p} z(i,t) \sqrt{\delta t } \\
-         &=& a_{\eta}(\bar{\eta} - \eta(t)) dt + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))} z(S,t) \sqrt{\delta t }
+\Delta \eta(t) &=& \eta(t+\delta t) - \eta(t) \\
+         &=& a_{\eta}(\bar{\eta} - \eta(t)) \Delta t + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))}  \sum_{i=2}^{S} b_{\eta,h_p} z(i,t) \sqrt{\Delta t } \\
+         &=& a_{\eta}(\bar{\eta} - \eta(t))\Delta t + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))} z(S,t) \sqrt{\Delta t }
 \end{eqnarray*}
 
 \subsection{Simulation Results on Physical Measure}
@@ -1618,7 +1605,7 @@ The simulated net demand curve under physical measure using the above methods is
 Changing from physical measure simulation to P measure simulate requires the following adjustments on $h(p,t)$ process simulation.
 
 $$
-dh(p,t) = \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} [z(i,t) \sqrt{\delta t \delta p} - \lambda(i)\sqrt{\delta p}] \qquad p = 2, 3, \ldots, S
+\Delta h(p,t) = \sigma_{h_p} \Sigma_{i=2}^{S} b_{h_{p, i}} [z(i,t) \sqrt{\Delta t \Delta p} - \lambda(i)\sqrt{\Delta p}] \qquad p = 2, 3, \ldots, S
 $$
 
 To solve for $\lambda(i)$, let \{$\mu _{Q}$, $a_{Q},\sigma _{Q}$, $b_{Q}\}$ be the parameters of net demand.
@@ -1673,14 +1660,14 @@ The simulated net demand curve under risk neutral measure using the above method
 With the simulations under risk neutral measure, the corresponding call/put option price, $c(\pi, \omega)$, with strike $K$ at given time $t$ is
 
 \begin{eqnarray*}
-c(\pi, \omega) &=& \frac{1}{N} \max{\pi(t,\omega)-K,0} \\
-p(\pi, \omega) &=& \frac{1}{N} \max{K - \pi(t,\omega),0} \qquad \omega = 1,2,\ldots,N
+c(K) &=& \frac{1}{N} \sum_{\omega} \max\left(\pi(t,\omega)-K,0\right) \\
+p(K) &=& \frac{1}{N} \sum_{\omega} \max\left(K - \pi(t,\omega),0\right) \qquad \omega = 1,2,\ldots,N
 \end{eqnarray*}
 
-where $\pi$ is the clearing price at simulation time $t$. With the option prices, the implied volatility for different strike levels are calculated.
+where $\pi$ is the clearing price at simulation time $t$. With the option prices, the implied volatility for different strike levels are calculated by solving
 
 $$
-\sigma(\pi, K) = BS^{-1}(\pi,K,r,T,p)
+p(K) = BS(\pi,K,r,T,\sigma(K))
 $$
 where $\pi$ is the clearing price, $K$ is the strike level, $r$ is the interest rate, $T$ is time to maturity and $p$ is the put option price
 
