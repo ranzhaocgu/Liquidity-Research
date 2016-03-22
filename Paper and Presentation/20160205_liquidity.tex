@@ -1673,14 +1673,16 @@ where $\pi$ is the clearing price, $K$ is the strike level, $r$ is the interest 
 The implied volatility $\sigma(K)$ is being solved.
 
 The 3-month volatility smile generated from the put options at simulation period is shown in Figure~\ref{fig::Put_Option_Vols}.
-The implied volatilities by simulations under risk neutral measure are plotted as blue line, which are compared to the real historical implied volatility levels from Bloomberg. The interest rate level is selected as 0.301\%, and the maturity of the option is 3 month (91 days).
+The implied volatilities by simulations under risk neutral measure are plotted as blue line, which are compared to the real historical implied volatility levels from Bloomberg. The interest rate level is selected as 0.301\%, and the dividend yield is set to 0\%. The maturity of the option is in 10 days. The simulation is evaluated under 50 scenarios.
+
+The at-the-money simulated implied volatility is lined up with the Bloomberg quote, at 25\% level. For out-of-money and in-the-money implied volatilities levels, the simulated results seem to overestimate the volatilities. 
 
 \begin{center}
 \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
   \includegraphics[scale = 0.5]{implied_vol.eps}\\
-  \caption{The 3-month implied volatility levels from put options.}\label{fig::Put_Option_Vols}
+  \caption{The 3-month implied volatility levels from call options.}\label{fig::Put_Option_Vols}
 \end{figure}
 \end{center}
 \end{document}

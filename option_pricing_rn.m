@@ -6,7 +6,7 @@ tStart=tic;
 %% Empirical study framework using high frequency data
 % high frequency data contains milliseconds buy/sell shock orders
 
-omega = 50;
+omega = 500;
 
 %% Data processing
 company = 'AAPL'; date = '20110401';  % later functionalize
@@ -250,6 +250,7 @@ A = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
 B = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
 C = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
 
+% count_solving = 0;
 for each_sce = 1:omega % outer loop for the scenarios
     for xxx = 1:simulate_time_steps
         atm_index(xxx,each_sce) = find(Q_sim(:, xxx) <= 0, 1);
@@ -331,8 +332,7 @@ for each_sce = 1:omega
         [warnmsg, msgid] = lastwarn;
         if strcmp(msgid,'MATLAB:singularMatrix')
             count_inverse = count_inverse + 1;
-            lambda_s_omega(:,t,each_sce) = inv(Sigma(:,:,t,each_sce))*...
-                 B_pi_t(:,t,each_sce);
+            lambda_s_omega(:,t,each_sce) = Sigma(:,:,t,each_sce)\B_pi_t(:,t,each_sce);
              inverse_error(count_inverse) = ...
                  norm(Sigma(:,:,t,each_sce)*lambda_s_omega(:,t,each_sce)-B_pi_t(:,t,each_sce),2) / ...
                  norm(B_pi_t(:,t,each_sce),2);
@@ -379,7 +379,7 @@ for sim_sce = 1:omega   % loop on the each scenario
     end
     
     % adjustment of h_sim
-    h_sim_rn(:,:,sim_sce) = h_sim_rn(:,:,sim_sce)/1000;
+    h_sim_rn(:,:,sim_sce) = h_sim_rn(:,:,sim_sce)/1e5;
 
     % simulate q
     for i = 1:simulate_time_steps
@@ -422,32 +422,41 @@ end
 % calculate the 3M implied vol
 for t = 1:simulate_time_steps
     for k = 1:length(option_strikes)
-        implied_vol_call(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.01, 0.25, call_option_price(i,k), [], 0, [], {'Call'});
-        implied_vol_put(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.01, 0.25, put_option_price(i,k), [], 0, [], {'Put'});
+        implied_vol_call(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.00301, 10/365, call_option_price(t,k), [], 0, [], {'Call'});
+        implied_vol_put(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.00301, 10/365, put_option_price(t,k), [], 0, [], {'Put'});
     end
 end
 
 % Implied Vol Surface from Bloomberg
-put_option_strike_bbg = 0.7:0.05:1.15;
-put_option_vol_bbg = [0.3839,0.3617,0.3475,0.3343,0.3216,0.3096,0.2984,0.2874,0.2774,0.2692];
+put_option_strike_bbg = 0.7:0.05:1.20;
+put_option_vol_bbg = [0.7520,0.6399,0.5630,0.4705,0.3830,0.3052,0.2524,0.2296,0.2639,0.3245,0.3755];
 
-figure
-plot((mean(clear_prices(13,:))./option_strikes(6:end)),implied_vol_put(13,6:end));
-clear title;
-title('3-month Implied Volatility for Put Options');
-xlabel('strike/moneyness');
-ylabel('vol');
-
+at_time_step = 32;
+moneyness_for_put = mean(clear_prices(at_time_step,:))./option_strikes;
 figure
 hold on
-plot((option_strikes/mean(clear_prices(13,:))),implied_vol_call(13,:));
+plot(moneyness_for_put,implied_vol_put(at_time_step,1:end));
 clear title;
 title('3-month Implied Volatility for Put Options');
-xlabel('strike/moneyness');
+xlabel('moneyness');
 ylabel('vol');
 plot(put_option_strike_bbg,put_option_vol_bbg);
 legend('Simulation', 'Bloomberg','Location','NorthEast')
 hold off
+
+moneyness_for_call = option_strikes/mean(clear_prices(at_time_step,:));
+figure
+hold on
+plot(moneyness_for_call(6:14),implied_vol_call(at_time_step,6:14));
+clear title;
+title('3-month Implied Volatility for Call Options');
+xlabel('moneyness');
+ylabel('vol');
+plot(put_option_strike_bbg(4:end),put_option_vol_bbg(4:end));
+legend('Simulation', 'Bloomberg','Location','NorthEast')
+hold off
+
+
 
 fprintf('End of option pricing. \n')
 fprintf('======================================= \n')
