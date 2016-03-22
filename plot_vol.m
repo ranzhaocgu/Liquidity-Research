@@ -8,3 +8,7 @@ ylabel('vol');
 plot(put_option_strike_bbg,put_option_vol_bbg);
 legend('Simulation', 'Bloomberg','Location','NorthEast')
 hold off
+
+fprintf('======================================= \n')
+fprintf('Start of the process. \n')
+fprintf('======================================= \n')

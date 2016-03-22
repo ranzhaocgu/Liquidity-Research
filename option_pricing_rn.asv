@@ -238,7 +238,7 @@ fprintf('======================================= \n')
 %% Market price of risk equation
 
 fprintf('======================================= \n')
-fprintf('Start solving the market price of risk equation. \n')
+out = sprintf('Start solving the market price of risk equation. \n')
 
 atm_index = zeros(simulate_time_steps, omega);
 atm_price = zeros(simulate_time_steps, omega);
@@ -289,7 +289,7 @@ for each_sce = 1:omega % outer loop for the scenarios
     Sigma(:,:,:,each_sce) = A(:,:,:,each_sce) + B(:,:,:,each_sce) + C(:,:,:,each_sce);
     
     if mod(each_sce, 10) == 0
-        fprintf('The iteration %d, with completion percentage of %0.5g%%. \n',each_sce,each_sce/omega*100)
+        out = sprintf('The iteration %d, with completion percentage of %0.5g%%. \n',each_sce,each_sce/omega*100)
     end
     
 end
@@ -340,13 +340,13 @@ for each_sce = 1:omega
     end
 end
 
-fprintf('End of solving the market price of risk equation. \n')
-fprintf('======================================= \n')
+out = sprintf('End of solving the market price of risk equation. \n')
+out = sprintf('======================================= \n')
 
 %% Option Pricing under Risk Neutral Measure
 
-fprintf('======================================= \n')
-fprintf('Start option pricing. \n')
+out = sprintf('======================================= \n')
+out = sprintf('Start option pricing. \n')
 
 h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
@@ -439,20 +439,16 @@ xlabel('strike/moneyness');
 ylabel('vol');
 
 figure
-hold on
 plot((option_strikes/mean(clear_prices(13,:))),implied_vol_call(13,:));
 clear title;
-title('3-month Implied Volatility for Put Options');
+title('3-month Implied Volatility for Call Options');
 xlabel('strike/moneyness');
 ylabel('vol');
-plot(put_option_strike_bbg,put_option_vol_bbg);
-legend('Simulation', 'Bloomberg','Location','NorthEast')
-hold off
 
-fprintf('End of option pricing. \n')
-fprintf('======================================= \n')
+out = sprintf('End of option pricing. \n')
+out = sprintf('======================================= \n')
 
 tElapsed=toc(tStart);
-fprintf('======================================= \n')
-fprintf('End of the process. Taking %d seconds. \n', tElapsed)
-fprintf('======================================= \n')
+out = sprintf('======================================= \n')
+out = sprintf('End of the process. Taking %d seconds. \n', tElapsed)
+out = sprintf('======================================= \n')
