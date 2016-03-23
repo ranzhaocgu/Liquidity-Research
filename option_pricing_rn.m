@@ -431,7 +431,7 @@ end
 put_option_strike_bbg = 0.7:0.05:1.20;
 put_option_vol_bbg = [0.7520,0.6399,0.5630,0.4705,0.3830,0.3052,0.2524,0.2296,0.2639,0.3245,0.3755];
 
-at_time_step = 32;
+at_time_step = 20;
 moneyness_for_put = mean(clear_prices(at_time_step,:))./option_strikes;
 figure
 hold on
@@ -456,6 +456,17 @@ plot(put_option_strike_bbg(4:end),put_option_vol_bbg(4:end));
 legend('Simulation', 'Bloomberg','Location','NorthEast')
 hold off
 
+at_time_step = 20;
+figure
+hold on
+plot([moneyness_for_put(17:-1:11) moneyness_for_call(11:14)],[implied_vol_put(at_time_step,17:-1:11) implied_vol_call(at_time_step,11:14)], 'bo-', 'LineWidth',2);
+clear title;
+title('Implied Volatility of Equity Options with 10-day Maturity');
+xlabel('moneyness');
+ylabel('vol');
+plot(put_option_strike_bbg(2:end),put_option_vol_bbg(2:end), 'rx-', 'LineWidth',2);
+legend('Simulation', 'Bloomberg','Location','NorthEast')
+hold off
 
 
 fprintf('End of option pricing. \n')
