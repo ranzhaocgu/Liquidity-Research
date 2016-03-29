@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.22)  28 OCT 2015 11:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.22)  28 MAR 2016 19:14
 entering extended mode
 **"HFD Steven Additional Slices.tex"
 ("HFD Steven Additional Slices.tex"
@@ -1337,10 +1337,10 @@ File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1358,10 +1358,10 @@ Package pdftex.def Info: background-eps-converted-to.pdf used on input line 86.
 {C:/Users/ranzhao/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./backgro
 und-eps-converted-to.pdf> <./logoCGU.png>]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1394,10 +1394,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 108.
 
  <./logoCGU_45cut.png>]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1437,10 +1437,10 @@ File: LOB_Match/LOB_Match_0.png Graphic file (type png)
 Package pdftex.def Info: LOB_Match/LOB_Match_0.png used on input line 145.
 (pdftex.def)             Requested size: 323.24615pt x 230.3935pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1480,10 +1480,10 @@ File: LOB_Match/LOB_Match_1.png Graphic file (type png)
 Package pdftex.def Info: LOB_Match/LOB_Match_1.png used on input line 156.
 (pdftex.def)             Requested size: 323.24615pt x 230.3935pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1523,10 +1523,10 @@ File: LOB_Match/LOB_Match_2.png Graphic file (type png)
 Package pdftex.def Info: LOB_Match/LOB_Match_2.png used on input line 167.
 (pdftex.def)             Requested size: 323.24615pt x 230.3935pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1566,10 +1566,10 @@ File: LOB_Match/LOB_Match_3.png Graphic file (type png)
 Package pdftex.def Info: LOB_Match/LOB_Match_3.png used on input line 178.
 (pdftex.def)             Requested size: 323.24615pt x 230.3935pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1608,10 +1608,10 @@ File: Demand_Supply.png Graphic file (type png)
 Package pdftex.def Info: Demand_Supply.png used on input line 191.
 (pdftex.def)             Requested size: 293.49359pt x 230.3935pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1660,10 +1660,10 @@ Package pdftex.def Info: ORCL/ORCL_20110404_SellSize_3D_5min.png used on input
 line 219.
 (pdftex.def)             Requested size: 257.39812pt x 199.3765pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1705,10 +1705,10 @@ Package pdftex.def Info: ./figs//ORCL/ORCL_20110401_Clearing_Prices.png used on
  input line 231.
 (pdftex.def)             Requested size: 401.40053pt x 230.3935pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1742,10 +1742,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 231.
 
  <./figs//ORCL/ORCL_20110401_Clearing_Prices.png>]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1779,10 +1779,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 257.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1816,10 +1816,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 286.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1853,10 +1853,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 308.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1890,10 +1890,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 337.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1927,10 +1927,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 353.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -1964,10 +1964,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 384.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2001,10 +2001,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 410.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2038,10 +2038,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 430.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2075,10 +2075,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 467.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2123,10 +2123,10 @@ File: q_diff_of_Q.png Graphic file (type png)
 Package pdftex.def Info: q_diff_of_Q.png used on input line 540.
 (pdftex.def)             Requested size: 180.40947pt x 115.19841pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2161,10 +2161,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 540.
  <C:/ProgramData/MiKTeX/2.9/tex/latex/TUD/figs/Sim/Q_net_demand.png (PNG copy)>
  <C:/ProgramData/MiKTeX/2.9/tex/latex/TUD/figs/Sim/q_diff_of_Q.png (PNG copy)>]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2203,10 +2203,10 @@ File: Q_sim.png Graphic file (type png)
 Package pdftex.def Info: Q_sim.png used on input line 571.
 (pdftex.def)             Requested size: 267.78285pt x 204.79637pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2239,10 +2239,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 571.
 
  <C:/ProgramData/MiKTeX/2.9/tex/latex/TUD/figs/Sim/Q_sim.png (PNG copy)>]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2276,10 +2276,10 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 588.
 
 ]
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2328,10 +2328,10 @@ File: ORCL/ORCL_20110404_B.png Graphic file (type png)
 Package pdftex.def Info: ORCL/ORCL_20110404_B.png used on input line 672.
 (pdftex.def)             Requested size: 284.06416pt x 191.99588pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2380,10 +2380,10 @@ File: ABX/ABX_20110404_B.png Graphic file (type png)
 Package pdftex.def Info: ABX/ABX_20110404_B.png used on input line 724.
 (pdftex.def)             Requested size: 284.06416pt x 191.99588pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2433,10 +2433,10 @@ File: CSCO/CSCO_20110404_B.png Graphic file (type png)
 Package pdftex.def Info: CSCO/CSCO_20110404_B.png used on input line 772.
 (pdftex.def)             Requested size: 284.06416pt x 191.99588pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
@@ -2470,25 +2470,30 @@ Package pdftex.def Info: logoCGU_45cut.png used on input line 772.
 
  <./CSCO/CSCO_20110404_Simulated_Volatility_Smile.png> <./CSCO/CSCO_20110404_B.
 png>]
+<implied_vol.png, id=352, 421.575pt x 316.18124pt>
+File: implied_vol.png Graphic file (type png)
+ <use implied_vol.png>
+Package pdftex.def Info: implied_vol.png used on input line 788.
+(pdftex.def)             Requested size: 409.61555pt x 307.19263pt.
 Package epstopdf Info: Source file: <background.eps>
-(epstopdf)                    date: 2011-11-12 02:04:08
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 3965936 bytes
 (epstopdf)             Output file: <background-eps-converted-to.pdf>
-(epstopdf)                    date: 2012-02-05 23:10:20
+(epstopdf)                    date: 2016-03-02 08:49:28
 (epstopdf)                    size: 190781 bytes
 (epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
 .pdf background.eps>
-(epstopdf)             \includegraphics on input line 808.
+(epstopdf)             \includegraphics on input line 788.
 Package epstopdf Info: Output file is already uptodate.
 File: background-eps-converted-to.pdf Graphic file (type pdf)
- <use background-eps-converted-to.pdf>
-Package pdftex.def Info: background-eps-converted-to.pdf used on input line 808
+
+<use background-eps-converted-to.pdf>
+Package pdftex.def Info: background-eps-converted-to.pdf used on input line 788
 .
 (pdftex.def)             Requested size: 364.19049pt x 273.14557pt.
 File: logoCGU_45cut.png Graphic file (type png)
-
-<use logoCGU_45cut.png>
-Package pdftex.def Info: logoCGU_45cut.png used on input line 808.
+ <use logoCGU_45cut.png>
+Package pdftex.def Info: logoCGU_45cut.png used on input line 788.
 (pdftex.def)             Requested size: 50.31392pt x 50.18768pt.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
@@ -2502,29 +2507,66 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 
 File: logoCGU_45cut.png Graphic file (type png)
 <use logoCGU_45cut.png>
-Package pdftex.def Info: logoCGU_45cut.png used on input line 808.
+Package pdftex.def Info: logoCGU_45cut.png used on input line 788.
 (pdftex.def)             Requested size: -25.7363pt x 13.65399pt.
  [29
+
+ <./implied_vol.png (PNG copy)>]
+Package epstopdf Info: Source file: <background.eps>
+(epstopdf)                    date: 2016-03-02 08:49:28
+(epstopdf)                    size: 3965936 bytes
+(epstopdf)             Output file: <background-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-03-02 08:49:28
+(epstopdf)                    size: 190781 bytes
+(epstopdf)             Command: <epstopdf --outfile=background-eps-converted-to
+.pdf background.eps>
+(epstopdf)             \includegraphics on input line 823.
+Package epstopdf Info: Output file is already uptodate.
+File: background-eps-converted-to.pdf Graphic file (type pdf)
+
+<use background-eps-converted-to.pdf>
+Package pdftex.def Info: background-eps-converted-to.pdf used on input line 823
+.
+(pdftex.def)             Requested size: 364.19049pt x 273.14557pt.
+File: logoCGU_45cut.png Graphic file (type png)
+ <use logoCGU_45cut.png>
+Package pdftex.def Info: logoCGU_45cut.png used on input line 823.
+(pdftex.def)             Requested size: 50.31392pt x 50.18768pt.
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+[]
+ []
+
+File: logoCGU_45cut.png Graphic file (type png)
+<use logoCGU_45cut.png>
+Package pdftex.def Info: logoCGU_45cut.png used on input line 823.
+(pdftex.def)             Requested size: -25.7363pt x 13.65399pt.
+ [30
 
 ]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 810.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 810.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 825.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 825.
  ("HFD Steven Additional Slices.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 810.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 810.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 825.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 825.
 Package rerunfilecheck Info: File `"HFD Steven Additional Slices".out' has not 
 changed.
 (rerunfilecheck)             Checksum: 1F6C1A68F39A1A98FC84DB06417BA760;767.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 810.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 825.
  ) 
 Here is how much of TeX's memory you used:
- 21054 strings out of 493673
- 395663 string characters out of 3141523
+ 21065 strings out of 493673
+ 395850 string characters out of 3141523
  499131 words of memory out of 3000000
- 23790 multiletter control sequences out of 15000+200000
+ 23797 multiletter control sequences out of 15000+200000
  84968 words of font info for 86 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  56i,17n,60p,435b,800s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -2543,10 +2585,10 @@ fonts/type1/nowacki/iwona/iwonali.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
 type1/nowacki/iwona/iwonam.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/symbols/msam7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb>
-Output written on "HFD Steven Additional Slices.pdf" (29 pages, 2801200 bytes).
+Output written on "HFD Steven Additional Slices.pdf" (30 pages, 2827695 bytes).
 
 PDF statistics:
- 429 PDF objects out of 1000 (max. 8388607)
- 91 named destinations out of 1000 (max. 500000)
- 465 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 438 PDF objects out of 1000 (max. 8388607)
+ 94 named destinations out of 1000 (max. 500000)
+ 476 words of extra memory for PDF output out of 10000 (max. 10000000)
 
