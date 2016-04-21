@@ -198,6 +198,23 @@ Q_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
 
 normal_random_numbers = randn(size(h,1), simulate_time_steps, omega);
 
+atm_index = zeros(simulate_time_steps, omega);
+atm_price = zeros(simulate_time_steps, omega);
+Sigma = zeros(size(h_sim,1),size(h_sim,1),simulate_time_steps, omega);
+dQ_sim = (Q_sim(:,2:end,:) - Q_sim(:,1:end-1,:))./Q_sim(:,1:end-1,:);
+
+% the calculation of SIGMA 
+A = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+B = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+C = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+
+h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
+q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
+Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
+
+C_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
+B_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
+
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
     Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
@@ -253,16 +270,6 @@ zlabel('net demand Q');
 
 %% Market price of risk equation
 
-atm_index = zeros(simulate_time_steps, omega);
-atm_price = zeros(simulate_time_steps, omega);
-Sigma = zeros(size(h_sim,1),size(h_sim,1),simulate_time_steps, omega);
-dQ_sim = (Q_sim(:,2:end,:) - Q_sim(:,1:end-1,:))./Q_sim(:,1:end-1,:);
-
-% the calculation of SIGMA 
-A = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
-B = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
-C = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
-
 for each_sce = 1:omega % outer loop for the scenarios
     for xxx = 1:simulate_time_steps
         atm_index(xxx,each_sce) = find(Q_sim(:, xxx) <= 0, 1);
@@ -302,8 +309,7 @@ for each_sce = 1:omega % outer loop for the scenarios
     Sigma(:,:,:,each_sce) = A(:,:,:,each_sce) + B(:,:,:,each_sce) + C(:,:,:,each_sce);
 end
 
-C_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
-B_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
+
  
 for each_sce = 1:omega 
     for t = 1:simulate_time_steps
@@ -328,9 +334,6 @@ end
 % Sigma(:,:,3,each_sce)
 
 %% Simulation under the risk neutral regime
-h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
-q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
-Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
 
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
