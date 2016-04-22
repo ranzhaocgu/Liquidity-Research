@@ -6,7 +6,7 @@ tStart=tic;
 %% Empirical study framework using high frequency data
 % high frequency data contains milliseconds buy/sell shock orders
 
-omega = 500;
+omega = 3;
 
 %% Data processing
 company = 'AAPL'; date = '20110401';  % later functionalize
@@ -177,6 +177,7 @@ simulate_time_steps = 32;
 
 eta_sim_init = 1;
 eta_sim = zeros(simulate_time_steps,omega);
+eta_sim_rn = zeros(simulate_time_steps,omega);
 a_eta = 0.9;
 
 h_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
@@ -184,6 +185,26 @@ q_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
 Q_sim = zeros(size(h,1)-1,simulate_time_steps,omega);
 
 normal_random_numbers = randn(size(h,1), simulate_time_steps, omega);
+
+atm_index = zeros(simulate_time_steps, omega);
+atm_price = zeros(simulate_time_steps, omega);
+Sigma = zeros(size(h_sim,1),size(h_sim,1),simulate_time_steps, omega);
+
+
+% the calculation of SIGMA 
+A = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+B = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+C = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
+
+h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
+q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
+Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
+
+C_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
+B_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
+
+lambda_s_omega = zeros(size(h_sim,1),simulate_time_steps, omega);
+clear_prices = zeros(simulate_time_steps,omega);
 
 % simulate the results into next pre-defined periods
 for sim_sce = 1:omega   % loop on the each scenario
@@ -193,6 +214,8 @@ for sim_sce = 1:omega   % loop on the each scenario
     % annualize the timestep
     dt = time_step_minute/60;
     eta_sim(1,sim_sce) = eta_sim_init + a_eta*(mean(eta) - eta_sim_init)* dt ...
+                + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(1);
+    eta_sim_rn(1,sim_sce) = eta_sim_init + a_eta*(mean(eta) - eta_sim_init)* dt ...
                 + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(1);
             
     for i = 2:simulate_time_steps
@@ -209,7 +232,7 @@ for sim_sce = 1:omega   % loop on the each scenario
     % adjustment of h_sim
     h_sim(:,:,sim_sce) = h_sim(:,:,sim_sce)/1000;
 
-    % simulate q
+    % simulate q    
     for i = 1:simulate_time_steps
         q_sim(1,i,sim_sce) = abs(std(q(2,:))* normal_random_numbers(1:size(h_sim,1),i,sim_sce)' * ...
             q_b_h_eta_matrix(1:size(h_sim,1),1) *sqrt(dt)*sqrt(price_step)/100);
@@ -217,192 +240,90 @@ for sim_sce = 1:omega   % loop on the each scenario
                 normal_random_numbers(1:end-1,i,sim_sce) *sqrt(dt)*sqrt(price_step);
         q_sim(2,i,sim_sce) = abs(q_sim(2,i,sim_sce));
         for j = 3:size(h_sim,1)
-            %q_sim(j,i,sim_sce) = q_sim(2,i,sim_sce) + sum(exp(h_sim(3:j,i,sim_sce)));
-            q_sim(j,i,sim_sce) = q_sim(j-1,i,sim_sce) *exp(h_sim(j,i,sim_sce));
+            q_sim(j,i,sim_sce) = q_sim(2,i,sim_sce) + sum(exp(h_sim(3:j,i,sim_sce)));
         end
     end
     
     % simulation of Q
-    for i = 1:simulate_time_steps
+    for i = 1:simulate_time_steps  % start of the simualtion time loop
         %Q_sim(1,i,sim_sce) = 2 / (2-eta_sim(i,omega)) * sum(q_sim(:,i,sim_sce));
         for j = 1:size(h_sim,1)
             Q_sim(j,i,sim_sce) = sum(q_sim(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim(1:j,i,sim_sce));
         end
-    end
-end
-
-fprintf('======================================= \n')
-fprintf('Simulation under physical measure is done. \n')
-fprintf('======================================= \n')
-
-%% Market price of risk equation
-
-fprintf('======================================= \n')
-fprintf('Start solving the market price of risk equation. \n')
-
-atm_index = zeros(simulate_time_steps, omega);
-atm_price = zeros(simulate_time_steps, omega);
-Sigma = zeros(size(h_sim,1),size(h_sim,1),simulate_time_steps, omega);
-dQ_sim = (Q_sim(:,2:end,:) - Q_sim(:,1:end-1,:))./Q_sim(:,1:end-1,:);
-
-% the calculation of SIGMA 
-A = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
-B = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
-C = zeros(size(h_sim,1), size(h_sim,1), simulate_time_steps, omega);
-
-% count_solving = 0;
-for each_sce = 1:omega % outer loop for the scenarios
-    for xxx = 1:simulate_time_steps
-        atm_index(xxx,each_sce) = find(Q_sim(:, xxx) <= 0, 1);
-        atm_price(xxx,each_sce) = price_range(atm_index(xxx,each_sce));
-    end
-
-    % calculate sigma and b's
-    corr_dQ_sim = corr(dQ_sim(:,:,each_sce));
-
-    % calculation the sigma matrix
-    % Sigma(pi, s, t, omega)
-    for i = 1:simulate_time_steps  % t loop
-        sigma_h_x_b_h_x_s = b_h_eta_matrix(2:end-1,2:end-1);
-
+        
+        % market price of risk equation
+        atm_index(i,sim_sce) = find(Q_sim(:, i, sim_sce) <= 0, 1);
+        atm_price(i,sim_sce) = price_range(atm_index(i,sim_sce));
+        
         for j = 1:(size(h_sim,1))    % pi loop
             for z = 1:(size(h_sim,1))  % s loop
                 if i == 1
-                    temp = std(std(h_sim(2:end,:,each_sce))) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
+                    temp = std(std(h_sim(2:end,:,sim_sce))) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
                 else
-                    temp = std(h_sim(2:end,i,each_sce)) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
+                    temp = std(h_sim(2:end,i,sim_sce)) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
                 end
-                temp = [temp;std(h_sim(2:end,i,each_sce)) * q_b_h_eta_matrix(end,2:end-1)*1000];
-                A(j,z,i,each_sce) = q_sim(1,i,each_sce)*std(q(2,:))*q_b_h_eta_matrix(z,1)/100 ...
-                    + sum(exp(sum(h_sim(:,i,each_sce)))*temp(:,z))*eta_sim(i,each_sce);
+                temp = [temp;std(h_sim(2:end,i,sim_sce)) * q_b_h_eta_matrix(end,2:end-1)*1000];
+                A(j,z,i,sim_sce) = q_sim(1,i,sim_sce)*std(q(2,:))*q_b_h_eta_matrix(z,1)/100 ...
+                    + sum(exp(sum(h_sim(:,i,sim_sce)))*temp(:,z))*eta_sim(i,sim_sce);
 
-                B(j,z,i,each_sce) = (Q_sim(1,i,each_sce) + sum(q_sim(:,i,each_sce))*...
-                    corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,each_sce)*(1-eta_sim(i,each_sce)))) ...
+                B(j,z,i,sim_sce) = (Q_sim(1,i,sim_sce) + sum(q_sim(:,i,sim_sce))*...
+                    corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,sim_sce)*(1-eta_sim(i,sim_sce)))) ...
                     * corr_matrix_h_eta(end-1,end);
                 
-                cohort = exp(sum(h_sim(1:j,i,each_sce)))*temp(1:j,z);
-                C(j,z,i,each_sce) = q_sim(1,i,each_sce)*std(q(2,:))*q_b_h_eta_matrix(j,1)/100 ...
+                cohort = exp(sum(h_sim(1:j,i,sim_sce)))*temp(1:j,z);
+                C(j,z,i,sim_sce) = q_sim(1,i,sim_sce)*std(q(2,:))*q_b_h_eta_matrix(j,1)/100 ...
                     + sum(cohort(1:j));
             end
         end
-    end
-    
-    Sigma(:,:,:,each_sce) = A(:,:,:,each_sce) + B(:,:,:,each_sce) + C(:,:,:,each_sce);
-    
-    if mod(each_sce, 10) == 0
-        fprintf('The iteration %d, with completion percentage of %0.5g%%. \n',each_sce,each_sce/omega*100)
-    end
-    
-end
-
-C_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
-B_pi_t = zeros(size(h_sim,1),simulate_time_steps, omega);
- 
-for each_sce = 1:omega 
-    for t = 1:simulate_time_steps
-        C_pi_t(2:end,t,each_sce) = -sum((Sigma(2:end,:,t,each_sce) - ...
-            Sigma(1:end-1,:,t,each_sce))./ Sigma(1:end-1,:,t,each_sce),2);
-        C_pi_t(isnan(C_pi_t)) = 0;
-        B_pi_t(3:end,t,each_sce) = C_pi_t(3:end,t,each_sce) - ...
-            0.5*(Q_sim(1:end-2,t,each_sce)-2*Q_sim(2:end-1,t,each_sce)+Q_sim(3:end,t,each_sce));
-    end
-end
-
-lambda_s_omega = zeros(size(h_sim,1),simulate_time_steps, omega);
-
-count_inverse = 0;
-inverse_error = [];
-
-for each_sce = 1:omega 
-    for t = 1:simulate_time_steps
-%         try
-%             lambda_s_omega(:,t,each_sce) = Sigma(:,:,t,each_sce)\...
-%                 B_pi_t(:,t,each_sce);
-%         catch
-%             lambda_s_omega(:,t,each_sce) = pinv(Sigma(:,:,t,each_sce))*...
-%                 B_pi_t(:,t,each_sce);
-%             count_inverse = count_inverse + 1;
-%             inverse_error(count_inverse) = ...
-%                 norm(Sigma(:,:,t,each_sce)*lambda_s_omega(:,t,each_sce)-B_pi_t(:,t,each_sce),2) / ...
-%                 norm(B_pi_t(:,t,each_sce),2);
-%         end
         
-        lambda_s_omega(:,t,each_sce) = Sigma(:,:,t,each_sce)\...
-                 B_pi_t(:,t,each_sce);
-        [warnmsg, msgid] = lastwarn;
-        if strcmp(msgid,'MATLAB:singularMatrix')
-            count_inverse = count_inverse + 1;
-            lambda_s_omega(:,t,each_sce) = Sigma(:,:,t,each_sce)\B_pi_t(:,t,each_sce);
-             inverse_error(count_inverse) = ...
-                 norm(Sigma(:,:,t,each_sce)*lambda_s_omega(:,t,each_sce)-B_pi_t(:,t,each_sce),2) / ...
-                 norm(B_pi_t(:,t,each_sce),2);
+        Sigma(:,:,:,sim_sce) = A(:,:,:,sim_sce) + B(:,:,:,sim_sce) + C(:,:,:,sim_sce);
+        
+        C_pi_t(2:end,i,sim_sce) = -sum((Sigma(2:end,:,i,sim_sce) - ...
+            Sigma(1:end-1,:,i,sim_sce))./ Sigma(1:end-1,:,i,sim_sce),2);
+        C_pi_t(isnan(C_pi_t)) = 0;
+        B_pi_t(3:end,i,sim_sce) = C_pi_t(3:end,i,sim_sce) - ...
+            0.5*(Q_sim(1:end-2,i,sim_sce)-2*Q_sim(2:end-1,i,sim_sce)+Q_sim(3:end,i,sim_sce));
+        
+        lambda_s_omega(:,i,sim_sce) = inv(Sigma(:,:,i,sim_sce))*...
+            B_pi_t(:,i,sim_sce);
+        
+        if i > 2  % when i = 1 (initial time step, the eta is pre-defined)
+            eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
+                + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*...
+                (Brownian_sheets_eta_sim(i) - mean(lambda_s_omega(:,i,sim_sce)))*sqrt(dt) ...
+                * b_h_eta_matrix(end,end);
         end
-    end
-end
-
-fprintf('End of solving the market price of risk equation. \n')
-fprintf('======================================= \n')
-
-%% Option Pricing under Risk Neutral Measure
-
-fprintf('======================================= \n')
-fprintf('Start option pricing. \n')
-
-h_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
-q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
-Q_sim_rn = zeros(size(h,1)-1,simulate_time_steps,omega);
-
-clear_prices = zeros(simulate_time_steps,omega);
-
-normal_random_numbers = randn(size(h,1), simulate_time_steps, omega);
-
-% simulate the results into next pre-defined periods
-for sim_sce = 1:omega   % loop on the each scenario
-    Brownian_sheets_sim = b_h_eta_matrix*normal_random_numbers(:,:,sim_sce);
-    Brownian_sheets_eta_sim = Brownian_sheets_sim(end,:);
-
-
-    % annualize the timestep
-    dt = time_step_minute/60;
-    eta_sim(1,sim_sce) = eta_sim_init + a_eta*(mean(eta) - eta_sim_init)* dt ...
-                + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(1);
-            
-    for i = 2:simulate_time_steps
-        eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
-            + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*Brownian_sheets_eta_sim(i)*sqrt(dt) ...
-            * b_h_eta_matrix(end,end);
+        
         for j = 2:size(h_sim,1)
-            h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i-1,sim_sce) + ...
-                sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
-                (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*sqrt(price_step) - lambda_s_omega(:,i,sim_sce)*sqrt(dt)*sqrt(price_step));
+            if i > 2
+                h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i-1,sim_sce) + ...
+                    sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
+                    (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*...
+                    sqrt(price_step) - lambda_s_omega(:,i,sim_sce)*sqrt(dt)*sqrt(price_step));
+                end
+            h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i,sim_sce)/1e5;
         end
-    end
-    
-    % adjustment of h_sim
-    h_sim_rn(:,:,sim_sce) = h_sim_rn(:,:,sim_sce)/1e5;
-
-    % simulate q
-    for i = 1:simulate_time_steps
+        
         q_sim_rn(2,i,sim_sce) = std(q(2,:))*q_b_h_eta_matrix(1,2:end-1)* ...
                 normal_random_numbers(1:end-1,i,sim_sce) *sqrt(dt)*sqrt(price_step);
         q_sim_rn(2,i,sim_sce) = abs(q_sim_rn(2,i,sim_sce));
         for j = 3:size(h_sim,1)
-            %q_sim_rn(j,i,sim_sce) = q_sim_rn(2,i,sim_sce) + sum(exp(h_sim_rn(3:j,i,sim_sce)));
-            q_sim_rn(j,i,sim_sce) = q_sim_rn(j-1,i,sim_sce) *exp(h_sim_rn(j,i,sim_sce));
+            q_sim_rn(j,i,sim_sce) = q_sim_rn(2,i,sim_sce) + sum(exp(h_sim_rn(3:j,i,sim_sce)));
         end
-    end
-    
-    % simulation of Q
-    for i = 1:simulate_time_steps
-        %Q_sim_rn(1,i,sim_sce) = 2 / (2-eta_sim(i,omega)) * sum(q_sim_rn(:,i,sim_sce));
+        
         for j = 1:size(h_sim,1)
             Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
         end
         ind = find(Q_sim_rn(:,i,sim_sce)<0,1);
         clear_prices(i, sim_sce) = price_range(ind+1);
-    end
+    end   % end of the simualtion time loop
+    fprintf('The iteration %d, with completion percentage of %0.5g%%. \n',sim_sce,sim_sce/omega*100)
 end
 
+
+fprintf('======================================= \n')
+fprintf('Start of option pricing. \n')
+fprintf('======================================= \n')
 
 option_strikes = linspace(0.8*min(min(clear_prices)),1.2*max(max(clear_prices)),20);
 
