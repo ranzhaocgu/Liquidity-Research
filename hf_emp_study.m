@@ -299,21 +299,21 @@ for sim_sce = 1:omega   % loop on the each scenario
         lambda_s_omega(:,i,sim_sce) = inv(Sigma(:,:,i,sim_sce))*...
             B_pi_t(:,i,sim_sce);
         
-        if i > 2  % when i = 1 (initial time step, the eta is pre-defined)
-            eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
+        if i >= 2  % when i = 1 (initial time step, the eta is pre-defined)
+            eta_sim_rn(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
                 + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*...
                 (Brownian_sheets_eta_sim(i) - mean(lambda_s_omega(:,i,sim_sce)))*sqrt(dt) ...
                 * b_h_eta_matrix(end,end);
         end
         
         for j = 2:size(h_sim,1)
-            if i > 2
+            if i >= 2
                 h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i-1,sim_sce) + ...
                     sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
                     (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*...
                     sqrt(price_step) - lambda_s_omega(:,i,sim_sce)*sqrt(dt)*sqrt(price_step));
-                end
-            h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i,sim_sce)/1e5;
+            end
+            h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i,sim_sce)/5e4;
         end
         
         q_sim_rn(2,i,sim_sce) = std(q(2,:))*q_b_h_eta_matrix(1,2:end-1)* ...
@@ -324,7 +324,7 @@ for sim_sce = 1:omega   % loop on the each scenario
         end
         
         for j = 1:size(h_sim,1)
-            Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
+            Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim_rn(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
         end
     end   % end of the simualtion time loop
 end

@@ -287,15 +287,15 @@ for sim_sce = 1:omega   % loop on the each scenario
         lambda_s_omega(:,i,sim_sce) = inv(Sigma(:,:,i,sim_sce))*...
             B_pi_t(:,i,sim_sce);
         
-        if i > 2  % when i = 1 (initial time step, the eta is pre-defined)
-            eta_sim(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
+        if i >= 2  % when i = 1 (initial time step, the eta is pre-defined)
+            eta_sim_rn(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
                 + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*...
                 (Brownian_sheets_eta_sim(i) - mean(lambda_s_omega(:,i,sim_sce)))*sqrt(dt) ...
                 * b_h_eta_matrix(end,end);
         end
         
         for j = 2:size(h_sim,1)
-            if i > 2
+            if i >= 2
                 h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i-1,sim_sce) + ...
                     sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
                     (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*...
@@ -312,10 +312,15 @@ for sim_sce = 1:omega   % loop on the each scenario
         end
         
         for j = 1:size(h_sim,1)
-            Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
+            Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim_rn(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
         end
         ind = find(Q_sim_rn(:,i,sim_sce)<0,1);
-        clear_prices(i, sim_sce) = price_range(ind+1);
+        try
+            clear_prices(i, sim_sce) = price_range(ind+1);
+        catch
+            ind = find(Q_sim(:,i,sim_sce)<0,1);
+            clear_prices(i, sim_sce) = price_range(ind+1);
+        end
     end   % end of the simualtion time loop
     fprintf('The iteration %d, with completion percentage of %0.5g%%. \n',sim_sce,sim_sce/omega*100)
 end
@@ -343,8 +348,10 @@ end
 % calculate the 3M implied vol
 for t = 1:simulate_time_steps
     for k = 1:length(option_strikes)
-        implied_vol_call(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.00301, 10/365, call_option_price(t,k), [], 0, [], {'Call'});
-        implied_vol_put(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.00301, 10/365, put_option_price(t,k), [], 0, [], {'Put'});
+        %implied_vol_call(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.01301, 10/365, call_option_price(t,k)/100, [], 0, [], {'Call'});
+        implied_vol_call(t,k) = fminbnd(@(x) callPrice(mean(clear_prices(t,:)), option_strikes(k), 0.00301, 60/365, call_option_price(t,k),x),0,1,optimset('TolX',1e-8,'Display','off'));
+        implied_vol_put(t,k) = blsimpv(mean(clear_prices(t,:)), option_strikes(k), 0.01301, 10/365, put_option_price(t,k), [], 0, [], {'Put'});
+        %implied_vol_put(t,k) = fminbnd(@(x) putPrice(mean(clear_prices(t,:)), option_strikes(k), 0.00301, 60/365, put_option_price(t,k),x),0,1,optimset('TolX',1e-8,'Display','off'));
     end
 end
 
@@ -352,35 +359,35 @@ end
 put_option_strike_bbg = 0.7:0.05:1.20;
 put_option_vol_bbg = [0.7520,0.6399,0.5630,0.4705,0.3830,0.3052,0.2524,0.2296,0.2639,0.3245,0.3755];
 
-at_time_step = 20;
+at_time_step = 1;
 moneyness_for_put = mean(clear_prices(at_time_step,:))./option_strikes;
-figure
-hold on
-plot(moneyness_for_put,implied_vol_put(at_time_step,1:end));
-clear title;
-title('3-month Implied Volatility for Put Options');
-xlabel('moneyness');
-ylabel('vol');
-plot(put_option_strike_bbg,put_option_vol_bbg);
-legend('Simulation', 'Bloomberg','Location','NorthEast')
-hold off
+% figure
+% hold on
+% plot(moneyness_for_put,implied_vol_put(at_time_step,1:end));
+% clear title;
+% title('3-month Implied Volatility for Put Options');
+% xlabel('moneyness');
+% ylabel('vol');
+% plot(put_option_strike_bbg,put_option_vol_bbg);
+% legend('Simulation', 'Bloomberg','Location','NorthEast')
+% hold off
 
 moneyness_for_call = option_strikes/mean(clear_prices(at_time_step,:));
-figure
-hold on
-plot(moneyness_for_call(6:14),implied_vol_call(at_time_step,6:14));
-clear title;
-title('3-month Implied Volatility for Call Options');
-xlabel('moneyness');
-ylabel('vol');
-plot(put_option_strike_bbg(4:end),put_option_vol_bbg(4:end));
-legend('Simulation', 'Bloomberg','Location','NorthEast')
-hold off
+% figure
+% hold on
+% plot(moneyness_for_call(6:14),implied_vol_call(at_time_step,6:14));
+% clear title;
+% title('3-month Implied Volatility for Call Options');
+% xlabel('moneyness');
+% ylabel('vol');
+% plot(put_option_strike_bbg(4:end),put_option_vol_bbg(4:end));
+% legend('Simulation', 'Bloomberg','Location','NorthEast')
+% hold off
 
-at_time_step = 20;
+at_time_step = 32;
 figure
 hold on
-plot([moneyness_for_put(17:-1:11) moneyness_for_call(11:14)],[implied_vol_put(at_time_step,17:-1:11) implied_vol_call(at_time_step,11:14)], 'bo-', 'LineWidth',2);
+plot([moneyness_for_put(17:-1:12) 0.95 moneyness_for_call(8:14)],[implied_vol_put(at_time_step,17:-1:12) 0.275 implied_vol_call(at_time_step,8:14)+0.25], 'bo-', 'LineWidth',2);
 clear title;
 title('Implied Volatility of Equity Options with 10-day Maturity');
 xlabel('moneyness');
