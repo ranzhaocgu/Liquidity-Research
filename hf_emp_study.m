@@ -255,6 +255,7 @@ for sim_sce = 1:omega   % loop on the each scenario
             q_sim(j,i,sim_sce) = q_sim(2,i,sim_sce) + sum(exp(h_sim(3:j,i,sim_sce)));
         end
     end
+    q_sim_rn = q_sim;
     
     % simulation of Q
     for i = 1:simulate_time_steps  % start of the simualtion time loop
@@ -275,15 +276,15 @@ for sim_sce = 1:omega   % loop on the each scenario
                     temp = std(h_sim(2:end,i,sim_sce)) * q_b_h_eta_matrix(3:end-1,2:end-1)*1000;
                 end
                 temp = [temp;std(h_sim(2:end,i,sim_sce)) * q_b_h_eta_matrix(end,2:end-1)*1000];
-                A(j,z,i,sim_sce) = q_sim(1,i,sim_sce)*std(q(2,:))*q_b_h_eta_matrix(z,1)/100 ...
+                A(j,z,i,sim_sce) = q_sim_rn(1,i,sim_sce)*std(q(2,:))*q_b_h_eta_matrix(z,1)/100 ...
                     + sum(exp(sum(h_sim(:,i,sim_sce)))*temp(:,z))*eta_sim(i,sim_sce);
 
-                B(j,z,i,sim_sce) = (Q_sim(1,i,sim_sce) + sum(q_sim(:,i,sim_sce))*...
+                B(j,z,i,sim_sce) = (Q_sim(1,i,sim_sce) + sum(q_sim_rn(:,i,sim_sce))*...
                     corr_matrix_h_eta(end,end)*sqrt(eta_sim(i,sim_sce)*(1-eta_sim(i,sim_sce)))) ...
                     * corr_matrix_h_eta(end-1,end);
                 
                 cohort = exp(sum(h_sim(1:j,i,sim_sce)))*temp(1:j,z);
-                C(j,z,i,sim_sce) = q_sim(1,i,sim_sce)*std(q(2,:))*q_b_h_eta_matrix(j,1)/100 ...
+                C(j,z,i,sim_sce) = q_sim_rn(1,i,sim_sce)*std(q(2,:))*q_b_h_eta_matrix(j,1)/100 ...
                     + sum(cohort(1:j));
             end
         end
@@ -302,7 +303,7 @@ for sim_sce = 1:omega   % loop on the each scenario
         if i >= 2  % when i = 1 (initial time step, the eta is pre-defined)
             eta_sim_rn(i,sim_sce) = eta_sim(i-1,sim_sce) + a_eta*(mean(eta) - eta_sim(i-1,sim_sce))* dt...
                 + sqrt(sigma_eta_square)*sqrt(eta_sim_init*(1-eta_sim_init))*...
-                (Brownian_sheets_eta_sim(i) - mean(lambda_s_omega(:,i,sim_sce)))*sqrt(dt) ...
+                (Brownian_sheets_eta_sim(i) - lambda_s_omega(end-1,i,sim_sce))*sqrt(dt) ...
                 * b_h_eta_matrix(end,end);
         end
         
@@ -313,7 +314,7 @@ for sim_sce = 1:omega   % loop on the each scenario
                     (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*...
                     sqrt(price_step) - lambda_s_omega(:,i,sim_sce)*sqrt(dt)*sqrt(price_step));
             end
-            h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i,sim_sce)/5e4;
+            h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i,sim_sce)/1e5;
         end
         
         q_sim_rn(2,i,sim_sce) = std(q(2,:))*q_b_h_eta_matrix(1,2:end-1)* ...
