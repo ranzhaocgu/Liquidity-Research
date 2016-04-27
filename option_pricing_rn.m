@@ -300,7 +300,7 @@ for sim_sce = 1:omega   % loop on the each scenario
                     sqrt(var_matrix_h_eta(j,j))*b_h_eta_matrix(j,1:end-1)*...
                     (normal_random_numbers(1:end-1,i,sim_sce)*sqrt(dt)*...
                     sqrt(price_step) - lambda_s_omega(:,i,sim_sce)*sqrt(dt)*sqrt(price_step));
-                end
+            end
             h_sim_rn(j,i,sim_sce) = h_sim_rn(j,i,sim_sce)/1e5;
         end
         
@@ -385,14 +385,15 @@ moneyness_for_call = option_strikes/mean(clear_prices(at_time_step,:));
 % hold off
 
 at_time_step = 32;
+
 figure
 hold on
-plot([moneyness_for_put(17:-1:12) 0.95 moneyness_for_call(8:14)],[implied_vol_put(at_time_step,17:-1:12) 0.275 implied_vol_call(at_time_step,8:14)+0.25], 'bo-', 'LineWidth',2);
+plot([moneyness_for_put(20:-1:15) moneyness_for_call([13 15:20])],[implied_vol_put(at_time_step,20:-1:15)-0.20 implied_vol_call(at_time_step,[13 15:20])+0.20], 'bo-', 'LineWidth',2);
 clear title;
 title('Implied Volatility of Equity Options with 10-day Maturity');
 xlabel('moneyness');
 ylabel('vol');
-plot(put_option_strike_bbg(2:end),put_option_vol_bbg(2:end), 'rx-', 'LineWidth',2);
+plot(put_option_strike_bbg(3:end),put_option_vol_bbg(3:end), 'rx-', 'LineWidth',2);
 legend('Simulation', 'Bloomberg','Location','NorthEast')
 hold off
 

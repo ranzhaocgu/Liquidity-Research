@@ -1551,9 +1551,9 @@ H =
 \right)
 $$
 
-We calculate the instantaneous volatilities $\sigma_h$ and $\sigma_{\eta}$ by the method of moments. We use Cholesky decomposition with respect to calculate $B_{H}=Corr^{1/2}(H)$, where $b_{\eta,h_p}=0$ except for $b_{\eta,h_S}=1$. That is, $B_H B_H^T = Corr(H)$, and 
+We calculate the instantaneous volatilities $\sigma_h$ and $\sigma_{\eta}$ by the method of moments. We use Cholesky decomposition with respect to calculate $B_{H}=Corr^{1/2}(H)$, where $b_{\eta,h_p}=0$ except for $b_{\eta,h_S}=1$. That is, $B_H B_H^T = Corr(H)$, and
 $$
-B_H = 
+B_H =
 \left(
   \begin{array}{ccccc}
     1 & 0 & \cdots & \cdots & 0 \\
@@ -1575,7 +1575,7 @@ $$
 \end{center}
 
 
-\subsection{Simulation Methodology}
+\subsection{Simulation Methodology - Real-world Measure ($\mathbb{P}$ Measure)}
 We first simulate the $h(p,t)$ process using the calibrated parameters over simulated time. For simplicity we remove the ''hat'' sign on the parameters. We also assume the $h$ and $q$ processes have zero drift. For a function of x(t), define $\Delta X(t) = X(t+\Delta t) - X(t)$. Then
 
 \begin{eqnarray*}
@@ -1614,19 +1614,18 @@ where
          &=& a_{\eta}(\bar{\eta} - \eta(t))\Delta t + \sigma_{\eta} \sqrt{\eta(t)(1-\eta(t))} z(S,t) \sqrt{\Delta t }
 \end{eqnarray*}
 
-\subsection{Simulation Results in the Physical Measure}
-The simulated net demand curve under physical measure using the above methods is shown in Figure~\ref{fig::AAPL_20110401_simulated_Q_physical_measure}.
+The simulated net demand curve under physical measure using the above methods is shown in left graph of Figure~\ref{fig::AAPL_20110401_simulated_both_measures}.
 
 \begin{center}
 \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
-  \includegraphics[scale = 0.5]{Simulated_Q_Physical_Measure.eps}\\
-  \caption{The simulated net demand surface Q(p,t) under physical measure.}\label{fig::AAPL_20110401_simulated_Q_physical_measure}
+  \includegraphics[scale = 0.5]{Q_both_measures.eps}\\
+  \caption{The simulated net demand surface Q(p,t) under physical measure (left) and risk neutral measure (right).}\label{fig::AAPL_20110401_simulated_Q_P_measure}
 \end{figure}
 \end{center}
 
-\subsection{Simulation Results in the Risk Neutral Measure}
+\subsection{Simulation Methodology - Real-world Measure ($\mathbb{Q}$ Measure)}
 Changing from physical measure simulation to P measure simulate requires the following adjustments on $h(p,t)$ process simulation.
 
 $$
@@ -1669,18 +1668,9 @@ The value of $\sigma _{Q}(p,t)b_{Q}(p,s,t)$ is given by ($p > 2$):%
 (\sum_{i=2}^{y-1}h_{i}(t))\sum_{x=2}^{y-1}\sigma_{h_{x}}b_{h_{x,y}}\right)
 \end{eqnarray*}
 
-The simulated net demand curve under risk neutral measure using the above methods is shown in Figure~\ref{fig::AAPL_20110401_simulated_Q_P_measure}.
+The simulated net demand curve under risk neutral measure is shown in the right graph of Figure~\ref{fig::AAPL_20110401_simulated_both_measures}. The range of the difference between $\mathbb{P}$-measure simulation and $\mathbb{Q}$-measure simulation is $[-50.22, 66.10]$ in the case shown in the simulation. 
 
-\begin{center}
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[scale = 0.5]{Simulated_Q_P_Measure.eps}\\
-  \caption{The simulated net demand surface Q(p,t) under risk neutral measure.}\label{fig::AAPL_20110401_simulated_Q_P_measure}
-\end{figure}
-\end{center}
 
-\newpage
 \subsection{Option Pricing under Risk Neutral Measure}
 With the simulations under risk neutral measure, the corresponding call/put option price, $c(\pi, \omega)$, with strike $K$ at given time $t$ is
 
@@ -1698,9 +1688,9 @@ where $\pi$ is the clearing price, $K$ is the strike level, $r$ is the interest 
 The implied volatility $\sigma(K)$ is being solved.
 
 The implied volatility smile generated from the equity options at simulation period is shown in Figure~\ref{fig::Put_Option_Vols}.
-The implied volatilities by simulations under risk neutral measure are plotted as blue line, which are compared to the real historical implied volatility levels from Bloomberg. The interest rate level is selected as 0.301\%, and the dividend yield is set to 0\%. The maturity of the option is in 10 days. The simulation is evaluated under 500 scenarios.
+The implied volatilities by simulations under risk neutral measure are plotted as blue line, which are compared to the real historical implied volatility levels from Bloomberg. The interest rate level is selected as 0.301\%, and the dividend yield is set to 0\%. The maturity of the option is in 60 days. The simulation is evaluated under 500 scenarios.
 
-The at-the-money simulated implied volatility is lined up with the Bloomberg quote, at 25\% level. For low strike options the simulation results tend to underestimate the implied volatility from 5\% to 10\%. For high strike options the simulation results tend to overestimate the implied volatility from 5\% to 7\%.
+The at-the-money simulated implied volatility is lined up with the Bloomberg quote, at 25\% level. For low strike options the simulation results tend to be steeper than the Bloomberg volatility, and the percentage difference between simulation results and Bloomberg volatilities is within +/- 10\%. As for the high strike options, the simulation results are flatter than Bloomberg volatilities.
 
 \begin{center}
 \begin{figure}
