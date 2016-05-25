@@ -314,7 +314,7 @@ for sim_sce = 1:omega   % loop on the each scenario
         for j = 1:size(h_sim,1)
             Q_sim_rn(j,i,sim_sce) = sum(q_sim_rn(:,i,sim_sce))*eta_sim_rn(i,sim_sce) - sum(q_sim_rn(1:j,i,sim_sce));
         end
-        ind = find(Q_sim_rn(:,i,sim_sce)<0,1);
+        ind = find(Q_sim(:,i,sim_sce)<0,1);
         try
             clear_prices(i, sim_sce) = price_range(ind+1);
         catch
