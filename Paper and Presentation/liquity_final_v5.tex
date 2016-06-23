@@ -466,7 +466,7 @@ with:%
 We say that $(F,\mu _{F},\sigma _{F},b_{F},x,\mu _{x},\sigma _{x},b_{x})$
 satisfy conditions Ito-Wentzell-Krylov (hereafter condition IWK) if:
 
-i) For each $x$ the restriction of the function $F_t(x)$ to $\omega \times (0, T]$ is 
+i) For each $x$ the restriction of the function $F_t(x)$ to $\omega \times (0, T]$ is
 $\mathcal{P}_T$-measurable and $F_0(x)$ is $\mathcal{F}_0$-measurable;
 
 ii) For any $\omega \in \Omega $ and $t\in \lbrack 0,T]$, the function\ $%
@@ -828,7 +828,7 @@ b_{P}(x,s,t,\omega )ds
 %\textbf{Assumption 7}
 \begin{assumption}\label{ass::iwk_condition_Q}
 We suppose that for each $x\in \Xi (t)$ condition IWK holds for $(Q,\mu
-_{Q},\sigma _{Q},b_{Q},P(x,.),\mu _{P}(x,.),\sigma _{P}(x,.),b_{P}(x,.))$.
+_{Q},\sigma _{Q},b_{Q},P(x,.),\mu _{P}(x,.)$, $\sigma _{P}(x,.),b_{P}(x,.))$.
 \end{assumption}
 
 %\bigskip
@@ -936,7 +936,7 @@ _{P},b_{P},\theta ,\mu _{\theta },\sigma _{\theta },b_{\theta })$.\bigskip
 The following fact implies that, if $\int_{0}^{t}L(\theta _{u-},du)$ is a
 local martingale under an equivalent martingale measure $\mathbb{Q}$, then
 the realizable wealth under $\mathbb{Q}$ will be a supermartingale, since
-the two terms to the right-hand side of Equation~(\ref{lemma32BB04}) are 
+the two terms to the right-hand side of Equation~(\ref{lemma32BB04}) are
 nonpositive, thus there will not be arbitrage.
 
 %\bigskip
@@ -1300,8 +1300,8 @@ will see in the empirical section, that it was always verified.
 
 %\textbf{Proposition:}
 \begin{proposition}
-Our model satisfies Assumptions~\ref{ass::demand_twice_diff}, \ref{ass::iwk_condition_Q}, 
-\ref{ass::iwk_condition_P}, and \ref{ass::novikov_condition_lambda}. 
+Our model satisfies Assumptions~\ref{ass::demand_twice_diff}, \ref{ass::iwk_condition_Q},
+\ref{ass::iwk_condition_P}, and \ref{ass::novikov_condition_lambda}.
 Also, the market price of risk equations (\ref{MPR}) hold.
 \end{proposition}
 
@@ -1494,8 +1494,8 @@ We use Cholesky decomposition to calculate $\hat{B}.$
 
 \bigskip
 
-RAN:\ please provide the values for $a_{\eta }$ and$\ \bar{\eta}$ (no
-justification needed).
+In the simulation, we use $a_\eta = 0.9$ and $\bar{\eta}=0.6$.
+
 
 \subsection{Simulation - Real-world Measure ($\mathbb{P}$ Measure)}
 
@@ -1520,9 +1520,7 @@ value of $k$ that minimizes $|Q(k,j)|$.
 
 We first need to solve the market price of risk equations. Expressions for $%
 \mu _{Q}(k,j)$ and $\sigma _{Q}(k,j)$ and $b_{Q}(k,i,j)$ are obtained by
-discretization of equations 41 and 42 in the appendix (Ran, please make the
-exact reference). Details are left to the reader. Remember (Ran find the
-exact reference) that:
+discretization of equations 41 and 42 in the appendix. For more detailed discussion on market price of risk, we refer reader to \cite{NB97}. Remember that:
 
 \[
 \Sigma _{Q}(k,i,j)=\sigma _{Q}(k,j)b_{Q}(k,i,j)
@@ -1558,7 +1556,7 @@ model.
 
 The simulated net demand surfaces under risk neutral measure is shown in the
 right graph of Figure~\ref{fig::AAPL_20110401_simulated_both_measures}. The
-range of the difference on net demand (over time and price) 
+range of the difference on net demand (over time and price)
 between $\mathbb{P}$-measure simulation and $\mathbb{Q}$%
 -measure simulation is $[-50.22,66.10]$ in the case shown in the simulation.
 
@@ -1589,9 +1587,9 @@ The implied volatility smile generated from the equity options at simulation
 period is shown in Figure~\ref{fig::Put_Option_Vols} (right graph). The
 implied volatilities by simulations under risk neutral measure are plotted
 as blue line, which are compared to the real historical implied volatility
-levels from Bloomberg (historical market quotes). The interest rate level 
-is selected as 0.301\% at real historical level, and the dividend yield 
-is set to 0\%. The maturity of the option is 60 days. The simulation is 
+levels from Bloomberg (historical market quotes). The interest rate level
+is selected as 0.301\% at real historical level, and the dividend yield
+is set to 0\%. The maturity of the option is 60 days. The simulation is
 evaluated under 500 scenarios.
 
 The at-the-money simulated implied volatility is within 5\% error range of the Bloomberg
@@ -1602,8 +1600,8 @@ for the high strike options, the simulation results are flatter than
 Bloomberg volatilities.
 
 The left graph in Figure~\ref{fig::Put_Option_Vols} plots the solution of market price
-of risk equation \ref{eqn::market_price_risk_equation} ($\lambda(i,j)$) over time, evaluated on at-the-money 
-price levels. In our simulation process, the market price of risk equation is always solvable through matrix 
+of risk equation \ref{eqn::market_price_risk_equation} ($\lambda(i,j)$) over time, evaluated on at-the-money
+price levels. In our simulation process, the market price of risk equation is always solvable through matrix
 inversion.
 
 \begin{center}
