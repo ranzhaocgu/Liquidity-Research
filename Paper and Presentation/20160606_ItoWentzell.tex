@@ -1,0 +1,376 @@
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Thursday, May 26, 2016 13:09:46}
+%TCIDATA{LastRevised=Wednesday, June 15, 2016 23:25:11}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+\section{Verification that the Ito-Wentzell Formula works}
+
+We write a weaker version of theorem 3.1 in Krylov using notation and
+assumptions that are closer to our model. For $p\in \lbrack 0,S]$, and $t\in
+\lbrack 0,T]$, let:
+
+\begin{eqnarray}
+dQ(p,t) &=&\mu _{Q}(p,t)dt+\sigma _{Q}(p,t)\int_{s=0}^{S}b_{Q}(p,s,t)W(ds,dt)
+\label{dQ} \\
+dP(t) &=&\mu _{P}(t)dt+\sigma _{P}(t)\int_{s=0}^{S}b_{P}(s,t)W(ds,dt)  \notag
+\end{eqnarray}
+
+where all stochastic processes are $\mathcal{F}_{t}-$adapted.
+
+\bigskip
+
+\subsection{Assumption 1 \protect\footnote{%
+We do not follow exactly the numbering of he assumptions of theorem 3.1 in
+Krylov. Note that ur assumptions are simpler because $p$ is assumed bounded
+and we always take the $L_{2}$ norm.}}
+
+i) We have $P(t)\in \lbrack 0,S]$.
+
+ii) For any $\omega \in \Omega $ and $t\in \lbrack 0,T]$, the function\ $%
+Q(p) $ is continuous in $p$
+
+iii) For almost any $(\omega ,t)\in \Omega \times \lbrack \tau ,T]$
+
+\qquad a)$\mu _{Q}(p)$ and $\sigma _{Q}(p)b_{Q}(p,s)$ and $\sigma
+_{Q}^{2}(p) $ are continuous in $p$
+
+\qquad b)the following functions are continuous functions of $p$:
+
+\qquad \qquad 
+\begin{tabular}{lll}
+1 & $\frac{1}{2}\sigma _{P}^{2}\frac{\partial ^{2}Q(p)}{\partial p^{2}}+\mu
+_{P}\frac{\partial Q(p)}{\partial p}$ & $LF(x)$ \\ 
+2 & $\sigma _{P}b_{P}(s)\frac{\partial Q(p)}{\partial p}$ & $\Lambda
+^{k}F(x) $ \\ 
+3 & $\sigma _{P}b_{P}(s)\frac{\partial \sigma _{Q}(p)b_{Q}(p,s)}{\partial p}$
+& $\Lambda ^{k}H^{k}(x)$ \\ 
+4 & $\sigma _{P}(t)^{2}b_{P}(s)(\frac{\partial Q(p)}{\partial p})^{2}$ & $%
+|\Lambda F(x)|_{l^{2}}$ \\ 
+5 & $\sigma _{P}^{2}(t)\int_{0}^{S}(b_{P}(s)\frac{\partial \sigma
+_{Q}(p)b_{Q}(p,s)}{\partial p})^{2}ds$ & $|\Lambda H(x)|_{l^{2}}$%
+\end{tabular}
+
+iv)\ For $p\in \lbrack 0,S]$, we have almost surely:%
+\begin{equation*}
+\int_{0}^{T}Q(p,t)|\mu _{P}(t)+\frac{1}{2}\sigma _{P}^{2}(t)|+\frac{1}{2}%
+Q^{2}(p,t)\sigma _{P}^{2}(t)+|\mu _{Q}(p,t)|+\sigma _{Q}^{2}(p,t)dt<\infty
+\end{equation*}
+
+and equation (\ref{dQ}) admits a solution.
+
+v) We have almost surely:
+
+\begin{equation*}
+\int_{p=0}^{S}\int_{0}^{T}Q(p,t)(|\mu _{P}(p,t)|+\frac{1}{2}\sigma
+_{P}^{2}(t))dt+\frac{1}{2}(\int_{0}^{T}Q^{2}(p,t)\sigma
+_{P}^{2}(t)dt)^{1/2}dp<\infty \ 
+\end{equation*}
+
+\qquad and, for all $p\in \lbrack 0,S]$,%
+\begin{gather*}
+\int_{0}^{T}|\mu _{Q}(p,t)|+|\frac{1}{2}\sigma _{P}^{2}(t)\frac{\partial
+^{2}Q(p,t)}{\partial p^{2}}+\mu _{P}(t)\frac{\partial Q(p,t)}{\partial p}%
+|+\left( \sigma _{P}(t)\frac{\partial Q(p,t)}{\partial p}\right) ^{2}+\sigma
+_{Q}^{2}(p) \\
++\int_{0}^{S}(\sigma _{P}(t)b_{P}(s,t))^{2}[\frac{\partial }{\partial p}%
+\sigma _{Q}(p,t)b_{Q}(p,s,t)]^{2}dsdt<\infty
+\end{gather*}
+
+\subsection{Verification of Assumption 1}
+
+We study the following model:
+
+\begin{eqnarray}
+dh(p,t) &=&a(p)(\bar{h}(p)-h(p,t))dt+\sigma
+_{h}(p)\int_{s=0}^{S}b_{h}(p,s)W(ds,dt)\text{ \ \ \ \ \ \ \ \ \ \ \ }\forall
+p\in \lbrack 0,S]  \label{equ_h_A} \\
+q(p,t) &=&\exp {\int_{x=0}^{p}h(x,t)dx}\text{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ }\forall p\in \lbrack 0,S]  \label{equ_q_A} \\
+d\eta (t) &=&a_{\eta }(\bar{\eta}-\eta (t))dt+g(\eta
+(t))(\int_{s=0}^{S}\sigma _{\eta }(s)W(ds,dt,\omega )  \label{equ_eta_A_bis}
+\\
+Q(p,t) &=&\eta (t,\omega )\int_{x=0}^{S}q(x,t)dx-\int_{x=0}^{p}q(x,t)dx\text{
+\ \ \ \ \ \ \ \ \ \ \ \ }\forall p\in \lbrack 0,S]  \label{equ_Q_A}
+\end{eqnarray}
+
+where:
+
+\begin{itemize}
+\item $a(p)$, $\bar{h}(p)$, $\sigma _{h}(p)$ , and $b_{h}(p,s)$ are
+continuous functions of $p$, bounded on $p\in \lbrack 0,S]$
+
+\item $a_{\eta }\geq 0$
+
+\item $\sigma _{h}(p)^{2}$ is a continuously differentiable function of $p$
+
+\item $g$ is a nonnegative Lipschitz continuous function such that $g(\eta
+)=0$ if $\eta \leq 0$ or $\eta \geq 1$.
+\end{itemize}
+
+\bigskip
+
+Lipschitz continuity ensures that$\left( \ref{equ_q_A}\right) $ has a
+solution. A possible form (which is not Lipschitz continuous, but can be
+mollified into one)\ is:%
+\begin{equation*}
+g(\eta )=\sigma _{\eta }\sqrt{\eta (1-\eta )}
+\end{equation*}
+
+\subsubsection{Solution and Properties}
+
+The solution of (\ref{equ_h_A})\ is: 
+\begin{eqnarray}
+h(x,t) &=&h_{0,x}\exp (-a(x)t)+\bar{h}(x)(1-\exp (-a(x)t))+  \label{S1} \\
+&&\int_{0}^{t}\exp (-a(x)(t-u))\int_{0}^{S}b_{h}(p,u)W(ds,u))du
+\end{eqnarray}
+
+As stated above, (\ref{equ_eta_A_bis})\ has a solution, thus\ (\ref{equ_Q_A}%
+)\ is fully defined. Differentiating (\ref{equ_Q_A}), we have:
+
+\begin{eqnarray}
+\frac{\partial Q}{\partial p} &=&\exp \left( {\int_{x=0}^{p}h(x,t)dx}\right)
+\label{dQdp_3} \\
+\frac{\partial ^{2}Q(p)}{\partial p^{2}} &=&-{h(p)}\exp \left( {%
+\int_{x=0}^{p}h(x)dx}\right)  \label{dQdp_2_3}
+\end{eqnarray}%
+\bigskip
+
+As for the infinitesimal parameters, let:%
+\begin{eqnarray}
+f(p,t) &=&\int_{x=0}^{p}{h(x,t)}\exp ({\int_{x=0}^{x}h(x,t)dx)}a(p)(\bar{h}%
+(p)-x)dx  \label{f_of_p} \\
+&&\frac{1}{2}\int_{x=0}^{p}\text{ }{h}^{2}{(x,t)}\exp ({%
+\int_{x=0}^{x}h(x,t)dx)}\sigma _{h}^{2}(x)dx+  \notag \\
+&&\frac{1}{2}({h(p,t)}\exp ({\int_{x=0}^{p}h(x,t)dx)}\sigma _{h}^{2}(p)|-{%
+h(0,t)}\sigma _{h}^{2}(0))  \notag \\
+&&\frac{1}{2}\int_{x=0}^{p}{h(x,t)}\exp ({\int_{y=0}^{x}h(y,t)dx)[h(x,t)}%
+\sigma _{h}^{2}(x)+\frac{d}{dx}\sigma _{h}^{2}(x)]dx  \notag
+\end{eqnarray}
+
+By Ito's lemma, the drift of $Q(p,t)$ is:%
+\begin{eqnarray}
+\mu _{Q}(p,t) &=&\eta (t)f(S,t)-f(p,t)+  \label{mu_Q} \\
+&&a_{\eta }(\bar{\eta}-\eta (t))\int_{x=0}^{S}\exp ({%
+\int_{y=0}^{x}h(y,t)dy)dx+}  \notag \\
+&&g(\eta (t))\int_{x=0}^{S}{h(x,t)}\exp ({\int_{y=0}^{x}h(y,t)dy)\sigma
+_{h}(x)dx}  \notag
+\end{eqnarray}
+
+while the volatility of $Q(p,t)$ is:%
+\begin{eqnarray}
+\sigma _{Q}(p,t)b_{Q}(p,s,t) &=&g(\eta (t))(Q(S,t)-Q(0,t))+  \label{sigma_Q}
+\\
+&&\eta \int_{x=0}^{S}{h(x,t)}\exp ({\int_{y=0}^{x}h(y,t)dy)}\sigma
+_{h}(x)b_{h}(x,s)dx-  \notag \\
+&&\int_{x=0}^{p}{h(x,t)}\exp ({\int_{y=0}^{x}h(y)dy)}\sigma
+_{h}(x)b_{h}(x,s)dx  \notag
+\end{eqnarray}
+
+\subsubsection{Verification of all assumptions\textbf{.}}
+
+Assumption (i) (boundedness of $P(t)$) is verified in the main text. It is
+clear that, in our model $Q$ is twice-differentiable in $p$, thus assumption
+(ii)\ (continuity of $Q$ in $p$)\ is satisfied.
+
+\bigskip
+
+\paragraph{Verification of assumption iii.a)}
+
+Drift:\ The advantage of taking a string is that, since $b_{h}(p,s)$ is
+continuous in $p$, then $\int_{s=0}^{S}b_{h}(p,s)W(ds,dt)$ is also
+continuous in $p$. Thus $h(.,t)$ is continuous. By (\ref{dQdp_3}) and (\ref%
+{dQdp_2_3}), it is clear that both $\frac{\partial Q}{\partial p}$ and $%
+\frac{\partial ^{2}Q}{\partial p^{2}}$ are continuous functions of $p$. By
+continuity $a(p)$ and of $\frac{d}{dp}\sigma _{h}^{2}(p)$ the process $%
+f(p,t) $ is differentiable in $p$. Inspection of (\ref{mu_Q}) shows that $%
+\mu _{Q}$ is continuous in $p$.
+
+Volatility: We need only investigate the third row of (\ref{sigma_Q}), which
+is clearly a continuous function of $p$. So is $\sigma _{Q}(p,t)$.
+
+\bigskip
+
+\paragraph{Verification of assumption iii.b)}
+
+From (\ref{sigma_Q}), we calculate 
+\begin{equation}
+\frac{\partial \lbrack \sigma _{Q}(p,t)b_{Q}(p,s,t)]}{\partial p}=-{%
+h(p,t,\omega )}\exp ({\int_{x=0}^{p}h(x,t)dx)}\sigma _{h}(p,t)b_{h}(p,s,t)
+\label{dsigmadp}
+\end{equation}
+
+which is clearly a continuous function of $p$. by (\ref{dQdp_3}) and (\ref%
+{dQdp_2_3}), $\frac{\partial Q}{\partial p}$ and $\frac{\partial ^{2}Q}{%
+\partial p^{2}}$ are continuous functions of $p$. This shows that $\frac{1}{2%
+}\sigma _{P}^{2}(t)\frac{\partial ^{2}Q(p,t)}{\partial p^{2}}+\mu _{P}(t)%
+\frac{\partial Q(p,t)}{\partial p}$ as well as $\sigma _{P}(t)b_{P}(t,s)%
+\frac{\partial Q(p)}{\partial p}$ and $\sigma _{P}(t)b_{P}(t,s)\frac{%
+\partial \sigma _{Q}(p,t)b_{Q}(p,s,t)}{\partial p}$ are continuous functions
+of $p.$Continuity of $\sigma _{P}(t)^{2}b_{P}(s)(\frac{\partial Q(p)}{%
+\partial p})^{2}$ and $\sigma _{P}^{2}(t)\int_{0}^{S}(b_{P}(s)\frac{\partial
+\sigma _{Q}(p)b_{Q}(p,s)}{\partial p})^{2}ds$ follows trivially.\bigskip
+
+\paragraph{Lemma}
+
+Let $Y_{i}(s,t)$ and $Z_{i}(s,t)$ be collections of random variables, for $%
+i=1,...,n$, $0\leq s\leq S$, and $0\leq t\leq T$. Suppose $%
+E[\int_{0}^{S}\int_{0}^{T}\sum_{i=1}^{n}Y_{i}(s,t)Z_{i}(s,t)ds]<\infty $. A
+sufficient condition for 
+\begin{equation*}
+P(\int_{0}^{S}\int_{0}^{T}\sum_{i=1}^{n}Y_{i}(s,t)Z_{i}(s,t)ds<\infty )=1
+\end{equation*}
+
+is that for all $s,t$ and $i=1,..,n$%
+\begin{eqnarray*}
+E[Y_{i}(s,t)^{8}] &<&\infty \\
+E[Z_{i}(s,t)^{8}] &<&\infty
+\end{eqnarray*}
+
+\paragraph{Verification of assumptions iv and v}
+
+Clearly ${\int_{y=0}^{p}h(y,t)dy}$ is normal, thus $q(p,t)$ is lognormal,
+and has thus finite moments. For simplicity, we drop the argument $t$. By
+the lemma above, we can break the argument into verifying finiteness of the
+16th moments of the following random variables:
+
+\bigskip
+
+\begin{enumerate}
+\item \textbf{Net demand\ }$Q(p).$ By Jensen's inequality:%
+\begin{equation*}
+E[(\int_{0}^{S}q(x)dx)^{16}]\leq \int_{0}^{S}E[\exp (16\int_{0}^{x}h(y)dy)]ds
+\end{equation*}%
+which is bounded. By (\ref{equ_Q_A}) 
+\begin{equation*}
+-\int_{x=0}^{S}q(x)dx\leq Q(p)\leq \int_{x=0}^{S}q(x)dx
+\end{equation*}
+
+Thus $Q(p)$ is bounded.
+
+\item \textbf{Volatility of net demand }$\sigma _{Q}:$Observe that $\sigma
+_{h}(x,s)$ is bounded. We apply Jensen's inequality again, and it is
+sufficient to see that the following term is bounded:%
+\begin{gather*}
+E[(\int_{x=0}^{S}{h(x)}\exp ({\int_{y=0}^{x}h(y)dy)}dx)^{16}]=E[(%
+\int_{x=0}^{S}\frac{d}{dx}\exp ({\int_{y=0}^{x}h(y)dy)}dx)^{16}]= \\
+E[\exp ({\int_{y=0}^{S}h(y)dy)}dx)^{16}]
+\end{gather*}
+
+Thus $\sigma _{Q}(p)$ is bounded.
+
+\item \textbf{Drift of net demand }$\mu _{Q}.$Applying Jensen's inequality
+and the Cauchy-Schwartz inequalities to (\ref{mu_Q}), it is sufficient to
+verify the finiteness of the appropriate moments of:
+
+$f(S),\int_{x=0}^{S}\exp ({\int_{y=0}^{x}h(y)dy)dx}$, and $\int_{x=0}^{S}{%
+h(x)}\exp ({\int_{y=0}^{x}h(y)dy)\sigma _{h}(x)dx}$. For $f(S)$, the same
+type of development applies, and $f(S)$ has finite appropriate moment
+because $\sigma _{h}^{2}(x)$ is differentiable.
+
+\item \textbf{Price drift }$\mu _{P}.$We refer the reader to (*)\ in lemma 1
+in the main text. Since the numerator has finite 16th moment, it is
+sufficient, by the Cauchy-Schwartz inequality, to prove boundedness of:%
+\begin{equation*}
+E[(\frac{1}{\partial Q/\partial p})^{16}]=E[\exp \left( -16{%
+\int_{x=0}^{p}h(x,t)dx}\right) ]
+\end{equation*}%
+\qquad which is obvious.
+
+\item \textbf{Price volatility }$\sigma _{P}(t):$We use the same argument as
+above, since%
+\begin{equation*}
+\sigma _{P}=\frac{\sigma _{Q}}{\partial Q/\partial p}
+\end{equation*}
+
+\item \textbf{First derivative of net demand} $\frac{\partial Q(p)}{\partial
+p}$Finiteness of the moment is clear, since the random variable in (\ref%
+{dQdp_3}) is lognormal.
+
+\item \textbf{Second Derivative of Net Demand}$\frac{\partial Q^{2}(p)}{%
+\partial p^{2}}$
+
+Using Cauchy-Schwartz on (\ref{dQdp_2_3}), we see that this has finite
+appropriate moment.
+
+\item \textbf{Derivative of Net Demand Volatility }$\frac{\partial \sigma
+_{Q}(p)b_{Q}(p,s)}{\partial p}$
+
+We reuse (\ref{dsigmadp}), and use the same logic as above.\bigskip
+\end{enumerate}
+
+\subsubsection{Proof of lemma}
+
+Let%
+\begin{equation*}
+X_{i}(s,t)=Y_{i}(s,t)Z_{i}(s,t)
+\end{equation*}
+
+By Chebyshev's inequality, it is sufficient to prove that:%
+\begin{equation*}
+E[(\int_{0}^{S}\int_{0}^{T}\sum_{i=1}^{n}X_{i}(s,t)ds)^{2}]<\infty
+\end{equation*}
+
+Since:%
+\begin{equation*}
+E[(\int_{0}^{S}\int_{0}^{T}\sum_{i=1}^{n}X_{i}(s,t)ds)^{2}]\leq
+S^{2}T^{2}\max_{\substack{ 0\leq s,s^{\prime }\leq S,  \\ 0\leq t,t^{\prime
+}\leq T}}E[(\sum_{i=1}^{n}X_{i}(s,t))(\sum_{j=1}^{n}X_{j}(s^{\prime
+},t^{\prime }))]
+\end{equation*}%
+\bigskip
+
+Applying Jensen's inequality twice, and then the Cauchy-Schwartz inequality:%
+\begin{eqnarray*}
+E[(\sum_{i=1}^{n}X_{i}(s,t)\sum_{j=1}^{n}X_{i}(s^{\prime },t^{\prime
+}))^{2}] &\leq
+&n^{2}\sum_{i=1}^{n}\sum_{j=1}^{n}E[X_{i}(s,t)^{2}X_{j}(s^{\prime
+},t^{\prime })^{2}] \\
+&\leq &n^{2}\sum_{i=1}^{n}\sum_{j=1}^{n}(E[X_{i}(s,t)^{4}]E[X_{j}(s^{\prime
+},t^{\prime })^{4}])^{1/2}
+\end{eqnarray*}
+
+We conclude by the Cauchy-Schwartz inequality:%
+\begin{equation*}
+E[X_{i}(s,t)^{4}]\leq (E[Y_{i}(s,t)^{8}]E[Z_{i}(s,t)^{8}])^{1/2}
+\end{equation*}%
+\bigskip
+
+\end{document}

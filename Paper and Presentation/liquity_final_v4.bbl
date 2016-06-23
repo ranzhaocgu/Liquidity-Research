@@ -1,0 +1,122 @@
+\begin{thebibliography}{10}
+
+\bibitem{BB04}
+Peter Bank and Dietmar Baum.
+\newblock Hedging and portfolio optimization in financial markets with a large
+  trader.
+\newblock {\em Math. Finance}, 14(1):1--18, 2004.
+
+\bibitem{CT06}
+Ren\'{e} Carmona and Michael Tehranchi.
+\newblock {\em Interest Rate Models: and Infinite Dimensional Stochastic
+  Analysis Perspective}.
+\newblock Springer-Verlag, 2006.
+
+\bibitem{CR07}
+Umut \c{C}etin and Chris Rogers.
+\newblock Modeling liquidity effects in discrete time.
+\newblock {\em Mathematical Finance}, 17:15--29, 2007.
+
+\bibitem{Eng00}
+Robert Engle.
+\newblock The econometrics of ultra-high-frequency data.
+\newblock {\em Econometrica}, 68(1):1--23, 2000.
+
+\bibitem{BRZ}
+Jeffrey~Russell Federico~Bandi and Yinghua Zhu.
+\newblock Using high-frequency data in dynamic portfolio choice.
+\newblock {\em Econometric Reviews}, 27(1-3):163--198, 2008.
+
+\bibitem{Fre98}
+R\"{u}diger Frey.
+\newblock Perfect option hedging for a large trader.
+\newblock {\em Finance and Stochastics}, 2(3):115--141, 1998.
+
+\bibitem{GS11}
+Selim G\"{o}kay and H.~Mete Soner.
+\newblock Hedging in an illiquid binomial market.
+\newblock {\em Nonlinear Analysis: Real World Applications}, 1(3):1--16, 2014.
+
+\bibitem{Hau08}
+Nikolaus Hautsch.
+\newblock Capturing common components in high-frequency financial time series:
+  A multivariate stochastic multiplicative error model.
+\newblock {\em ournal of Economic Dynamics and Control}, 32(12):3978--4015,
+  2008.
+
+\bibitem{Jar92}
+Robert Jarrow.
+\newblock Market manipulation, bubbles, corners and short squeezes.
+\newblock {\em Journal of Financial and Quantitative Analysis}, 27(3):311--336,
+  1992.
+
+\bibitem{Jar94}
+Robert Jarrow.
+\newblock Derivative securities markets, market manipulation and option pricing
+  theory.
+\newblock {\em Journal of Financial and Quantitative Analysis}, 29(3):241--261,
+  1994.
+
+\bibitem{Kry09}
+Nikolai Krylov.
+\newblock On the ito-wentzell formula for distribution-valued processes and
+  related topics.
+\newblock {\em Probability Theory and Related Fields}, 150(1-2):295--319, 2011.
+
+\bibitem{Kyl85}
+Albert~S. Kyle.
+\newblock Continuous auctions and insider trading.
+\newblock {\em Econometrica}, 53(3):1315--1335, 1985.
+
+\bibitem{PS98a}
+George Papanicolaou and Ronnie Sircar.
+\newblock General black-scholes models accounting for increased market
+  volatility from hedging strategies.
+\newblock {\em Applied Mathematical Finance}, 5(3):45--82, 1998.
+
+\bibitem{PS98b}
+Eckhard Platen and Martin Schweizer.
+\newblock On feedback effects from hedging derivatives.
+\newblock {\em Math. Finance}, 8(1):67--84, 1998.
+
+\bibitem{DPZ92}
+Guiseppe~Da Prato and Jerzy Zabczyk.
+\newblock {\em Stochastic Equations in Infinite Dimensions}.
+\newblock Cambridge University Press, 1992.
+
+\bibitem{RS10}
+Chris Rogers and Surbjeet Singh.
+\newblock The cost of illiquidity and its effects on hedging.
+\newblock {\em Mathematical Finance}, 20(4):597--615, 2010.
+
+\bibitem{Ros09}
+Ioanid Rosu.
+\newblock A dynamic model of the limit order book.
+\newblock {\em Review of Financial Studies}, 22(3):4601--4641, 2009.
+
+\bibitem{SW00}
+Philipp~J. Sch\"{o}nbucher and Paul Wilmott.
+\newblock The feedback effect of hedging in illiquid markets.
+\newblock {\em SIAM Journal on Applied Mathematics}, 61(2):232--272, 2000.
+
+\bibitem{BLT06}
+Julia~Litvinova Tim~Bollerslev and George Tauchen.
+\newblock Leverage and volatility feedback effects in high-frequency data.
+\newblock {\em Journal of Financial Econometrics}, 81(3):637--654, 1973.
+
+\bibitem{CST10}
+H.~Mete~Soner Umut~\c{C}etin and Nizar Touzi.
+\newblock Option hedging for small investors under liquidity costs.
+\newblock {\em Finance and Stochastics}, 14(3):317--341, 2010.
+
+\bibitem{CJP04}
+Robert A.~Jarrow Umut~\c{C}etin and Philip Protter.
+\newblock Liquidity risk and arbitrage pricing theory.
+\newblock {\em Finance and Stochastics}, 8(3):311--341, 2004.
+
+\bibitem{WW02}
+S.~Wiswanathan and James Wang.
+\newblock Market architecture: limit-order books versus dealership markets.
+\newblock {\em Journal of Financial Markets}, 5(2):127--167, 2002.
+
+\end{thebibliography}
