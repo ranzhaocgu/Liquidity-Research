@@ -1,0 +1,154 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{10}
+
+\bibitem{Kyl85}
+Kyle~S. Albert, \emph{Continuous auctions and insider trading}, Econometrica
+  \textbf{53} (1985), no.~3, 1315--1335.
+
+\bibitem{AR11}
+Roch Alexandre, \emph{Liquidity risk, price impacts and the replication
+  problem}, Finance and Stochastics (2011).
+
+\bibitem{BRZ}
+{Bandi Federico, Russell Jeffrey, and Zhu Yinghua}, \emph{Using high-frequency
+  data in dynamic portfolio choice}, Econometric Reviews \textbf{27} (2008),
+  no.~1-3, 163--198.
+
+\bibitem{BLT06}
+{Bollerslev Tim, Litvinova Julia, and Tauchen George}, \emph{{Leverage and
+  volatility feedback effects in high-frequency data}}, Journal of Financial
+  Econometrics \textbf{81} (1973), no.~3, 637--654.
+
+\bibitem{Mue09}
+Mueller Carl, \emph{Some tools and results for parabolic stochastic partial
+  differential equations}, {In A minicourse on stochastic partial differential
+  equations - Lectures Notes in Mathematics 1962, Khoshnevisan Davar and
+  Rassoul-Agha Firas} (2009), 111--144.
+
+\bibitem{CR07}
+\c{C}etin Umut and Rogers Chris, \emph{Modeling liquidity effects in discrete
+  time}, Mathematical Finance \textbf{17} (2007), 15--29.
+
+\bibitem{CJP04}
+{\c{C}etin Umut, Jarrow A. Robert, Protter Philip}, \emph{Liquidity risk and
+  arbitrage pricing theory}, Finance and Stochastics \textbf{8} (2004), no.~3,
+  311--341.
+
+\bibitem{CST10}
+{\c{C}etin Umut, Soner H. Mete, and Touzi Nizar}, \emph{Option hedging for
+  small investors under liquidity costs}, Finance and Stochastics \textbf{14}
+  (2010), no.~3, 317--341.
+
+\bibitem{RS10}
+Rogers Chris and Singh Surbjeet, \emph{The cost of illiquidity and its effects
+  on hedging}, Mathematical Finance \textbf{20} (2010), no.~4, 597--615.
+
+\bibitem{PS98b}
+Platen Eckhard and Schweizer Martin, \emph{On feedback effects from hedging
+  derivatives}, Math. Finance \textbf{8} (1998), no.~1, 67--84.
+
+\bibitem{BS73}
+Black Fischer and Scholes Myron, \emph{The pricing of options and corporate
+  liabilities}, The Journal of Political Economy \textbf{8} (1973), no.~3,
+  217--224.
+
+\bibitem{PS98a}
+Papanicolaou George and Sircar Ronnie, \emph{General black-scholes models
+  accounting for increased market volatility from hedging strategies}, Applied
+  Mathematical Finance \textbf{5} (1998), no.~3, 45--82.
+
+\bibitem{DPZ92}
+Da~Prato Guiseppe and Zabczyk Jerzy, \emph{Stochastic equations in infinite
+  dimensions}, Cambridge University Press, 1992.
+
+\bibitem{Kun97}
+Kunita Hiroshi, \emph{Stochastic flows and stochastic differential equations},
+  Cambridge University Press, 1997.
+
+\bibitem{Ros09}
+Rosu Ioanid, \emph{A dynamic model of the limit order book}, Review of
+  Financial Studies \textbf{22} (2009), no.~3, 4601--4641.
+
+\bibitem{Wal86}
+Walsh John, \emph{An introduction to stochastic partial differential
+  equations}, Ecole d'Ete de Probabilites de Saint Flour XIV - 1984
+  \textbf{1180} (1986), 265--439.
+
+\bibitem{Kry09}
+Krylov Nikolai, \emph{On the ito-wentzell formula for distribution-valued
+  processes and related topics}, Probability Theory and Related Fields
+  \textbf{150} (2011), no.~1-2, 295--319.
+
+\bibitem{Hau08}
+Hautsch Nikolaus, \emph{Capturing common components in high-frequency financial
+  time series: A multivariate stochastic multiplicative error model}, ournal of
+  Economic Dynamics and Control \textbf{32} (2008), no.~12, 3978--4015.
+
+\bibitem{BB04}
+Bank Peter and Baum Dietmar, \emph{Hedging and portfolio optimization in
+  financial markets with a large trader}, Math. Finance \textbf{14} (2004),
+  no.~1, 1--18.
+
+\bibitem{BK15a}
+Bank Peter and Kramkov Dmitry, \emph{{A model for a large investor trading at
+  market indifference prices. I: single-period case}}, Finance and Stochastics
+  \textbf{19} (2015), no.~2, 449--472.
+
+\bibitem{BK15b}
+\bysame, \emph{A large model for a large investor trading at market
+  indifference prices ii: continuous-time case}, The Annals of Applied
+  Probability \textbf{25} (2015), no.~5, 2708--2742.
+
+\bibitem{PP04}
+Protter Philip, \emph{Stochastic integration and differential equations},
+  Springer, 2004.
+
+\bibitem{SW00}
+Sch\"{o}nbucher~J. Philipp and Wilmott Paul, \emph{The feedback effect of
+  hedging in illiquid markets}, SIAM Journal on Applied Mathematics \textbf{61}
+  (2000), no.~2, 232--272.
+
+\bibitem{CT06}
+Carmona Ren\'{e} and Tehranchi Michael, \emph{Interest rate models: and
+  infinite dimensional stochastic analysis perspective}, Springer-Verlag, 2006.
+
+\bibitem{Eng00}
+Engle Robert, \emph{The econometrics of ultra-high-frequency data},
+  Econometrica \textbf{68} (2000), no.~1, 1--23.
+
+\bibitem{Jar92}
+Jarrow Robert, \emph{Market manipulation, bubbles, corners and short squeezes},
+  Journal of Financial and Quantitative Analysis \textbf{27} (1992), no.~3,
+  311--336.
+
+\bibitem{Jar94}
+\bysame, \emph{Derivative securities markets, market manipulation and option
+  pricing theory}, Journal of Financial and Quantitative Analysis \textbf{29}
+  (1994), no.~3, 241--261.
+
+\bibitem{Fre98}
+Frey R\"{u}diger, \emph{Perfect option hedging for a large trader}, Finance and
+  Stochastics \textbf{2} (1998), no.~3, 115--141.
+
+\bibitem{WW02}
+Wiswanathan S. and Wang James, \emph{Market architecture: limit-order books
+  versus dealership markets}, Journal of Financial Markets \textbf{5} (2002),
+  no.~2, 127--167.
+
+\bibitem{SCS01}
+{Santa-Clara Pedro and Sornette Didier}, \emph{The dynamics of the forward
+  interest rate curve with stochastic string shocks}, The Review of Financial
+  Studies \textbf{14} (2001), no.~1, 149--185.
+
+\bibitem{GS11}
+G\"{o}kay Selim and Soner~H. Mete, \emph{Hedging in an illiquid binomial
+  market}, Nonlinear Analysis: Real World Applications \textbf{1} (2014),
+  no.~3, 1--16.
+
+\end{thebibliography}
