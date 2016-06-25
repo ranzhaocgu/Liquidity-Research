@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=latex 2015.2.2)  24 JUN 2016 22:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=latex 2015.2.2)  24 JUN 2016 22:35
 entering extended mode
-**liquity_final_v6.tex
+**liquity_final_v7.tex
 
 ("C:\Users\ranzhao\Documents\Liquidity-Research\Paper and Presentation\liquity_
-final_v6.tex"
+final_v7.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -399,4 +399,92 @@ LaTeX Info: Redefining \bf on input line 560.
 LaTeX Info: Redefining \it on input line 561.
 LaTeX Info: Redefining \sl on input line 562.
 LaTeX Info: Redefining \sc on input line 563.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latexsym.sty"
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+\c@axiom=\count113
+\c@example=\count114
+\c@exercise=\count115
+\c@equationnumber=\count116
+
+amsgen already loaded)
+("C:\Users\ranzhao\Documents\Liquidity-Research\Paper and Presentation\liquity_
+final_v7.aux")
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Try loading font information for U+msa on input line 74.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 74.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 74.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ulasy.fd"
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [1
+
+] [2] [3]
+[4] [5] [6] [7] [8] [9] [10] [11] [12] [13]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1244
+.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1244.
+
+
+
+LaTeX Warning: Reference `eqn::demand_and_priceItoWE' on page 14 undefined on i
+nput line 1305.
+
+[14] [15] [16]
+File: AAPL_20110401_Calibration_Q.eps Graphic file (type eps)
+ <AAPL_20110401_Calibration_Q.eps> [17]
+File: Q_both_measures.eps Graphic file (type eps)
+ <Q_both_measures.eps>
+Overfull \hbox (11.82765pt too wide) in paragraph at lines 1551--1553
+ [][][]  
+ []
+
+[18] [19]
+File: lambda.eps Graphic file (type eps)
+ <lambda.eps>
+File: implied_vol.eps Graphic file (type eps)
+ <implied_vol.eps> [20] [21] [22] [23] [24]
+("C:\Users\ranzhao\Documents\Liquidity-Research\Paper and Presentation\liquity_
+final_v7.bbl" [25] [26]) [27]
+("C:\Users\ranzhao\Documents\Liquidity-Research\Paper and Presentation\liquity_
+final_v7.aux")
+
+LaTeX Warning: There were undefined references.
+
+ )
+(\end occurred when \ifx on line 678 was incomplete) 
+Here is how much of TeX's memory you used:
+ 2780 strings out of 493922
+ 33116 string characters out of 3144894
+ 96122 words of memory out of 3000000
+ 6023 multiletter control sequences out of 15000+200000
+ 15742 words of font info for 62 fonts, out of 3000000 for 9000
+ 841 hyphenation exceptions out of 8191
+ 30i,13n,28p,324b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on liquity_final_v7.dvi (27 pages, 141664 bytes).
