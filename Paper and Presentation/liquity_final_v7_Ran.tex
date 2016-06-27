@@ -88,7 +88,7 @@ the large trader, if the driving noise is a Brownian sheet, while there may
 not be if the driving noise is multidimensional Brownian motion.
 
 Another contribution of this paper is to prove that, if there exists such an
-equivalent martingale measure, then, under mild conditions, there is no
+equivalent martingale measur, then, under mid conditions, there is no
 arbitrage. We use the Ito-Wentzell formula to obtain both results. We also
 characterize the dynamics of the demand curve and of the clearing price in
 the equivalent martingale measure. We find that the volatility of the
@@ -124,7 +124,7 @@ If at a given moment in time, the buyer is unable to complete his entire
 order due to the shortage of sell orders at the required limit price, the
 unmatched part of the order is recorded in the order book.A symmetric
 outcome exists in the case of incoming sell orders. Subsequently these buy
-unmatched orders may be matched with new incoming sell orders. We note that
+unmatched orders may be matched with new incoming sell orders.We note that
 many electronic exchanges, such as NYSE\ ARCA, operate like this.
 Time-priority is used to break indeterminacies of a match between an
 incoming buyer at limit price superior to the ask price, i.e., the lowest
@@ -158,9 +158,9 @@ arbitrage. Obviously, the clearing price may not be a martingale in the
 aforementioned measure if the filtration is enlarged to include private
 information.
 
-There are roughly two different classes of models in the liquidity literature.
-The first class of models
-(\cite{BB04,BK15a, BK15b,Fre98, Jar92, Jar94, PS98a, PS98b, RS10, SW00})
+There are roughly two different class of models in the liquidity literature.
+The first class of models 
+(\cite{BB04,BK15a, BK15b,Fre98, Jar92, Jar94, PS98a, PS98b, RS10, SW00}) 
 considers the action of a large trader who can
 manipulate the prices in the market. There are mainly two different types of
 strategies a large trader can employ to that effect. The first one is to
@@ -203,13 +203,13 @@ liquidity costs. Thus, the large trader is reduced to trading like an
 atomistic trader. Thus, in the second step, we assume that all traders are
 atomistic and trade in such a way that no market manipulation is possible.
 We then use our no-arbitrage model to price options. We point out a
-difference between our model and the Bank and Baum (hereafter BB04) model: we do
+difference between our model and Bank and Baum (hereafter BB04) model: we do
 not need to consider all possible strategies of the large trader to
 calculate an option price, since these strategies are implicit in the model.
 This is an expedient feature of our model:\ we do not need to identify
 whether there is a large trader, or several large traders on the market for
 the option pricing formula to be plausible. We leave for future work the
-rigorous development of a second fundamental theorem of asset pricing,
+rigorous development a second fundamental theorem of asset pricing,
 
 In our model all the information is contained in a Brownian sheet, which
 drives the dynamics of the market net demand curve. Such a string model has
@@ -356,8 +356,8 @@ construct a Brownian sheet, or, more generally stochastic partial
 differential equations. According to Mueller \cite{Mue09} "One can use either
 Walsh's \cite{Wal86} approach [..], the Hilbert space approach of Da Prato
 and Zabczyk \cite{DPZ92}, or Krylov's \cite{Kry09} $L_{p}$ theory". \cite%
-{DPZ92} and \cite{Mue09} note that the Hilbert space approach is at least as
-general as Walsh's approach. We use a combination of the Hilbert
+{DPZ92} and [Mue09] note that the Hilberts space approach is at least as
+general as Wlash's approach. We use a combination of the Hilbert
 space approach as exposed in \cite{CT06}, and Krylov's approach. We note
 that in Walsh's approach the definitions (\ref{nonconvergent}) and (\ref%
 {Forkrylov}) do not involve infinite series, but for our purpose the
@@ -444,7 +444,7 @@ differentiable (see also Lemma~\ref{lemma::differentiable_F} below).
 Let $F:[0,S]\times \lbrack 0,T]\times \Omega \rightarrow \mathbb{R}$ be a $%
 \mathcal{F}_{t}$- adapted semimartingale, which we will write $F(x,t)$. Let $%
 x:[0,T]\times \Omega \rightarrow \lbrack 0,S]$ be another $\mathcal{F}_{t}$-
-adapted semimartingale.
+adapted semimartingale with the following characteristics:
 
 \begin{eqnarray}
 dF(x,t,\omega ) &=&\mu _{F}(x,t,\omega )dt+\sigma _{F}(x,t,\omega
@@ -640,7 +640,7 @@ decreasing in its first argument, for all $p$ except $p=0$ and $p=S$.
 The fact that net demand curves are decreasing is an immediate consequence
 of our market mechanism (see above), and the fact that order quantities are
 by definition positive. Indeed, the number of shares of available buy orders
-is decreasing in price, while the number of shares of available sell
+is decreasing in price, while the number of shares is of available sell
 orders is increasing. The net demand, being the difference of buy and sell
 orders, is a decreasing function of price. Assumption~\ref%
 {ass::decrease_net_demand} is similar to Assumption A3 in \cite{Jar92} or
@@ -663,16 +663,15 @@ Assumption 2 in \cite{BB04}.
 \begin{assumption} \label{ass::primtive_Q_para}
 The primitives (characteristics) of the model are $\mathbb{R}$-valued $%
 \mathcal{F}_{t}$-adapted processes coefficients $\mu _{Q}(p,.)$, $\sigma
-_{Q}(p,.)$ and $b_{Q}(p,s,.)$, and:
+_{Q}(p,.)$ and $b_{Q}(p,s,.)$.
 
 \begin{eqnarray}
 dQ(p,t,\omega ) &=&\mu _{Q}(p,t,\omega )dt+\sigma _{Q}(p,t,\omega
 )\int_{s=0}^{S}b_{Q}(p,s,t,\omega )W(ds,dt,\omega )\text{ \ \ \ }0\leq p\leq
 S  \label{GenMod1} \\
 Q(p,0) &=&Q_{0}(p)>0 \qquad\text{\ } 0\leq p\leq S  \label{GenMod2} \\
-\int_{s=0}^{S}b_{Q}^{2}(p,s,t,\omega )ds &=&1 \qquad\qquad\qquad 0\leq
-p\leq S  \label{GenMod3} \\
--1 & \leq & \int_{s=0}^S b_Q(p,s,t,\omega) b_Q(p',s,t,\omega) ds \leq 1
+\int_{s=0}^{S}b_{Q}^{2}(p,s,t,\omega ) &=&1 \qquad\qquad\qquad 0\leq
+p\leq S  \label{GenMod3}
 \end{eqnarray}
 \end{assumption}
 
@@ -710,7 +709,7 @@ market, and his holdings are bounded by a constant $K$. Namely,%
 \end{equation*}
 \end{assumption}
 
-We will add a further condition on $\Theta $ later (see below Assumption~\ref{ass::theta_semimartingale}).
+We will add a further condition on $\Theta $ later (see below).
 
 \bigskip
 
@@ -804,10 +803,7 @@ d\theta (t)=\mu _{\theta }(t)dt+\sigma _{\theta }(t)\int_{s=0}^{S}b_{\theta
 \end{equation*}
 
 where $\mu _{\theta }$, $\sigma _{\theta }$ and $b_{\theta }$ are bounded in
-$L^{2}(\mathbb{R})$, and
-$$
-\int_{s=0}^1 b_\theta(s,t)^2 ds = 1
-$$
+$L^{2}(\mathbb{R})$.
 \end{assumption}
 
 %\bigskip
@@ -841,10 +837,10 @@ _{P}(x,t)\int_{s=0}^{S}b_{P}(x,s,t)W(ds,dt)  \label{equforP} \\
 For notational convenience, we introduce the cross-variation in the
 Ito-Wentzell formula:%
 \begin{equation*}
-C(p,t,\omega )=-\frac{\sigma _{Q}(p,t,\omega)}{\frac{\partial Q}{\partial
-p}(p,t,\omega)}\int_{s=0}^{S}\frac{\partial \lbrack \sigma
-_{Q}(p,t,\omega )b_{Q}(p,s,t,\omega )]}{\partial p}%
-b_{Q}(p,s,t,\omega )ds
+C(P(x,t),t,\omega )=-\frac{\sigma _{Q}(P(x,t),t)}{\frac{\partial Q}{\partial
+p}(P(x,t),t)}\int_{s=0}^{S}\frac{\partial \lbrack \sigma
+_{Q}(P(x,t),t,\omega )b_{Q}(P(x,t),s,t,\omega )]}{\partial p}%
+b_{Q}(P(x,t),s,t,\omega )ds
 \end{equation*}
 \end{definition}
 
@@ -973,7 +969,8 @@ _{P},\sigma _{P},b_{P},\theta ,\mu _{\theta },\sigma _{\theta },b_{\theta })$%
 The following fact implies that, if $\int_{t=0}^{t}L(\theta _{u},du)$ is a
 local martingale under an equivalent martingale measure $\mathbb{Q}$, then
 the realizable wealth under $\mathbb{Q}$ will be a supermartingale, since
-the term to the right of Equation~(\ref{lemma32BB04}) is positive.
+the two terms to the right-hand side of Equation~(\ref{lemma32BB04}) are
+nonpositive.
 
 %\bigskip
 
@@ -1007,8 +1004,8 @@ An\textit{\ arbitrage strategy} is a self-financing trading strategy $\theta
 \in \Theta $ such that $V^{\theta }(0_{-})=0$ and:
 
 \begin{eqnarray*}
-\mathbb{P}(V^{\theta }(T) &>&0)>0 \\
-\mathbb{P}(V^{\theta }(T) &\geq &0)=1
+P(V^{\theta }(T) &>&0)>0 \\
+P(V^{\theta }(T) &\geq &0)=1
 \end{eqnarray*}%
 \bigskip \textbf{\ }A \textit{market model has arbitrage} if there exists an
 arbitrage strategy $\theta \in \Theta $. The \textit{market price of risk}
@@ -1118,8 +1115,8 @@ This set of equations must hold for each value $P(x,t)$. Since $P(x,t)\in
 \lbrack 0,S]$, existence of a solution to the market price of risk equations
 are sufficient for (\ref{stoch_MPR})\ to hold. Under Assumption~\ref%
 {ass::novikov_condition_lambda}, we can assume that Girsanov's theorem holds
-(see, e.g. Theorem 10.14 in \cite{DPZ92}), so that there exists a local martingale
-measure $\mathbb{Q}$ for $P(x,t)$. By assumption \ref{ass::theta_semimartingale}
+(see, e.g. Theorem 10.14 in DPZ), so that there exists a local martingale
+measure $\mathbb{Q}$ for $P(x,t)$. By assumption \ref{ass::theta_semimartingale} 
 we can invoke (\ref%
 {lemma32BB04}) as well as Theorem 3.3 in BB04.$\blacksquare $
 
@@ -1171,10 +1168,10 @@ We assume regularity of the stochastic matrix:
 
 and that the process $\bar{\theta}$ defined in (\ref{theta_bar_1}),(\ref%
 {theta_bar_2}) has finite variation. Set $\sigma_{P,1}^{(1)} \neq 0$ and $\sigma_{P,2}^{(2)} \neq 0$. Then, by Fubini's theorem for
-stochastic integral (Theorem IV.46 in \cite{PP04}),%
+stochastic integral (cf Protter 1990, Theorem IV.46 in \cite{PP04}),%
 \begin{eqnarray}
 \int_{u=0}^{t}L(\theta ,du) &=&\int_{u=0}^{t}\theta ^{(1)}(u)\mu
-_{P}^{(1)}+\theta ^{(2)}(u)\mu _{P}^{(2)}du  \label{Lds} \\
+_{P}^{(1)}+\int_{u=0}^{t}\theta ^{(1)}(u)\mu _{P}^{(1)}du  \label{Lds} \\
 &&+\int_{u=0}^{t}S_{1}(u)dW_{1}(u)+\int_{u=0}^{t}S_{2}(u)dW_{2}(u)  \notag
 \end{eqnarray}
 
@@ -1196,7 +1193,7 @@ _{P,1}^{(1)}\sigma _{P,2}^{(2)}(\theta ^{(2)})^{2}/2=0
 Apart from $\theta =0$, an obvious solution is $\theta =\bar{\theta}$, where:%
 \begin{eqnarray}
 \bar{\theta}^{(1)} &=&-2\frac{\sigma_{P,2}^{(1)}\left(\sigma_{P,1}^{(2)} \right)^2}
-{\sigma_{P,2}^{(2)}\left(\sigma_{P,1}^{(1)}\right)^2}  \label{theta_bar_1} \\
+{\sigma_{P,2}^{(1)}\left(\sigma_{P,1}^{(1)}\right)^2}  \label{theta_bar_1} \\
 \bar{\theta}^{(2)} &=&2\frac{\sigma _{P,2}^{(1)}\sigma _{P,1}^{(2)}}{\sigma
 _{P,2}^{(2)}\sigma _{P,1}^{(1)}}  \label{theta_bar_2}
 \end{eqnarray}
@@ -1225,14 +1222,15 @@ demand $Q$:%
 \begin{eqnarray}
 h(x,t) &=&h_{0,x}\exp (-a(x)t)+\bar{h}(x)(1-\exp (-a(x)t))+  \label{equ_h_A}
 \\
-&& \sigma_{h}(x)\int_{u=0}^{t}\exp (-a(x)(t-u))\int_{s=0}^{S}b_{h}(x,s)W(ds,du)\text{\ \ \ \ } \forall x\in \lbrack
--\varepsilon ,S] \nonumber \\
-q(p,t) &=&\exp ({\int_{x=-\varepsilon }^{p}h(x,t)dx)}\text{ \ \ \ \ \ \ \ \
-\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }  \forall p\in \lbrack 0,S]  \label{equ_q_A} \\
+&&\int_{u=0}^{t}\exp (-a(x)(t-u))\sigma
+_{h}(x)\int_{u=0}^{S}b_{h}(x,s)W(ds,u))du  \notag \\
+q(p,t) &=&\exp ({\int_{x=0}^{p}h(x,t)dx)}\text{ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ }\forall p\in \lbrack 0,S]  \label{equ_q_A} \\
 d\eta (t) &=&a_{\eta }(\bar{\eta}-\eta (t))dt+g(\eta (t))\int_{s=0}^{S}b_{\eta
 }(s)W(ds,dt)  \label{equ_eta_A_bis} \\
-Q(p,t) &=&\eta (t)\int_{x=0}^{S}q(x,t)dx-\int_{x=0}^{p}q(x,t)dx\text{
-\ \ \ \ \ \ \ \ \ \ \ \ } \qquad\qquad\forall p\in \lbrack 0,S] \label{equ_Q_A}
+Q(p,t) &=&\eta (t,\omega )\int_{x=0}^{S}q(x,t)dx-\int_{x=0}^{p}q(x,t)dx\text{
+\ \ \ \ \ \ \ \ \ \ \ \ } \qquad\qquad\qquad \forall p\in \lbrack 0,S]  \label{equ_Q_A}
 \end{eqnarray}
 
 with initial condition:%
@@ -1243,42 +1241,29 @@ with initial condition:%
 where:
 
 \begin{itemize}
-\item $a\geq 0$, $\bar{h}\geq 0$, $\sigma _{h}\geq 0$, and $b_{h}(.,s)$ (for $s\in \lbrack
-0,S]$) are twice continuously differentiable deterministic functions of $p$, bounded on $%
-p\in \lbrack 0,S]$
+\item $a$, $\bar{h}$, $\sigma _{h}$ , and $b_{h}(.,s)$ (for $s\in \lbrack
+0,S]$) are continuously differentiable functions of $p$, bounded on $p\in
+\lbrack 0,S]$
 
-\item $\sigma _{h}$ is bounded away from zero
+\item $a_{\eta }\geq 0,\bar{\eta}\in (0,1)$
 
-\item $a_{\eta }$ is nonnegative and bounded$,\bar{\eta}\in (0,1)$
-
-\item $g$ is a nonnegative bounded Lipschitz continuous function such that $%
-g(\eta )=0$ if $\eta \leq 0$ or $\eta \geq 1$.
-
-\item all scalar products of factor leadings ($b_\eta$ and $b_h$) are between $-1$ and $1$.
+\item $g$ is a nonnegative Lipschitz continuous function such that $g(\eta
+)=0$ if $\eta \leq 0$ or $\eta \geq 1$.
 \end{itemize}
 
-Let $0<\delta _{0}<\delta _{1}<\delta _{2}<S$. We also assume that
-
-\begin{itemize}
-\item $b_{\eta }(s)=0$ for $\delta _{2}\leq s\leq S$
-
-\item $b_{h}(x,s)=0$ for $0\leq s\leq \delta _{1}$, and $x\in \lbrack 0,S]$
-
-\item $b_{h}(x,s)=0$ for $0\leq s\leq \delta _{0}$, and $x\in \lbrack
--\varepsilon ,0)$
-\end{itemize}
-
-Thus:%
+Let $0<\delta _{1}<\delta _{2}<S$. We also assume that $b_{\eta }(s)=0$ for $%
+\delta _{2}\leq s\leq S$ and $b_{h}(x,s)=0$ for $0\leq s\leq \delta _{1}$,
+and $x\in \lbrack 0,S]$, so that:%
 \begin{eqnarray}
-\int_{s=\delta _{1}}^{S}b_{h}^{2}(p,s)ds &=&1\text{\ \ \ \ \ \ \ }\forall p\in
+\int_{s = \delta _{1}}^{S}b_{h}^{2}(p,s)ds &=&1\text{\ \ \ \ \ \ \ }\forall p\in
 \lbrack 0,S]  \label{bh} \\
-\int_{s=0}^{\delta _{2}}b_{\eta }^{2}(s)ds &=&1  \label{b_eta}
+\int_{s = 0}^{\delta _{2}}b_{\eta }^{2}(s)ds &=&1  \label{b_eta}
 \end{eqnarray}
 
 and that the bounded linear operator $B_{h}:E\rightarrow E$ given by%
-\[
-(B_{h}f)(p)=\int_{s=\delta _{1}}^{S}b_{h}(p,u)f(u)du
-\]%
+\begin{equation*}
+(B_{h}f)(p)=\int_{u=0}^{S}b_{h}(p,u)f(u)du
+\end{equation*}%
 \bigskip
 
 has full rank.
@@ -1317,7 +1302,7 @@ In other words it is the ratio of the quantity of all shares available for
 purchase over the quantity of shares available for purchase or for sale,
 and, as such should lie between zero and one. This is indeed the case for
 the double-barrier process in (\ref{equ_eta_A_bis}). Examination of (\ref%
-{equ_Q_A}) shows then that, if $P(x,t)$ satisfies (\ref{eqn::demand_and_price}), then it
+{equ_Q_A}) shows then that, if $P(x,t)$ satisfies (\ref{eqn::demand_and_priceItoWE}), then it
 does not reach barrier $0$ and $S$ almost surely. We write $Q(p,t)$ as:
 
 \begin{equation*}
@@ -1352,7 +1337,7 @@ empirical section that it was always verified.
 %\textbf{Proposition:}
 
 \begin{proposition}
-Under Assumption~\ref{ass::theta_semimartingale}, our model satisfies Assumptions~\ref%
+Our model satisfies Assumptions~\ref%
 {ass::demand_twice_diff}, \ref{ass::iwk_condition_Q}, \ref%
 {ass::iwk_condition_P}, and \ref{ass::novikov_condition_lambda}. Also, the
 market price of risk equations (\ref{MPR}) hold.
@@ -1551,7 +1536,7 @@ We use Cholesky decomposition to calculate $\hat{B}.$
 
 \bigskip
 
-In the simulation, we use $a_\eta = 0.9$, $\bar{\eta}=0.6$ and $\sigma_\eta = 0.1$.
+In the simulation, we use $a_\eta = 0.9$ and $\bar{\eta}=0.6$.
 
 \subsection{Simulation - Real-world Measure ($\mathbb{P}$ Measure)}
 
@@ -1580,16 +1565,16 @@ We first need to solve the market price of risk equations. Expressions for $%
 discretization of equations 41 and 42 in the appendix. Remember that:
 
 \begin{equation*}
-\Sigma(k,i,j)=\sigma _{Q}(k,j)b_{Q}(k,i,j)
+\Sigma _{Q}(k,i,j)=\sigma _{Q}(k,j)b_{Q}(k,i,j)
 \end{equation*}
 
 We calculate:
 
 \begin{eqnarray*}
-\sigma _{\pi }(j)b_{\pi }(i,j) &=&-\frac{\Sigma(k^{\ast }(j),i,j)}{%
+\sigma _{\pi }(j)b_{\pi }(i,j) &=&-\frac{\Sigma _{Q}(k^{\ast }(j),i,j)}{%
 q(k^{\ast }(j),j)} \\
-C(k,j) &=&\sigma _{\pi }(j)\sum_{i=0}^{I}\frac{\Sigma(k^{\ast
-}(j),i,j)-\Sigma(k^{\ast }(j)-1,i,j)}{\Delta p}b_{\pi }(i,j) \\
+C(k,j) &=&\sigma _{\pi }(j)\sum_{i=0}^{I}\frac{\Sigma _{Q}(k^{\ast
+}(j),i,j)-\Sigma _{Q}(k^{\ast }(j)-1,i,j)}{\Delta p}b_{\pi }(i,j) \\
 B(k,j) &=&\mu _{Q}(k,j)-\frac{1}{2}\frac{Q(k+1,j)-2Q(k,j)+Q(k-1,j)}{\Delta
 p^{2}}+C(k,j)
 \end{eqnarray*}
@@ -1597,7 +1582,7 @@ p^{2}}+C(k,j)
 The market price of risk equations are, for each scenario and each time $j$:
 
 \begin{eqnarray}  \label{eqn::market_price_risk_equation}
-\sum_{i=0}^{I}\Sigma(k,i,j)\lambda (i,j)=B(k,j)\text{ \ \ \ }k=0,...,I
+\sum_{i=0}^{I}\Sigma _{Q}(k,i,j)\lambda (i,j)=B(k,j)\text{ \ \ \ }k=0,...,I
 \end{eqnarray}
 
 Now let $\{z^{\mathbb{Q}}(i,j)\}$ be a collection of standard normal random
@@ -1690,7 +1675,7 @@ inequalities.
 \label{lemma::finite_eighth_moment} \textit{Let }$Y_{i}(s,t)$\textit{\ and }$%
 Z_{i}(s,t)$\textit{\ be collections of random variables, for }$i=1,...,n$%
 \textit{, }$0\leq s\leq S$\textit{, and }$0\leq t\leq T$\textit{. Suppose }$%
-|\mathbb{E}[\int_{0}^{S}\int_{0}^{T}\sum_{i=1}^{n}Y_{i}(s,t)Z_{i}(s,t)dtds]|<\infty $%
+|\mathbb{E}[\int_{0}^{S}\int_{0}^{T}\sum_{i=1}^{n}Y_{i}(s,t)Z_{i}(s,t)ds]|<\infty $%
 \textit{. A sufficient condition for }%
 \begin{equation*}
 \mathbb{P}\left(\int_{s=0}^{S}\int_{t=0}^{T}\sum_{i=1}^{n}Y_{i}(s,t)Z_{i}(s,t)dtds<\infty \right)=1
@@ -1698,8 +1683,8 @@ Z_{i}(s,t)$\textit{\ be collections of random variables, for }$i=1,...,n$%
 
 \textit{is that for all }$s,t$\textit{\ and }$i=1,..,n$%
 \begin{eqnarray*}
-\mathbb{E}[Y_{i}(s,t)^{8}] &<&\infty \\
-\mathbb{E}[Z_{i}(s,t)^{8}] &<&\infty
+E[Y_{i}(s,t)^{8}] &<&\infty \\
+E[Z_{i}(s,t)^{8}] &<&\infty
 \end{eqnarray*}
 \end{lemma}
 
@@ -1750,38 +1735,42 @@ result obtains.
 Differentiating (\ref{equ_Q_A}), we have:
 
 \begin{eqnarray}
-\frac{\partial Q(p,t)}{\partial p} &=&-\exp \left( {\int_{x=-\varepsilon
-}^{p}h(x,t)dx}\right)   \label{dQdp_3} \\
+\frac{\partial Q(p,t)}{\partial p} &=&-\exp \left( {\int_{x=0}^{p}h(x,t)dx}%
+\right)  \label{dQdp_3} \\
 \frac{\partial ^{2}Q(p,t)}{\partial p^{2}} &=&-{h(p,t)}\exp \left( {%
-\int_{x=-\varepsilon }^{p}h(x,t)dx}\right)   \label{dQdp_2_3}
+\int_{x=0}^{p}h(x,t)dx}\right)  \label{dQdp_2_3}
 \end{eqnarray}
 
 As for the infinitesimal parameters of $Q$, let $f(p,t)$ be the drift of $%
-\int_{x=0}^{p}q(x,t)dx$. By Lemma~\ref{lemma::differentiable_F},
-\[
-f(p,t)=\int_{x=0}^{p}q(x,t)\left[\int_{y=-\varepsilon }^{x}a(y)(\bar{h}%
-(y)-h(y,t))dy\right]+\left[\int_{y=-\varepsilon }^{x}\int_{y^{\prime
-}=-\varepsilon }^{x}\frac{Cov[dh(y,t),dh(y^{\prime }(t)]}{2dt}dydy^{\prime
-}\right]dx
-\]
+\int_{x=0}^{p}q(x,t)dx$. By lemma \ref{lemma::differentiable_F},
+\begin{eqnarray}
+f(p,t) &=&\int_{x=0}^{p}{h(x,t)}\exp ({\int_{y=0}^{x}h(y,t)dy)}a(p)(\bar{h}%
+(p)-x)dx  \label{f_of_p} \\
+&&\frac{1}{2}\int_{x=0}^{p}\text{ }{h}^{2}{(x,t)}\exp ({%
+\int_{y=0}^{x}h(y,t)dy)}\sigma _{h}^{2}(x)dx+  \notag \\
+&&\frac{1}{2}({h(p,t)}\exp ({\int_{x=0}^{p}h(x,t)dx)}\sigma _{h}^{2}(p)-{%
+h(0,t)}\sigma _{h}^{2}(0))+  \notag \\
+&&\frac{1}{2}\int_{x=0}^{p}{h(x,t)}\exp ({\int_{y=0}^{x}h(y,t)dy)[h(x,t)}%
+\sigma _{h}^{2}(x)+\frac{d}{dx}\sigma _{h}^{2}(x)]dx  \notag
+\end{eqnarray}
 
 By Ito's lemma, the drift of $Q(p,t)$ is:%
 \begin{eqnarray}
 \mu _{Q}(p,t) &=&\eta (t)f(S,t)-f(p,t)+  \label{mu_Q} \\
-&&a_{\eta }(\bar{\eta}-\eta (t))\int_{x=0}^{S}q(x,t){dx+}  \nonumber \\
-&&g(\eta (t))\int_{x=0}^{S}q(x,t)\int_{y=-\varepsilon }^{x}\rho _{h,\eta }(y)%
-{\sigma _{h}(y)dydx}  \nonumber
+&&a_{\eta }(\bar{\eta}-\eta (t))\int_{x=0}^{S}\exp ({%
+\int_{y=0}^{x}h(y,t)dy)dx+}  \notag \\
+&&g(\eta (t))\rho _{h,\eta }(x)\int_{x=0}^{S}{h(x,t)}\exp ({%
+\int_{y=0}^{x}h(y,t)dy)\sigma _{h}(x)dx}  \notag
 \end{eqnarray}
 
 where $\rho _{h,\eta }(x)$ is the instantaneous correlation of $h(x)$ and $%
-\eta $. The volatility of $Q(p,t)$ is:%
+\eta $.  The volatility of $Q(p,t)$ is:%
 \begin{eqnarray}
-\Sigma (p,s,t) &=&g(\eta (t))b_{\eta }(s)\int_{x=0}^{S}q(x,t){dx}+
-\label{sigma_Q} \\
-&&\eta (t)\int_{x=0}^{S}q(x,t)\int_{y=-\varepsilon }^{x}\sigma
-_{h}(y)b_{h}(y,s)dydx-  \nonumber \\
-&&\int_{x=0}^{p}q(x,t)\int_{y=-\varepsilon }^{x}\sigma _{h}(y)b_{h}(y,s)dydx
-\nonumber
+\Sigma (p,s,t) &=&g(\eta (t))b_{\eta }(s)(Q(S,t)-Q(0,t))+  \label{sigma_Q} \\
+&&\eta (t)\int_{x=0}^{S}{h(x,t)}\exp ({\int_{y=0}^{x}h(y,t)dy)}\sigma
+_{h}(x)b_{h}(x,s)dx-  \notag \\
+&&\int_{x=0}^{p}{h(x,t)}\exp ({\int_{y=0}^{x}h(y)dy)}\sigma
+_{h}(x)b_{h}(x,s)dx  \notag
 \end{eqnarray}
 
 \subsection{Verification of Assumptions~\protect\ref{ass::demand_twice_diff}
@@ -1789,24 +1778,29 @@ and~\protect\ref{ass::iwk_condition_Q}}
 
 It is clear from (\ref{dQdp_2_3}), and Lemma~\ref{lemma::differentiable_F} that $Q$ is twice
 continuously differentiable in $p$. Thus Assumption~\ref{ass::demand_twice_diff} is satisfied as well
-as IWK (ii)\ (continuity of $Q$ in $p$).
+as IWK (ii)\ (continuity of $Q$ in $p$)
 
-\subsubsection{Verification of IWK iii.a)} \label{sec::verify_continuity_Q}
+Assumption IWK (i) (boundedness of $P(t)$) is verified in Remark~\ref{rem::boundness_p}.
 
-As seen above $h(p,t)$ is continuous in $p$. The process $f(p,t)$ is
-differentiable in $p$. Inspection of (\ref{mu_Q}) shows that $\mu _{Q}$ is
-continuous in $p$. The volatility $\Sigma (p,s,t)$ in (\ref{sigma_Q}) is clearly a continuous
-function of $p$. So is $\sigma _{Q}(p,t)$.
+\subsubsection{Verification of IWK iii.a)}
+
+Drift:\ As seen above $h(p,t)$ is continuous in $p$. By continuity of $a(p)$
+and $\frac{d}{dp}\sigma _{h}^{2}(p)$ the process $f(p,t)$ is differentiable
+in $p$. Inspection of (\ref{mu_Q}) shows that $\mu _{Q}$ is continuous in $p$%
+.
+
+Volatility: We need only investigate the third row of (\ref{sigma_Q}), which
+is clearly a continuous function of $p$. So is $\sigma _{Q}(p,t)$.
 
 \bigskip
 
 \subsubsection{Verification of IWK iii.b)}
 
-Continuity of terms (1)\ and (2) is obvious. From (\ref{sigma_Q}), we
-calculate
-\begin{equation}
-\frac{\partial \Sigma (p,s,t)}{\partial p}=-q{(p,t)}\int_{y=-\varepsilon
-}^{p}\sigma _{h}(y)b_{h}(y,s)dy  \label{dsigmadp_thefirst}
+Continuity of terms (1)\ and (2) obvious. From (\ref{sigma_Q}), we calculate
+\begin{equation} %\label{eqn::d_sigma_b_d_p}
+\frac{\partial \Sigma (p,s,t)}{\partial p}=-{h(p,t)}\exp ({%
+\int_{x=0}^{p}h(x,t)dx)}\sigma _{h}(p,t)b_{h}(p,s,t)
+\label{dsigmadp_thefirst}
 \end{equation}
 
 which is clearly a continuous function of $p$, thus proving continuity of
@@ -1814,72 +1808,66 @@ term (3). Continuity of terms (4) and (5) follows trivially.
 
 \subsubsection{Verification of IWK iv and v}
 
-Clearly ${\int_{y=-\varepsilon}^{p}h(y,t)dy}$ is normal, thus $q(p,t)$ is lognormal,
+Clearly ${\int_{y=0}^{p}h(y,t)dy}$ is normal, thus $q(p,t)$ is lognormal,
 and has thus finite moments. For simplicity, we drop the argument $t$. By
-Lemma~\ref{lemma::differentiable_F}, we can break the argument into
+Lemma~\ref{lemma::finite_eighth_moment}, we can break the argument into
 verifying finiteness of the 16th moments of the following random variables:
 
 \begin{enumerate}
 \item \textbf{Net demand\ }$Q(p).$ By Jensen's inequality:%
-\[
-\mathbb{E}[(\int_{0}^{S}q(x)dx)^{16}]\leq S^{15}\int_{s=0}^{S}\mathbb{E}\left[\exp (16\int_{y=-\epsilon
-}^{x}h(y)dy)\right]ds
-\]%
+\begin{equation*}
+E[(\int_{0}^{S}q(x)dx)^{16}]\leq \int_{0}^{S}E[\exp (16\int_{0}^{x}h(y)dy)]ds
+\end{equation*}%
 which is bounded. By (\ref{equ_Q_A})
-\[
+\begin{equation*}
 -\int_{x=0}^{S}q(x)dx\leq Q(p)\leq \int_{x=0}^{S}q(x)dx
-\]
+\end{equation*}
 
 Thus $E[Q(p)^{16}]$ is bounded.
 
 \item \textbf{Volatility of net demand }$\sigma _{Q}$. Observe that $\sigma
-_{h}(x),g\left( \eta \right) $ and $\eta $ are bounded. Since $%
-q(x,t)\int\limits_{y=-\varepsilon }^{x}\sigma _{h}(y)b_{h}(y,s)dy$ is
-lognormal, it has finite moments. We apply Cauchy inequality to (\ref%
-{sigma_Q}) to show that $E[\Sigma (p,s)^{16}]$ is bounded. By Jensen's
-inequality,%
-\[
-\mathbb{E}[\sigma _{Q}(p)^{16}]\leq S^{15}\int\limits_{s=0}^{S}\mathbb{E}\left[\Sigma (p,s)^{16}\right]ds
-\]
+_{h}(x,s)$ is bounded. Since $g(\eta )$ and $\eta $ are bounded, it suffices
+to look at the last term of (\ref{sigma_Q}), to which we apply Jensen's
+inequality:%
+\begin{gather*}
+E[(\int_{x=0}^{S}{h(x)}\exp ({\int_{y=0}^{x}h(y)dy)}dx)^{16}]=E[(%
+\int_{x=0}^{S}\frac{d}{dx}\exp ({\int_{y=0}^{x}h(y)dy)}dx)^{16}]= \\
+E[\exp ({\int_{y=0}^{S}h(y)dy)}dx)^{16}]
+\end{gather*}
 
-\item \textbf{Drift of net demand }$\mu _{Q}$. Let $H(x)=\int_{y=-%
-\varepsilon }^{x}h(y)dy$. By the Jensen and Cauchy-Schwartz inequalities:%
-\begin{eqnarray*}
-\mathbb{E}\left[(\int_{x=0}^{S}\exp (H(x))H(x)dx)^{16}\right] &\leq &S^{15}\mathbb{E}\left[\int_{x=0}^{S}\exp
-(16H(x))H(x)^{16}dx\right] \\
-&\leq &S^{15}(\int_{x=0}^{S}\mathbb{E}\left[\exp
-(32H(x))\right]dx\int_{x=0}^{S}\mathbb{E}[H(x)^{32}]dx)^{1/2}
-\end{eqnarray*}
+Thus $E[\sigma _{Q}(p)^{16}]$ is bounded.
 
-which is bounded. Since $a(y),\bar{h}(y)$ and $\int\limits_{y=-\varepsilon
-}^{x}\int\limits_{y^{\prime }=-\varepsilon }^{x}\frac{Cov[dh(y,t),dh(y^{%
-\prime }(t)]}{2dt}dydy^{\prime }$ are bounded, then $\mathbb{E}[f(S)^{16}]$ is
-bounded. Applying Cauchy's inequality to (\ref{mu_Q}), and noticing that $%
-a_{\eta },\bar{\eta},\eta $,$g(\eta )$ and $\sigma _{h}(y)$ are bounded, we
-conclude that $E[\mu _{Q}(p)^{16}]$ is bounded.
+\item \textbf{Drift of net demand }$\mu _{Q}$. Applying Jensen and Cauchy
+inequalities to (\ref{mu_Q}), it is sufficient to verify the finiteness of
+the 16th moments of:
+
+$f(S),\int_{x=0}^{S}\exp ({\int_{y=0}^{x}h(y)dy)dx}$, and $\int_{x=0}^{S}{%
+h(x)}\exp ({\int_{y=0}^{x}h(y)dy)\sigma _{h}(x)dx}$. The same type of
+development as before applies to the first 3 terms of $f(S)$. $E[f(S)^{16}]$
+is bounded because $\sigma _{h}^{2}(x)$ is differentiable.
 
 \item \textbf{Price drift }$\mu _{P}$. We refer the reader to (\ref{mu_Px})
 in the main text. Since the numerator has finite 16th moment, it is
 sufficient, by the Cauchy-Schwartz inequality, to prove boundedness of:%
-\[
-\mathbb{E}\left[(\frac{1}{\partial Q/\partial p})^{16}\right]=\mathbb{E}\left[\exp \left( -16{%
-\int_{x=-\varepsilon }^{p}h(x,t)dx}\right) \right]
-\]%
+\begin{equation*}
+E[(\frac{1}{\partial Q/\partial p})^{16}]=E[\exp \left( -16{%
+\int_{x=0}^{p}h(x,t)dx}\right) ]
+\end{equation*}%
 \qquad which is clear.
 
 \item \textbf{Price volatility }$\sigma _{P}$. We use the same argument as
 above, since%
-\[
+\begin{equation*}
 \sigma _{P}=\frac{\sigma _{Q}}{\partial Q/\partial p}
-\]
+\end{equation*}
 
 \item \textbf{First derivative of net demand} $\frac{\partial Q(p)}{\partial
 p}$. Finiteness of the moment is clear, since the random variable in (\ref%
 {dQdp_3}) is lognormal.
 
 \item \textbf{Second Derivative of Net Demand}$\frac{\partial Q^{2}(p)}{%
-\partial p^{2}}$. Applying the Cauchy-Schwartz inequality on (\ref{dQdp_2_3}%
-), we see that this has finite 16th moment.
+\partial p^{2}}$. Using Cauchy-Schwartz on (\ref{dQdp_2_3}), we see that
+this has finite 16th moment.
 
 \item \textbf{Derivative of Net Demand Volatility }$\frac{\partial \Sigma
 (p,s)}{\partial p}$. We reuse (\ref{dsigmadp_thefirst}), and use the same
@@ -1891,36 +1879,35 @@ logic as above.
 Since $Q(.,t)$ is bijective and continuous, so is its inverse $P(.,t)$. Thus
 IWK (ii) is verified. We rewrite (\ref{dQdp_3}) as:
 
-\[
-\frac{\partial Q(P(x,t),t)}{\partial p}=-\exp \left( {\int_{y=-\varepsilon
-}^{P(x,t)}h(y,t)dy}\right)
-\]
+\begin{equation*}
+\frac{\partial Q(P(x,t),t)}{\partial p}=-\exp \left( {%
+\int_{x=0}^{P(x,t)}h(y,t)dy}\right)
+\end{equation*}
 
 Thus:%
 \begin{eqnarray}
-\frac{\partial P(x,t)}{\partial x} &=&-\exp \left( {\int_{y=-\varepsilon
-}^{-P(x,t)}h(y,t)dy}\right)   \label{dPdx} \\
-\frac{\partial ^{2}P(x,t)}{\partial x^{2}} &=&\frac{\partial P(x,t)}{%
-\partial x}{\int_{y=-\varepsilon }^{-\partial P(x,t)/\partial x}h(y,t)dy}
-\label{dPdx_square}
+\frac{\partial P(x,t)}{\partial x} &=&-\exp \left( {%
+\int_{x=0}^{-P(x,t)}h(y,t)dy}\right)  \label{dPdx} \\
+\frac{\partial ^{2}P(x,t)}{\partial x^{2}} &=&P(x,t)\exp \left( {%
+\int_{x=0}^{-P(x,t)}h(y,t)dy}\right)  \label{dPdx_square}
 \end{eqnarray}
 
 \subsubsection{Verification of IWK iii.a)}
 
 Immediate from (\ref{mu_Px}),(\ref{sigma_P})\ and (\ref{b_P}). Continuity of
-the characteristics of $Q$ was proved under \ref{sec::verify_continuity_Q}. The result follows
+the characteristics of $Q$ was proved under Assumption~\ref{ass::primtive_Q_para}. The result follows
 from the continuity of $P$ as a function of $x$.
 
 \bigskip
 
 \subsubsection{Verification of IWK iii.b)}
 
-Continuity of terms (1)\ and (2) follows from (\ref{dPdx}) and (\ref%
+Continuity of terms (1)\ and (2) obvious follows from (\ref{dPdx}) and (\ref%
 {dPdx_square}). From (\ref{sigma_P}), we calculate
 \begin{equation}
-\frac{\partial \lbrack \sigma _{P}(x,t)b_{P}(x,s,t)]}{\partial x}=-\frac{%
-\partial }{\partial x}\left( \frac{\Sigma (x,s,t)}{\frac{\partial Q}{%
-\partial p}(P(x,t))}\right)   \label{dsigmadp}
+\frac{\partial \lbrack \Sigma (x,s,t)]}{\partial x}=-\frac{\partial }{%
+\partial x}\left( \frac{\Sigma (x,s,t)}{\frac{\partial Q}{\partial p}(P(x,t))%
+}\right)   \label{dsigmadp}
 \end{equation}
 
 and continuity of term (3) follows from the differentiability of $P$ (see (%
@@ -1929,7 +1916,7 @@ and continuity of term (3) follows from the differentiability of $P$ (see (%
 \subsubsection{Verification of IWK iv and v}
 
 For simplicity, we drop the argument $t$. By Lemma~\ref%
-{lemma::finite_eighth_moment}, we can break the argument into verifying
+{lemma::differentiable_F}, we can break the argument into verifying
 finiteness of the 16th moments of the following random variables:
 
 \bigskip
@@ -1959,61 +1946,44 @@ x^{2}}$. From (\ref{dPdx_square}).
 _{P}(x,t)b_{P}(x,s,t)]}{\partial x}$. From (\ref{dsigmadp}) and the fact
 that $\frac{\partial \lbrack \Sigma (x,s,t)]}{\partial x}$ has finite 8th
 moment (see above).
-
-\pagebreak
 \end{enumerate}
 
 \subsection{Verification of Assumption~\protect\ref%
 {ass::novikov_condition_lambda} and Equation (\protect\ref{MPR})}
 
-We first verify that $B(p,t)$ defined (\ref{DefofB}) is twice
-differentiable. The term $\frac{\partial ^{2}Q}{\partial p^{2}}$ is twice
+We first verify that $B(p,t)$ defined (\ref{DefofB}) in is differentiable in
+$L^{2}(\mathbb{P})$. The term $\frac{\partial ^{2}Q}{\partial p^{2}}$ is
 differentiable in $p$ by Lemma~\ref{lemma::differentiable_F}. A similar line
-of proof allows us to conclude that $%
-\mu _{Q}(p,t)$ and $C(p,t)$ are also twice differentiable. Thus $B(p,t)$ is
-twice differentiable in $p$. We omit the parameter $t$. We now differentiate
-(\ref{MPR}) w.r.t. $p$ to obtain:%
+of proof allows us to conclude (see also the proof of assumption 1) that $%
+\mu _{Q}(p,t)$ and $C(p,t)$ are also differentiable. Thus $B(p,t)$ is
+differentiable. We now differentiate (\ref{MPR}) w.r.t. $p$ to obtain:%
+\begin{equation*}
+\int_{\delta _{1}}^{S}{h(p)}\exp ({\int_{y=0}^{p}h(y)dy)},\sigma
+_{h}(p)b_{h}(p,s)\lambda (s)ds=\frac{\partial B(p)}{\partial p}\text{ }
+\end{equation*}
+
+Since ${h(p)}$ is different from zero by probability one, we have, for $p\in
+\lbrack 0,S]$:%
 \begin{equation}
--\int_{s=0}^{S}q{(p)\int_{y=-\varepsilon }^{p}}\sigma
-_{h}(y)b_{h}(y,s)dy\lambda (s)ds=\frac{\partial B(p)}{\partial p}\text{ }
-\label{dBdp}
+\int_{\delta _{1}}^{S}b_{h}(p,s)\lambda (s)ds=\frac{\frac{\partial B(p)}{%
+\partial p}}{{h(p,t)}\exp ({\int_{y=0}^{p}h(y)dy)}\sigma _{h}(p)}
+\label{tobeinverted}
 \end{equation}
 
-Since ${q(p)}$ is different from zero with probability one, we can divide by
-$q{(p)}$ and differentiate a second time to obtain, for $p\in \lbrack 0,S]$:%
-\begin{equation}
--\int_{s=\delta _{1}}^{S}\sigma _{h}(p)b_{h}(p,s)\lambda (s)ds=\frac{\frac{%
-\partial ^{2}B(p)}{\partial p^{2}}q(p)-\frac{\partial B(p)}{\partial p}\frac{%
-\partial ^{2}Q(p)}{\partial p^{2}}}{q(p)^{2}}  \label{tobeinverted}
-\end{equation}
-
-Since $\sigma _{h}(p)$ is assumed bounded away from zero, we can divide by $%
-\sigma _{h}(p)$. Observe that the right-hand side is a.s. bounded. By the assumption that $%
-B_{h}$ has full rank, $\lambda (s)$ is determined by (\ref{tobeinverted})
-for $s\in \lbrack \delta _{1},S]$, and is a.s. bounded. We can then evaluate
-(\ref{dBdp}) at $p=0$. This gives:%
-\[
-\int_{s=\delta _{0}}^{\delta _{1}}q{(0)\int_{y=-\varepsilon }^{0}}\sigma
-_{h}(0)b_{h}(0,s)dy\lambda (s)ds=\frac{\partial B(p)}{\partial p}%
-|_{p=0}-\int_{s=\delta _{1}}^{S}q{(0)\int_{y=-\varepsilon }^{0}}\sigma
-_{h}(0)b_{h}(0,s)dy\lambda (s)ds
-\]
-
-Since the right handside is a.s. bounded, it is possible to specify $\lambda
-(s)$ for $s\in \lbrack \delta _{0},\delta _{1}).$We can then specify $%
-\lambda (s)$ for $s\in \lbrack 0,\delta _{0})$ by solving the single
-equation:
+where the right-hand side is a.s. bounded (see the proof of Assumption~\ref%
+{ass::market_frictionless}). By the assumption that $B_{h}$ has full rank, $%
+\lambda (s)$ is determined by (\ref{tobeinverted}) for $s\in \lbrack \delta
+_{1},S]$, and is a.s. bounded. We can then specify $\lambda (s)$ for $s\in
+\lbrack 0,\delta _{1}]$ by solving the single equation:
 
 \begin{equation}
-\int_{s=0}^{\delta _{0}}\Sigma (0,s)\lambda (s)ds=B(0)-\int_{s=\delta
-_{0}}^{S}\Sigma (0,s)\lambda (s)ds  \label{this}
+\int_{s=0}^{\delta _{1}}\Sigma (0,s)\lambda (s)ds=B(0)-\int_{s=\delta
+_{1}}^{S}\Sigma (0,s)\lambda (s)ds  \label{this}
 \end{equation}
 
-Agsin, since the right-hand side is a.s bounded, it is possible to find a
-solution $\lambda (s)$ to (\ref{this}) for $s\in \lbrack 0,\delta _{0})$
-which is a.s. bounded. By Theorem 7.19 in \cite{Kun97}, Novikov's criterion holds.
-
-
+Since the right-hand side is a.s bounded, it is possible to find a solution $%
+\lambda (s)$ to (\ref{this}) for $s\in \lbrack 0,\delta _{2}]$ which is a.s.
+bounded. By Theorem 7.19 in \cite{Kun97}, Novikov's criterion holds.
 
 \bibliographystyle{apa}
 \bibliography{bib}
