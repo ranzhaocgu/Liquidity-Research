@@ -1279,7 +1279,7 @@ above and away from zero.
 We now define the string $h$ to be an Ornstein-Uhlenbeck sheet. For all $%
 x\in \lbrack -\varepsilon ,S]$ and all $t\geq 0$:%
 \begin{eqnarray} \label{equ_h_A}
-h(x,t) &=&h_{0,x}\exp (-a(x)t)+\bar{h}(x)(1-\exp (-a(x)t))+  
+h(x,t) &=&h_{0,x}\exp (-a(x)t)+\bar{h}(x)(1-\exp (-a(x)t))+
 \\
 &&\sigma _{h}(x)\int_{u=0}^{t}\exp
 (-a(x)(t-u))\int_{s=0}^{S}b_{h}(x,s)W(ds,du)  \notag
@@ -1315,8 +1315,9 @@ but $[-\varepsilon ,S]$ is purely technical, i.e, to have a solution to the
 market price of risk equations in a continuous model. In a discrete model
 (see next section), this is not necessary. The reason why $b_{h}(x,s)=0$ for
 $0\leq s\leq \delta _{1}$, and $x\in \lbrack 0,S]$ is also linked to the
-existence of a solution to the market price of risk equations (see the proof
-of proposition 3.65 RAN verify). The assumption that $B_{h,p}$ has full rank
+existence of a solution to the market price of risk equations.
+%(see the proof of proposition 3.65 RAN verify). 
+The assumption that $B_{h,p}$ has full rank
 is quite innocuous in practice. We will see in the empirical section that it
 was always verified.\bigskip
 \end{remark}
@@ -1372,7 +1373,7 @@ g(\eta )=\sigma _{\eta }\sqrt{\eta (1-\eta )}
 
 We now define demand, for $p\in \lbrack 0,S]$ and $t\geq 0$ by:%
 \begin{equation} \label{eqn_Q}
-Q(p,t)=\eta (t)\int_{x=0}^{S}q(x,t)dx-\int_{x=0}^{p}q(x,t)dx  
+Q(p,t)=\eta (t)\int_{x=0}^{S}q(x,t)dx-\int_{x=0}^{p}q(x,t)dx
 \end{equation}
 
 %\textbf{Remark}
@@ -1433,8 +1434,8 @@ clearing price $\pi (t)$ on the exchange will thus be%
 \end{equation*}
 
 so that $Q(\pi (t),t)=0$. In this section, we calibrate the market model and
-then simulate it in the risk-neutral measure to price options. We use
-empirical high frequency data of a magnitude of a millisecond. Then the
+then simulate it in the risk-neutral measure to price options. We use intra-day
+order book data of a magnitude of a millisecond. Then the
 calibrated parameters are utilized in the discretized simulation model in
 both the physical and risk-neutral measures. When simulating the net demand
 curve $Q$ in the risk neutral measure, the market price of risk equation is
@@ -1510,7 +1511,9 @@ Q(k,j) &=&[Q(0,j)+\sum_{i=1}^{I}q(i,j)\Delta p]\eta
 
 \subsection{Calibration Methodology}
 
-The number of observations is equal to $N=32$. Observation times take values
+The number of observations is equal to $N=32$. The purpose of aggregating millisecond 
+order book data to a lower frequency intra-day data is to smooth out the demand surface
+ and to populate adequate data observations on each demand surface grid. Observation times take values
 in the set $\{-N\Delta t,-(N-1)\Delta t,..,0\}$. Since each time step
 represents an interval of 15 minutes. we use all the dates between April 1st
 9 AM and April 1st 5PM, which covers the regular trading hours during the
@@ -1639,7 +1642,7 @@ value of $k$ that minimizes $|Q(k,j)|$.
 
 We first need to solve the market price of risk equations. Expressions for $%
 \mu _{Q}(k,j)$ and $\sigma _{Q}(k,j)$ and $b_{Q}(k,i,j)$ are obtained by
-discretization of equations 41 and 42 (RAN) in the appendix. Remember that:
+discretization of Equations~\ref{sigma_Q} and \ref{Ah} (RAN) in the appendix. Remember that:
 
 \begin{equation*}
 \Sigma(k,i,j)=\sigma _{Q}(k,j)b_{Q}(k,i,j)
@@ -1994,7 +1997,7 @@ moment (see above).
 
 By (\ref{rho_h}),(\ref{Ah}), as well as our assumptions on $b_{h}$ and $\rho
 _{h}$, the joint quadratic variation $A_{h}(x,y,t)$ satisfies the assumption
-of theorem 3.1.2. in Kunita (RAN) with $m=2$. Thus $h(p,t)$ has a
+of theorem 3.1.2. in Kunita with $m=2$. Thus $h(p,t)$ has a
 modification which is twice differentiable in $p$.
 
 The term $\frac{\partial ^{2}Q}{\partial p^{2}}$ is twice differentiable in $%
