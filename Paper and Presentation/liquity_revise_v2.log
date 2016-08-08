@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2016.5.15)  7 AUG 2016 22:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2016.5.15)  7 AUG 2016 23:40
 entering extended mode
-**./liquity_final_v7.tex
-(liquity_final_v7.tex
+**./liquity_revise_v2.tex
+(liquity_revise_v2.tex
 LaTeX2e <2015/10/01> patch level 2
 Babel <3.9n> and hyphenation patterns for 69 languages loaded.
 ("D:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -417,8 +417,8 @@ LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 \c@exercise=\count115
 \c@equationnumber=\count116
 
-amsgen already loaded) (liquity_final_v7.aux)
-\openout1 = `liquity_final_v7.aux'.
+amsgen already loaded) (liquity_revise_v2.aux)
+\openout1 = `liquity_revise_v2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
 LaTeX Font Info:    ... okay on input line 67.
@@ -461,24 +461,30 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
 ] [2] [3]
 [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1246.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1268.
 
- [14] [15] [16]
+ [14] [15]
+Overfull \hbox (11.95946pt too wide) in paragraph at lines 1403--1406
+[][]\OT1/cmr/m/it/10 Assumptions 3[] and 4[] are sat-is-fied, namely $\OML/cmm/
+m/it/10 Q$ \OT1/cmr/m/it/10 is strictly de-creas-ing in $\OML/cmm/m/it/10 p$ \O
+T1/cmr/m/it/10 and twice-differentiable
+ []
+
+[16]
 File: AAPL_20110401_Calibration_Q.eps Graphic file (type eps)
-
-<AAPL_20110401_Calibration_Q.eps> [17]
+ <AAPL_20110401_Calibration_Q.eps> [17] [18]
 File: Q_both_measures.eps Graphic file (type eps)
  <Q_both_measures.eps>
-Overfull \hbox (11.82765pt too wide) in paragraph at lines 1566--1568
+Overfull \hbox (11.82765pt too wide) in paragraph at lines 1628--1630
  [][][]  
  []
 
-[18] [19]
+[19] [20]
 File: lambda.eps Graphic file (type eps)
  <lambda.eps>
 File: implied_vol.eps Graphic file (type eps)
- <implied_vol.eps> [20] [21] [22]
-Overfull \hbox (32.52423pt too wide) in paragraph at lines 1835--1841
+ <implied_vol.eps> [21] [22]
+Overfull \hbox (32.52423pt too wide) in paragraph at lines 1862--1868
 [][]\OT1/cmr/bx/n/10 Volatility of net de-mand $[]\OML/cmm/m/it/10 []$\OT1/cmr
 /m/n/10 . Ob-serve that $[]\OML/cmm/m/it/10 []\OT1/cmr/m/n/10 (\OML/cmm/m/it/1
 0 x\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; g []$ \OT1/cmr/m/n/10 and $[]\OML/cmm/m/
@@ -488,15 +494,15 @@ it/10 $ \OT1/cmr/m/n/10 are bounded. Since $\OML/cmm/m/it/10 q\OT1/cmr/m/n/10
 /cmm/m/it/10 y; s\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 dy$
  []
 
-[23] [24] (liquity_final_v7.bbl [25] [26]) [27] (liquity_final_v7.aux) )
+[23] [24] (liquity_revise_v2.bbl [25] [26]) [27] (liquity_revise_v2.aux) )
 (\end occurred when \ifx on line 678 was incomplete) 
 Here is how much of TeX's memory you used:
- 2901 strings out of 493635
- 34069 string characters out of 3141346
- 105114 words of memory out of 3000000
- 6236 multiletter control sequences out of 15000+200000
+ 2902 strings out of 493635
+ 34064 string characters out of 3141346
+ 105121 words of memory out of 3000000
+ 6237 multiletter control sequences out of 15000+200000
  15742 words of font info for 62 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,13n,28p,326b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,13n,28p,327b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on liquity_final_v7.dvi (27 pages, 122892 bytes).
+Output written on liquity_revise_v2.dvi (27 pages, 124764 bytes).

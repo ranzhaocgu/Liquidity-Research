@@ -1,0 +1,181 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\astroncite{{Bandi Federico, Jeffrey Russell, and Yinghua
+  Zhu}}{2008}]{BRZ}
+{Bandi Federico, Jeffrey Russell, and Yinghua Zhu} (2008).
+\newblock Using high-frequency data in dynamic portfolio choice.
+\newblock {\em Econometric Reviews}, 27(1-3):163--198.
+
+\bibitem[\protect\astroncite{{Bank Peter and Dietmar Baum}}{2004}]{BB04}
+{Bank Peter and Dietmar Baum} (2004).
+\newblock Hedging and portfolio optimization in financial markets with a large
+  trader.
+\newblock {\em Mathematical Finance}, 14(1):1--18.
+
+\bibitem[\protect\astroncite{{Bank Peter and Dmitry Kramkov}}{2015a}]{BK15a}
+{Bank Peter and Dmitry Kramkov} (2015a).
+\newblock {A model for a large investor trading at market indifference prices.
+  I: single-period case}.
+\newblock {\em Finance and Stochastics}, 19(2):449--472.
+
+\bibitem[\protect\astroncite{{Bank Peter and Dmitry Kramkov}}{2015b}]{BK15b}
+{Bank Peter and Dmitry Kramkov} (2015b).
+\newblock A large model for a large investor trading at market indifference
+  prices ii: continuous-time case.
+\newblock {\em The Annals of Applied Probability}, 25(5):2708--2742.
+
+\bibitem[\protect\astroncite{{Black Fischer and Myron Scholes}}{1973}]{BS73}
+{Black Fischer and Myron Scholes} (1973).
+\newblock The pricing of options and corporate liabilities.
+\newblock {\em The Journal of Political Economy}, 8(3):217--224.
+
+\bibitem[\protect\astroncite{{Bollerslev Tim, Julia Litvinova, and George
+  Tauchen}}{1973}]{BLT06}
+{Bollerslev Tim, Julia Litvinova, and George Tauchen} (1973).
+\newblock {Leverage and volatility feedback effects in high-frequency data}.
+\newblock {\em Journal of Financial Econometrics}, 81(3):637--654.
+
+\bibitem[\protect\astroncite{{Carmona Ren\'{e} and Michael
+  Tehranchi}}{2006}]{CT06}
+{Carmona Ren\'{e} and Michael Tehranchi} (2006).
+\newblock {\em Interest Rate Models: and Infinite Dimensional Stochastic
+  Analysis Perspective}.
+\newblock Springer-Verlag.
+
+\bibitem[\protect\astroncite{{\c{C}etin Umut and Chris Rogers}}{2007}]{CR07}
+{\c{C}etin Umut and Chris Rogers} (2007).
+\newblock Modeling liquidity effects in discrete time.
+\newblock {\em Mathematical Finance}, 17:15--29.
+
+\bibitem[\protect\astroncite{{\c{C}etin Umut, Mete H. Soner, and Nizar
+  Touzi}}{2010}]{CST10}
+{\c{C}etin Umut, Mete H. Soner, and Nizar Touzi} (2010).
+\newblock Option hedging for small investors under liquidity costs.
+\newblock {\em Finance and Stochastics}, 14(3):317--341.
+
+\bibitem[\protect\astroncite{{\c{C}etin Umut, Robert Jarrow, Philip
+  Protter}}{2004}]{CJP04}
+{\c{C}etin Umut, Robert Jarrow, Philip Protter} (2004).
+\newblock Liquidity risk and arbitrage pricing theory.
+\newblock {\em Finance and Stochastics}, 8(3):311--341.
+
+\bibitem[\protect\astroncite{{Da Prato Guiseppe and Jerzy
+  Zabczyk}}{1992}]{DPZ92}
+{Da Prato Guiseppe and Jerzy Zabczyk} (1992).
+\newblock {\em Stochastic Equations in Infinite Dimensions}.
+\newblock Cambridge University Press.
+
+\bibitem[\protect\astroncite{{Engle Robert}}{2000}]{Eng00}
+{Engle Robert} (2000).
+\newblock The econometrics of ultra-high-frequency data.
+\newblock {\em Econometrica}, 68(1):1--23.
+
+\bibitem[\protect\astroncite{{Frey R\"{u}diger}}{1998}]{Fre98}
+{Frey R\"{u}diger} (1998).
+\newblock Perfect option hedging for a large trader.
+\newblock {\em Finance and Stochastics}, 2(3):115--141.
+
+\bibitem[\protect\astroncite{{G\"{o}kay Selim and Mete H. Soner}}{2014}]{GS11}
+{G\"{o}kay Selim and Mete H. Soner} (2014).
+\newblock Hedging in an illiquid binomial market.
+\newblock {\em Nonlinear Analysis: Real World Applications}, 1(3):1--16.
+
+\bibitem[\protect\astroncite{{Hautsch Nikolaus}}{2008}]{Hau08}
+{Hautsch Nikolaus} (2008).
+\newblock Capturing common components in high-frequency financial time series:
+  A multivariate stochastic multiplicative error model.
+\newblock {\em Journal of Economic Dynamics and Control}, 32(12):3978--4015.
+
+\bibitem[\protect\astroncite{{Jarrow Robert}}{1992}]{Jar92}
+{Jarrow Robert} (1992).
+\newblock Market manipulation, bubbles, corners and short squeezes.
+\newblock {\em Journal of Financial and Quantitative Analysis}, 27(3):311--336.
+
+\bibitem[\protect\astroncite{{Jarrow Robert}}{1994}]{Jar94}
+{Jarrow Robert} (1994).
+\newblock Derivative securities markets, market manipulation and option pricing
+  theory.
+\newblock {\em Journal of Financial and Quantitative Analysis}, 29(3):241--261.
+
+\bibitem[\protect\astroncite{{Krylov Nikolai}}{2011}]{Kry09}
+{Krylov Nikolai} (2011).
+\newblock {On the Ito-Wentzell formula for distribution-valued processes and
+  related topics}.
+\newblock {\em Probability Theory and Related Fields}, 150(1-2):295--319.
+
+\bibitem[\protect\astroncite{{Kunita Hiroshi}}{1997}]{Kun97}
+{Kunita Hiroshi} (1997).
+\newblock {\em Stochastic Flows and Stochastic Differential Equations}.
+\newblock Cambridge University Press.
+
+\bibitem[\protect\astroncite{{Kyle S. Albert}}{1985}]{Kyl85}
+{Kyle S. Albert} (1985).
+\newblock Continuous auctions and insider trading.
+\newblock {\em Econometrica}, 53(3):1315--1335.
+
+\bibitem[\protect\astroncite{{Mueller Carl}}{2009}]{Mue09}
+{Mueller Carl} (2009).
+\newblock Some tools and results for parabolic stochastic partial differential
+  equations.
+\newblock {\em {In A minicourse on stochastic partial differential equations -
+  Lectures Notes in Mathematics 1962, Khoshnevisan Davar and Rassoul-Agha
+  Firas}}, pages 111--144.
+
+\bibitem[\protect\astroncite{{Papanicolaou George and Ronnie
+  Sircar}}{1998}]{PS98a}
+{Papanicolaou George and Ronnie Sircar} (1998).
+\newblock {General Black-Scholes models accounting for increased market
+  volatility from hedging strategies}.
+\newblock {\em Applied Mathematical Finance}, 5(3):45--82.
+
+\bibitem[\protect\astroncite{{Platen Eckhard and Martin
+  Schweizer}}{1998}]{PS98b}
+{Platen Eckhard and Martin Schweizer} (1998).
+\newblock On feedback effects from hedging derivatives.
+\newblock {\em Mathematical Finance}, 8(1):67--84.
+
+\bibitem[\protect\astroncite{{Protter Philip}}{2004}]{PP04}
+{Protter Philip} (2004).
+\newblock {\em Stochastic integration and differential equations}.
+\newblock Springer.
+
+\bibitem[\protect\astroncite{{Roch Alexandre}}{2011}]{RA11}
+{Roch Alexandre} (2011).
+\newblock Liquidity risk, price impacts and the replication problem.
+\newblock {\em Finance and Stochastics}, 15:399--419.
+
+\bibitem[\protect\astroncite{{Rogers Chris and Surbjeet Singh}}{2010}]{RS10}
+{Rogers Chris and Surbjeet Singh} (2010).
+\newblock The cost of illiquidity and its effects on hedging.
+\newblock {\em Mathematical Finance}, 20(4):597--615.
+
+\bibitem[\protect\astroncite{{Rosu Ioanid}}{2009}]{Ros09}
+{Rosu Ioanid} (2009).
+\newblock A dynamic model of the limit order book.
+\newblock {\em Review of Financial Studies}, 22(3):4601--4641.
+
+\bibitem[\protect\astroncite{{Santa-Clara Pedro and Didier
+  Sornette}}{2001}]{SCS01}
+{Santa-Clara Pedro and Didier Sornette} (2001).
+\newblock The dynamics of the forward interest rate curve with stochastic
+  string shocks.
+\newblock {\em The Review of Financial Studies}, 14(1):149--185.
+
+\bibitem[\protect\astroncite{{Sch\"{o}nbucher J. Philipp and Paul
+  Wilmott}}{2000}]{SW00}
+{Sch\"{o}nbucher J. Philipp and Paul Wilmott} (2000).
+\newblock The feedback effect of hedging in illiquid markets.
+\newblock {\em SIAM Journal on Applied Mathematics}, 61(2):232--272.
+
+\bibitem[\protect\astroncite{{Walsh John}}{1986}]{Wal86}
+{Walsh John} (1986).
+\newblock An introduction to stochastic partial differential equations.
+\newblock {\em {Ecole d'Et$\acute{e}$ de Probabilit$\acute{e}$s de Saint Flour
+  XIV - 1984}}, 1180:265--439.
+
+\bibitem[\protect\astroncite{{Wiswanathan S. and James Wang}}{2002}]{WW02}
+{Wiswanathan S. and James Wang} (2002).
+\newblock Market architecture: limit-order books versus dealership markets.
+\newblock {\em Journal of Financial Markets}, 5(2):127--167.
+
+\end{thebibliography}
